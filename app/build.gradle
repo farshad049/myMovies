@@ -61,8 +61,9 @@ dependencies {
 
     //coil
     implementation("io.coil-kt:coil:2.1.0")
+
     //Epoxy
-    def epoxyVersion="4.6.3"
+    def epoxyVersion="5.0.0-beta05"
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
 
     //facebook shimmer
@@ -75,6 +76,12 @@ dependencies {
 
     //splash screen
     implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
+
+    //scrolling Pager indicator
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
+
+
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'

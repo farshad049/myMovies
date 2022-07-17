@@ -3,9 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/drawable-v24/background_details_title.xml" value="0.18" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/drawable-v24/black_gradient.xml" value="0.18" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.18" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.18" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/drawable/ic_round_local_movies_24.xml" value="0.18" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/layout/fragment_movies_detail.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/layout/fragment_movies_list.xml" value="0.365625" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/layout/model_image_view.xml" value="0.365625" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/menu/menu_bottom_app.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/menu/menu_drawer_layout.xml" value="0.36666666666666664" />
       </map>
     </option>

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+       >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMovieName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="movie name" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivMovie"
+            android:layout_width="200dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/purple_100"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="4:5"
+            app:layout_constraintStart_toStartOf="@id/tvMovieName"
+            app:layout_constraintTop_toBottomOf="@+id/tvMovieName"
+            app:layout_goneMarginStart="24dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
+            tools:src="@tools:sample/avatars[2]" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/IMDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="IMDB:"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/ivMovie"
+            app:layout_constraintTop_toTopOf="@+id/ivMovie" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvIMDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/IMDB"
+            app:layout_constraintTop_toTopOf="@id/IMDB"
+            tools:text="9.8" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/Year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Year:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/IMDB"
+            app:layout_constraintTop_toBottomOf="@id/IMDB" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/Year"
+            app:layout_constraintTop_toTopOf="@id/Year"
+            tools:text="1991" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/Rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Rated:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/Year"
+            app:layout_constraintTop_toBottomOf="@id/Year" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/Rate"
+            app:layout_constraintTop_toTopOf="@id/Rate"
+            tools:text="R" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/Country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Country:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/Rate"
+            app:layout_constraintTop_toBottomOf="@id/Rate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/Country"
+            app:layout_constraintTop_toTopOf="@id/Country"
+            tools:text="Netherlands" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/Director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Director:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/Country"
+            app:layout_constraintTop_toBottomOf="@id/Country" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDirector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/Director"
+            app:layout_constraintTop_toTopOf="@id/Director"
+            tools:text="Farshad" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/Genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Genres:"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@id/ivMovie"
+            app:layout_constraintTop_toBottomOf="@id/ivMovie" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/Genres"
+            app:layout_constraintTop_toBottomOf="@id/Genres"
+            tools:text="Crime , Drama" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/Actors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Actors:"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@id/Genres"
+            app:layout_constraintTop_toBottomOf="@id/tvGenres" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvActors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/Actors"
+            app:layout_constraintTop_toBottomOf="@id/Actors"
+            tools:text="Tim Robbins, Morgan Freeman, Bob Gunton, William Sadler" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/Plot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Plot:"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@id/ivMovie"
+            app:layout_constraintTop_toBottomOf="@id/tvActors" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPlot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/Actors"
+            app:layout_constraintTop_toBottomOf="@id/Plot"
+            tools:text="Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency." />
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/epoxyRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintTop_toBottomOf="@id/tvPlot"
+            android:paddingBottom="12dp"
+            />
+
+        <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/epoxyRecyclerView"
+            app:layout_constraintStart_toStartOf="@id/epoxyRecyclerView"
+            app:layout_constraintEnd_toEndOf="@id/epoxyRecyclerView"
+            android:layout_marginEnd="8dp"
+            app:spi_dotColor="@color/white"
+            app:spi_dotSelectedColor="@color/teal_200"
+            />
+
+
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

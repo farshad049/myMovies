@@ -8,11 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.example.moviesapp.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,14 +29,14 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         //enable the action bar
-        appBarConfiguration= AppBarConfiguration(
-            navController.graph,
-            //this is for setting the drawer layout
-            drawerLayout = binding.drawerLayout)
-        setupActionBarWithNavController(navController,appBarConfiguration)
+        appBarConfiguration= AppBarConfiguration(navController.graph)
 
-        //enable navigation drawer
-        binding.navView.setupWithNavController(navController)
+
+        // Setup bottom nav bar
+        val navBar=findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        NavigationUI.setupWithNavController(navBar, navController)
+
+
 
 
 
