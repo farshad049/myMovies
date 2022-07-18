@@ -38,7 +38,17 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesProductsService(retrofit: Retrofit): MovieService {
+    fun providesMovieService(retrofit: Retrofit): MovieService {
         return retrofit.create(MovieService::class.java)
     }
+
+
+
+    @Provides
+    @Singleton
+    fun providesApiClient(movieService: MovieService): ApiClient {
+        return ApiClient(movieService)
+    }
+
+
 }

@@ -5,10 +5,11 @@ import com.airbnb.epoxy.TypedEpoxyController
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ModelImageViewBinding
 import com.example.moviesapp.epoxy.ViewBindingKotlinModel
+import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.network.NetworkMovieModel
 
-class MovieImageController: TypedEpoxyController<NetworkMovieModel>() {
-    override fun buildModels(data: NetworkMovieModel?) {
+class MovieImageController: TypedEpoxyController<DomainMovieModel>() {
+    override fun buildModels(data: DomainMovieModel?) {
 
         if (data == null){
 
