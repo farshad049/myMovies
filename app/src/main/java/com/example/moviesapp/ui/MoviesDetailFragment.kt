@@ -1,7 +1,6 @@
 package com.example.moviesapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,11 +10,12 @@ import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.arch.MovieViewModel
 import com.example.moviesapp.databinding.FragmentMoviesDetailBinding
-import com.example.moviesapp.model.network.NetworkMovieModel
 import com.example.moviesapp.network.ApiClient
 import com.example.moviesapp.network.MovieService
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Response
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,10 +31,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentMoviesDetailBinding.bind(view)
 
-        val controller=MovieImageController()
-
-        //in order to scroll images completely
-        LinearSnapHelper().attachToRecyclerView(binding.epoxyRecyclerView)
+        val controller=MovieImageEpoxyController()
 
         viewModel.fetchMovie(1)
         viewModel.movieByIdLiveData.observe(viewLifecycleOwner){
@@ -48,9 +45,11 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
             binding.tvGenres.text=it?.genres.toString()
             binding.tvActors.text=it?.actors
             binding.tvPlot.text=it?.plot
-            controller.setData(it)
+            controller.items=it
             binding.epoxyRecyclerView.setController(controller)
         }
+
+
 
 
 

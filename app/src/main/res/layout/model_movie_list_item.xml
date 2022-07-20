@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="?colorSurface"
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardProduct"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:background="?colorSurface"
+        android:elevation="8dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivMovieCard"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:background="@color/purple_100"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
+                tools:src="@tools:sample/avatars" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/progressImage"
+                style="?android:attr/progressBarStyleSmall"
+                android:indeterminateOnly="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivMovieCard"
+                app:layout_constraintEnd_toEndOf="@id/ivMovieCard"
+                app:layout_constraintStart_toStartOf="@id/ivMovieCard"
+                app:layout_constraintTop_toTopOf="@id/ivMovieCard" />
+
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textStyle="bold"
+                android:textColor="?colorOnBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivMovieCard"
+                app:layout_constraintTop_toTopOf="@id/ivMovieCard"
+                tools:text="The Shawshank Redemptio" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/IMDB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="IMDB:"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvIMDB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/IMDB"
+                app:layout_constraintTop_toTopOf="@id/IMDB"
+                tools:text="9.8" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/Year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Year:"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/IMDB"
+                app:layout_constraintTop_toBottomOf="@id/IMDB" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/Year"
+                app:layout_constraintTop_toTopOf="@id/Year"
+                tools:text="1991" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/Rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Rated:"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/Year"
+                app:layout_constraintTop_toBottomOf="@id/Year" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/Rate"
+                app:layout_constraintTop_toTopOf="@id/Rate"
+                tools:text="R" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/Country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Country:"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/Rate"
+                app:layout_constraintTop_toBottomOf="@id/Rate" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/Country"
+                app:layout_constraintTop_toTopOf="@id/Country"
+                tools:text="Netherlands" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

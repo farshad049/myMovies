@@ -64,6 +64,9 @@ dependencies {
     //Epoxy
     def epoxyVersion="5.0.0-beta05"
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
+    implementation "com.airbnb.android:epoxy-paging:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-paging3:$epoxyVersion"
 
     //facebook shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'

@@ -1,12 +1,17 @@
 package com.example.moviesapp.network
 
 import com.example.moviesapp.model.network.NetworkMovieModel
+import com.example.moviesapp.model.network.PagingModel
 import retrofit2.Response
 
 
 class ApiClient (private val movieService:MovieService){
     suspend fun getMovieById(movieId: Int): SimpleResponse<NetworkMovieModel> {
         return safeApiCall { movieService.getSingleMovie(movieId) }
+    }
+
+    suspend fun getCharactersPage(pageIndex:Int): SimpleResponse<PagingModel> {
+        return safeApiCall { movieService.getMoviesPage(pageIndex) }
     }
 
 
