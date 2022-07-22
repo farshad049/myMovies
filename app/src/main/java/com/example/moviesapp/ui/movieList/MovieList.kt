@@ -1,10 +1,10 @@
-package com.example.moviesapp.ui
+package com.example.moviesapp.ui.movieList
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.arch.MovieViewModel
@@ -17,6 +17,9 @@ class MovieList:BaseFragment(R.layout.fragment_movie_list) {
     private val viewModel: MovieViewModel by viewModels()
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
+    val controller= MovieListEpoxyController( ::movieOnClick)
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,15 +29,22 @@ class MovieList:BaseFragment(R.layout.fragment_movie_list) {
 
         lifecycleScope.launchWhenStarted {
             viewModel.flow.collectLatest {
-                Log.i("DATA1",it.toString())
+                controller.submitData(it)
             }
         }
+        binding.epoxyRecyclerView.setController(controller)
 
 
 
 
 
     }//FUN
+
+    private fun movieOnClick(movieId:Int) {
+        val directions=MovieListDirections.actionMovieListToMoviesDetailFragment(movieId)
+        findNavController().navigate(directions)
+
+    }
 
 
 

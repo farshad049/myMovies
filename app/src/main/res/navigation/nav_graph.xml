@@ -5,15 +5,30 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/movieList">
 
-    <fragment
-        android:id="@+id/moviesListFragment"
-        android:name="com.example.moviesapp.ui.MoviesDetailFragment"
-        android:label="MoviesListFragment"
-        tools:layout="@layout/fragment_movies_detail"/>
 
     <fragment
         android:id="@+id/movieList"
-        android:name="com.example.moviesapp.ui.MovieList"
+        android:name="com.example.moviesapp.ui.movieList.MovieList"
         android:label="MovieList"
-        tools:layout="@layout/fragment_movie_list"/>
+        tools:layout="@layout/fragment_movie_list">
+        <action
+            android:id="@+id/action_movieList_to_moviesDetailFragment"
+            app:destination="@id/moviesDetailFragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_to_left"
+            app:popExitAnim="@anim/slide_out_to_right"
+            app:popEnterAnim="@anim/slide_in_from_left"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/moviesDetailFragment"
+        android:name="com.example.moviesapp.ui.movieDetail.MoviesDetailFragment"
+        android:label="MoviesDetailFragment"
+        tools:layout="@layout/fragment_movies_detail">
+        <argument
+            android:name="movieId"
+            android:defaultValue="-1"
+            app:argType="integer"
+            />
+    </fragment>
 </navigation>

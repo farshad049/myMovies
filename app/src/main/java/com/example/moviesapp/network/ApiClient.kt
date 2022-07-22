@@ -14,6 +14,10 @@ class ApiClient (private val movieService:MovieService){
         return safeApiCall { movieService.getMoviesPage(pageIndex) }
     }
 
+    suspend fun getMovieByGenre(genreId: Int): SimpleResponse<List<NetworkMovieModel>> {
+        return safeApiCall { movieService.getMovieByGenre(genreId) }
+    }
+
 
 
     //run safe check for network issues

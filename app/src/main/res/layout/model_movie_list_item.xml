@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:background="?colorSurface"
     >
 
     <com.google.android.material.card.MaterialCardView
@@ -16,6 +15,7 @@
         android:background="?colorSurface"
         android:elevation="8dp"
         app:cardCornerRadius="16dp"
+        android:layout_marginHorizontal="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -115,28 +115,28 @@
                 tools:text="1991" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/Rate"
+                android:id="@+id/genres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Rated:"
+                android:text="Genres:"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/Year"
                 app:layout_constraintTop_toBottomOf="@id/Year" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvRate"
+                android:id="@+id/tvGenres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/Rate"
-                app:layout_constraintTop_toTopOf="@id/Rate"
-                tools:text="R" />
+                app:layout_constraintStart_toEndOf="@id/genres"
+                app:layout_constraintTop_toTopOf="@id/genres"
+                tools:text="Crime" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/Country"
@@ -147,8 +147,8 @@
                 android:maxLines="1"
                 android:text="Country:"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/Rate"
-                app:layout_constraintTop_toBottomOf="@id/Rate" />
+                app:layout_constraintStart_toStartOf="@id/genres"
+                app:layout_constraintTop_toBottomOf="@id/genres" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvCountry"

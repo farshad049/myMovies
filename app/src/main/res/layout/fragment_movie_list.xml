@@ -13,6 +13,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         tools:listitem="@layout/model_movie_list_item"
+        app:itemSpacing="8dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

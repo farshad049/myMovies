@@ -18,28 +18,31 @@ class MovieViewModel @Inject constructor(private val repository: MovieRepository
     private val _movieByIdLiveData= MutableLiveData<DomainMovieModel?>()
     val movieByIdLiveData: LiveData<DomainMovieModel?> =_movieByIdLiveData
 
-    fun fetchMovie(movieId:Int){
+    private val _movieByGenreLiveData= MutableLiveData<List<DomainMovieModel?>>()
+    val movieByGenreLiveData: LiveData<List<DomainMovieModel?>> = _movieByGenreLiveData
+
+    fun fetchMovie(movieId: Int){
         viewModelScope.launch {
             val response=repository.getMovieById(movieId)
             _movieByIdLiveData.postValue(response)
         }
     }
 
+    fun  fetchMovieByGenre(genreId: Int){
+        viewModelScope.launch {
+            val response=repository.getMovieByGenre(genreId)
+            _movieByGenreLiveData.postValue(response)
+        }
+    }
 
 
-    val flow = Pager(
-        // Configure how data is loaded by passing additional properties to
-        // PagingConfig, such as prefetchDistance.
-        PagingConfig(
+    val flow = Pager(PagingConfig(
             pageSize = 20,
             prefetchDistance = 40,
             //so we don't have to be worried about nulls in view layer
             enablePlaceholders = false
         )
-    ) {
-        movieDataSource
-
-    }.flow.cachedIn(viewModelScope)
+    ) { movieDataSource }.flow.cachedIn(viewModelScope)
 
 
 }
