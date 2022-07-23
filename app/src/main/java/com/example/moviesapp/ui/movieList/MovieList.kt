@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.BaseFragment
+import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.arch.MovieViewModel
 import com.example.moviesapp.databinding.FragmentMovieListBinding
@@ -41,7 +42,7 @@ class MovieList:BaseFragment(R.layout.fragment_movie_list) {
     }//FUN
 
     private fun movieOnClick(movieId:Int) {
-        val directions=MovieListDirections.actionMovieListToMoviesDetailFragment(movieId)
+        val directions=NavGraphDirections.actionGlobalToMovieDetailFragment(movieId)
         findNavController().navigate(directions)
 
     }

@@ -1,11 +1,15 @@
 package com.example.moviesapp.ui.movieDetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.moviesapp.BaseFragment
+import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.arch.MovieViewModel
 import com.example.moviesapp.databinding.FragmentMoviesDetailBinding
@@ -29,7 +33,8 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentMoviesDetailBinding.bind(view)
 
-        val controller= MovieImageEpoxyController()
+        val imageController= MovieImageEpoxyController()
+        val similarMovieController=MovieSimilarEpoxyController( ::onSimilarMovieClick)
 
 
 
@@ -45,14 +50,16 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
             binding.tvGenres.text= movieById?.genres?.component1()
             binding.tvActors.text= movieById?.actors
             binding.tvPlot.text= movieById?.plot
+            imageController.setData(movieById)
+            binding.imageEpoxyRecyclerView.setController(imageController)
 
             val genreId =genreNameToId(movieById?.genres?.component1())
 
             viewModel.fetchMovieByGenre(genreId)
-
             viewModel.movieByGenreLiveData.observe(viewLifecycleOwner){movieByGenre->
-                controller.setData(movieById,movieByGenre)
-                binding.epoxyRecyclerView.setController(controller)
+                similarMovieController.setData(movieByGenre)
+                binding.similarEpoxyRecyclerView.setController(similarMovieController)
+
             }
         }
 
@@ -70,7 +77,15 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
 
 
 
+
+
     }//FUN
+
+    private fun onSimilarMovieClick(movieId:Int ) {
+        val directions= NavGraphDirections.actionGlobalToMovieDetailFragment(movieId)
+        findNavController().navigate(directions)
+
+    }
 
     private fun genreNameToId(genreName:String?):Int{
         return when(genreName){

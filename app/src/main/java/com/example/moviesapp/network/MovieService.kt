@@ -14,8 +14,10 @@ interface MovieService {
     @GET("movies/{movie-id}")
     suspend fun getSingleMovie(@Path("movie-id") movieId:Int):Response<NetworkMovieModel>
 
-    @GET("genres/{genre-id}")
-    suspend fun getMovieByGenre(@Path("genre-id") genreId:Int): Response<List<NetworkMovieModel>>
+    @GET("genres/{genre-id}/movies?page")
+    suspend fun getMovieByGenre(@Path("genre-id") genreId:Int): Response<PagingModel>
+
+
 
 
 

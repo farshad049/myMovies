@@ -21,7 +21,7 @@ class MovieRepository @Inject constructor(private val apiClient: ApiClient, priv
         if (!response.isSuccessful) {
             return emptyList()
         }
-        return response.body.map { movieMapper.buildFrom(it) }
+        return response.body.data.map { movieMapper.buildFrom(it) }
     }
 
 

@@ -14,7 +14,7 @@ class ApiClient (private val movieService:MovieService){
         return safeApiCall { movieService.getMoviesPage(pageIndex) }
     }
 
-    suspend fun getMovieByGenre(genreId: Int): SimpleResponse<List<NetworkMovieModel>> {
+    suspend fun getMovieByGenre(genreId: Int): SimpleResponse<PagingModel> {
         return safeApiCall { movieService.getMovieByGenre(genreId) }
     }
 

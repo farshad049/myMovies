@@ -20,8 +20,8 @@ class MovieListEpoxyController(
     }
 
     override fun addModels(models: List<EpoxyModel<*>>) {
-        if (models.isNullOrEmpty()){
-            LoadingEpoxyModel().id("loading").addTo(this)
+        if (models.isEmpty()){
+            LoadingEpoxyModel().id("loading1").addTo(this)
             return
         }
         super.addModels(models)
