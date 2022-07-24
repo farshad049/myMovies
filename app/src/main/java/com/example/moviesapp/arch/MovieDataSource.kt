@@ -27,12 +27,15 @@ class MovieDataSource@Inject constructor(private val apiClient: ApiClient, priva
             //we map it because the parent function has to return Character
             data = pageRequest.bodyNullable?.data?.map { movieMapper.buildFrom(it) } ?: emptyList(),
             prevKey = previewPage,
-            nextKey = nextPage
+            nextKey = (pageRequest.bodyNullable?.metadata?.current_page)!!.toInt() + 1
         )
     }
 
     override fun getRefreshKey(state: PagingState<Int, DomainMovieModel>): Int? {
-        TODO("Not yet implemented")
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        }
     }
 
 

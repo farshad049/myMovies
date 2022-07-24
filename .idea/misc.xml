@@ -14,8 +14,11 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/layout/model_image_view.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/menu/menu_bottom_app.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/menu/menu_drawer_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movie_list.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movies_detail.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_exeption_error.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_image_carusel.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_image_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_loading.xml" value="0.36666666666666664" />
@@ -23,6 +26,7 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_movie_thumbnail.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_product_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_similar_movie_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/menu/menu_bottom_app.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movie_list.xml" value="0.209375" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movies_detail.xml" value="0.209375" />

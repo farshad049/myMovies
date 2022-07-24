@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/movieList"
-        android:name="com.example.moviesapp.ui.movieList.MovieList"
+        android:name="com.example.moviesapp.ui.movieList.MovieListFragment"
         android:label="MovieList"
         tools:layout="@layout/fragment_movie_list"/>
 
@@ -26,6 +26,12 @@
             />
     </fragment>
 
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.moviesapp.ui.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"/>
+
 
     <action
         android:id="@+id/action_global_to_movieDetailFragment"
@@ -35,4 +41,5 @@
         app:popExitAnim="@anim/slide_out_to_right"
         app:popEnterAnim="@anim/slide_in_from_left"
         />
+
 </navigation>

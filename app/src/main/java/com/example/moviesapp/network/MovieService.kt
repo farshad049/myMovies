@@ -1,5 +1,6 @@
 package com.example.moviesapp.network
 
+import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.network.NetworkMovieModel
 import com.example.moviesapp.model.network.PagingModel
 import retrofit2.Response
@@ -16,6 +17,9 @@ interface MovieService {
 
     @GET("genres/{genre-id}/movies?page")
     suspend fun getMovieByGenre(@Path("genre-id") genreId:Int): Response<PagingModel>
+
+    @GET("movies?")
+    suspend fun getMoviesPageByName(@Query("q") movieName:String, @Query("page") pageIndex:Int): Response<PagingModel>
 
 
 

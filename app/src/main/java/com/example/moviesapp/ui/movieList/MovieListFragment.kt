@@ -14,11 +14,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class MovieList:BaseFragment(R.layout.fragment_movie_list) {
+class MovieListFragment:BaseFragment(R.layout.fragment_movie_list) {
     private val viewModel: MovieViewModel by viewModels()
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
-    val controller= MovieListEpoxyController( ::movieOnClick)
+    private val controller= MovieListEpoxyController( ::movieOnClick)
 
 
 
@@ -28,12 +28,12 @@ class MovieList:BaseFragment(R.layout.fragment_movie_list) {
 
 
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.flow.collectLatest {
+        lifecycleScope.launchWhenStarted{
+            viewModel.movieListFlow.collectLatest {
                 controller.submitData(it)
             }
         }
-        binding.epoxyRecyclerView.setController(controller)
+        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
 
 
 
