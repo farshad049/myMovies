@@ -33,7 +33,7 @@ class SearchDataSource(
         val request=apiClient.getMoviesPageByName(userSearch,pageNumber)
 
         //if there were no result for search, do this exception, this is handling by the backend, it has been set to answer back code 404 when request was not found
-        if (request.data?.code()==404) {
+        if (request.data?.code()==404 || !request.isSuccessful) {
             val exception = LocalException.NoResult
             localExceptionCallBack(exception)
             return LoadResult.Error(exception)
@@ -49,7 +49,7 @@ class SearchDataSource(
             //we map it because the parent function has to return Character
             data = request.bodyNullable?.data?.map { movieMapper.buildFrom(it) } ?: emptyList(),
             prevKey = previewPage,
-            nextKey = (request.bodyNullable?.metadata?.current_page)!!.toInt() + 1
+            nextKey = request.bodyNullable?.metadata?.current_page?.toInt()?.plus(1)
         )
     }
 

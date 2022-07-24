@@ -15,19 +15,19 @@ class MovieDataSource@Inject constructor(private val apiClient: ApiClient, priva
         val previewPage= if (pageNumber ==1 ) null else pageNumber -1
         val nextPage= if (pageNumber < 25) pageNumber+1 else null
 
-        val pageRequest=apiClient.getCharactersPage(pageNumber)
+        val request=apiClient.getCharactersPage(pageNumber)
 
         //when !pageRequest.isSuccessful do this
-        pageRequest.exception?.let {
+        request.exception?.let {
             return LoadResult.Error(it)
         }
 
 
         return LoadResult.Page(
             //we map it because the parent function has to return Character
-            data = pageRequest.bodyNullable?.data?.map { movieMapper.buildFrom(it) } ?: emptyList(),
+            data = request.bodyNullable?.data?.map { movieMapper.buildFrom(it) } ?: emptyList(),
             prevKey = previewPage,
-            nextKey = (pageRequest.bodyNullable?.metadata?.current_page)!!.toInt() + 1
+            nextKey = request.bodyNullable?.metadata?.current_page?.toInt()?.plus(1)
         )
     }
 
