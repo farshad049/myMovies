@@ -1,4 +1,6 @@
-package com.example.moviesapp
+package com.example.moviesapp.arch
+
+
 
 open class Event<out T>(private val content: T) {
 

@@ -38,6 +38,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivSearch"
                 android:layout_marginHorizontal="4dp"
+                tools:hint="please Enter"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -52,10 +53,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:itemSpacing="8dp"
-        tools:listitem="@layout/model_similar_movie_item"
+        tools:listitem="@layout/model_movie_list_item"
         android:paddingBottom="12dp"
         />
 

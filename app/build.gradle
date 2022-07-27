@@ -58,6 +58,10 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
 
+    //chucker interceptor
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+
     //coil
     implementation("io.coil-kt:coil:2.1.0")
 
@@ -81,6 +85,14 @@ dependencies {
 
     //scrolling Pager indicator
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
+
+    //xPermission
+    implementation 'com.guolindev.permissionx:permissionx:1.6.4'
+
+
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+
 
 
 

@@ -27,7 +27,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
 
 
     private var _binding: FragmentMoviesDetailBinding? = null
-    private val binding get() = _binding!!
+    private val binding by lazy { _binding!! }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -16,8 +16,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
@@ -62,8 +64,5 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding == null
-    }
+
 }

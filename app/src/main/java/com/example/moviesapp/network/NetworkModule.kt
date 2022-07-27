@@ -1,5 +1,7 @@
 package com.example.moviesapp.network
 
+import com.example.moviesapp.arch.SearchDataSource
+import com.example.moviesapp.model.mapper.MovieMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +51,10 @@ object NetworkModule {
     fun providesApiClient(movieService: MovieService): ApiClient {
         return ApiClient(movieService)
     }
+
+
+
+
 
 
 }

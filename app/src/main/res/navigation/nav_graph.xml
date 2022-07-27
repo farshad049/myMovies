@@ -32,6 +32,12 @@
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search"/>
 
+    <fragment
+        android:id="@+id/submitMovie"
+        android:name="com.example.moviesapp.ui.SubmitMovieFragment"
+        android:label="SubmitMovie"
+        tools:layout="@layout/fragment_submit_movie"/>
+
 
     <action
         android:id="@+id/action_global_to_movieDetailFragment"
@@ -41,5 +47,6 @@
         app:popExitAnim="@anim/slide_out_to_right"
         app:popEnterAnim="@anim/slide_in_from_left"
         />
+
 
 </navigation>

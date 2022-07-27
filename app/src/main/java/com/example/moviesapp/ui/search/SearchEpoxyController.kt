@@ -8,6 +8,7 @@ import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.example.moviesapp.R
 import com.example.moviesapp.arch.SearchDataSource
 import com.example.moviesapp.databinding.ModelExeptionErrorBinding
+import com.example.moviesapp.databinding.ModelMovieListItemBinding
 import com.example.moviesapp.databinding.ModelSimilarMovieItemBinding
 import com.example.moviesapp.epoxy.LoadingEpoxyModel
 import com.example.moviesapp.epoxy.ViewBindingKotlinModel
@@ -18,29 +19,29 @@ class SearchEpoxyController(
 ):PagingDataEpoxyController<DomainMovieModel>() {
 
     //when user didn't type any thing yet in search area ,do this
-    var localException:SearchDataSource.LocalException?=null
-        set(value) {
-            field=value
-            if (localException !=null){
-                //if localException is not null .immediately run "addModels" block of code,otherwise it will run "buildItemModel"
-                requestForcedModelBuild()
-            }
-        }
+//    var localException:SearchDataSource.LocalException?=null
+//        set(value) {
+//            field=value
+//            if (localException !=null){
+//                //if localException is not null .immediately run "addModels" block of code,otherwise it will run "buildItemModel"
+//                requestForcedModelBuild()
+//            }
+//        }
 
     override fun buildItemModel(currentPosition: Int, item: DomainMovieModel?): EpoxyModel<*> {
         return SearchedMovieEpoxyModel(item!!,onMovieClick)
-            .id(item.id)
+            .id("search${item.id}")
     }
 
     override fun addModels(models: List<EpoxyModel<*>>) {
-        if (localException != null){
-            //show error information
-            LocalExceptionErrorEpoxyModel(localException!!).id("error_state").addTo(this)
-            return
-        }
+//        if (localException != null){
+//            //show error information
+//            LocalExceptionErrorEpoxyModel(localException!!).id("error_state1").addTo(this)
+//            return
+//        }
 
         if (models.isEmpty()){
-            LoadingEpoxyModel().id("loading").addTo(this)
+            LoadingEpoxyModel().id("loading3").addTo(this)
             return
         }
         super.addModels(models)
@@ -56,14 +57,19 @@ class SearchEpoxyController(
 
 
     data class SearchedMovieEpoxyModel(val item:DomainMovieModel, val onClick:(Int)->Unit)
-        : ViewBindingKotlinModel<ModelSimilarMovieItemBinding>(R.layout.model_similar_movie_item) {
-        override fun ModelSimilarMovieItemBinding.bind() {
+        : ViewBindingKotlinModel<ModelMovieListItemBinding>(R.layout.model_movie_list_item) {
+        override fun ModelMovieListItemBinding.bind() {
             progressImage.isVisible=true
-            ivMovie.load(item!!.poster){
+            ivMovieCard.load(item!!.poster){
                 listener { request, result ->
                     progressImage.isGone=true
                 }
             }
+            tvTitle.text=item.title
+            tvCountry.text=item.country
+            tvIMDB.text=item.imdb_rating
+            tvYear.text=item.year
+            tvGenres.text=item.genres.toString()
             root.setOnClickListener {
                 onClick(item.id)
             }

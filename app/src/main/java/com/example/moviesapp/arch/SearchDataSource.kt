@@ -5,14 +5,18 @@ import androidx.paging.PagingState
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.mapper.MovieMapper
 import com.example.moviesapp.network.ApiClient
+import dagger.Provides
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class SearchDataSource(
-    private val userSearch:String,
+
+class SearchDataSource @Inject constructor(
     private val apiClient: ApiClient,
     private val movieMapper: MovieMapper,
+    private val userSearch:String,
     private val localExceptionCallBack: (LocalException)->Unit
 )  :PagingSource<Int,DomainMovieModel>() {
+
 
     sealed class LocalException(val title:String, val description:String=""):Exception(){
         object EmptySearch :LocalException(title = "Start Typing To Search")
@@ -32,8 +36,10 @@ class SearchDataSource(
 
         val request=apiClient.getMoviesPageByName(userSearch,pageNumber)
 
-        //if there were no result for search, do this exception, this is handling by the backend, it has been set to answer back code 404 when request was not found
-        if (request.data?.code()==404 || !request.isSuccessful) {
+//        //if there were no result for search, do this exception, this is handling by the backend, it has been set to answer back code 404 when request was not found
+
+
+        if (request.data?.code()==429) {
             val exception = LocalException.NoResult
             localExceptionCallBack(exception)
             return LoadResult.Error(exception)
@@ -59,4 +65,6 @@ class SearchDataSource(
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
+
+
 }

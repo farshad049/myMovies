@@ -15,6 +15,13 @@
         android:title=""
         app:showAsAction="always"
      />
+    <item
+        android:id="@+id/submitMovie"
+        android:icon="@drawable/ic_round_library_add_24"
+        android:orderInCategory="3"
+        android:title=""
+        app:showAsAction="always"
+        />
 
 
 

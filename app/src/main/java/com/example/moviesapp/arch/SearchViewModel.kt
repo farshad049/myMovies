@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import androidx.paging.cachedIn
-import com.example.moviesapp.Event
 import com.example.moviesapp.model.mapper.MovieMapper
 import com.example.moviesapp.network.ApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val apiClient: ApiClient,
-    private val movieMapper: MovieMapper
-):ViewModel() {
+   private val movieMapper: MovieMapper
+    ):ViewModel() {
 
 
 
@@ -26,13 +26,16 @@ class SearchViewModel @Inject constructor(
     private var pagingSource:SearchDataSource? =null
         get() {
             if (field == null || field?.invalid == true){
-                field = SearchDataSource(userSearch = currentUserSearch, apiClient, movieMapper){
+                field = SearchDataSource(apiClient,movieMapper,userSearch = currentUserSearch){
                     // Notify our LiveData of an issue from the PagingSource
                     _localExceptionEventLiveData.postValue(Event(it))
                 }
             }
             return field
         }
+
+
+
 
     val searchFlow = Pager(
         PagingConfig(
