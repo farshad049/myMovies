@@ -10,12 +10,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
+import com.example.moviesapp.arch.MovieViewModel
+import com.example.moviesapp.arch.SearchViewModel
 import com.example.moviesapp.util.RealPathUtil
 import com.example.moviesapp.databinding.FragmentSubmitMovieBinding
+import com.example.moviesapp.model.network.UploadMovieModel
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.launch
@@ -27,6 +31,8 @@ class SubmitMovieFragment:BaseFragment(R.layout.fragment_submit_movie) {
     private val binding by lazy { _binding!! }
     private var currentImageUri: Uri? = null
     private var path:String=""
+    private lateinit var movieToUpload:UploadMovieModel
+    private val viewModel: MovieViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,9 +82,17 @@ class SubmitMovieFragment:BaseFragment(R.layout.fragment_submit_movie) {
             }
 
             else -> {
+                viewModel.pushMovie(
+                    movieToUpload.copy(
+                        title=title,
+                        imdb_id = imdbId,
+                        country = country,
+                        year = year.toInt(),
+                        poster = path
+                    )
+                )
 
-
-
+                
             }
         }
     }

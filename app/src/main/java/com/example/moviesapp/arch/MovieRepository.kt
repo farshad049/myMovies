@@ -2,6 +2,7 @@ package com.example.moviesapp.arch
 
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.mapper.MovieMapper
+import com.example.moviesapp.model.network.UploadMovieModel
 import com.example.moviesapp.network.ApiClient
 import javax.inject.Inject
 
@@ -22,6 +23,14 @@ class MovieRepository @Inject constructor(private val apiClient: ApiClient, priv
             return emptyList()
         }
         return response.body.data.map { movieMapper.buildFrom(it) }
+    }
+
+    suspend fun pushMovie(movie:UploadMovieModel):UploadMovieModel?{
+        val response= apiClient.pushMovie(movie)
+        if (!response.isSuccessful){
+            return null
+        }
+        return response.body
     }
 
 

@@ -2,6 +2,7 @@ package com.example.moviesapp.network
 
 import com.example.moviesapp.model.network.NetworkMovieModel
 import com.example.moviesapp.model.network.PagingModel
+import com.example.moviesapp.model.network.UploadMovieModel
 import retrofit2.Response
 
 
@@ -20,6 +21,10 @@ class ApiClient (private val movieService:MovieService){
 
     suspend fun getMoviesPageByName(movieName:String ,pageIndex:Int ): SimpleResponse<PagingModel> {
         return safeApiCall { movieService.getMoviesPageByName(movieName,pageIndex) }
+    }
+
+    suspend fun pushMovie(movie:UploadMovieModel): SimpleResponse<UploadMovieModel> {
+        return safeApiCall { movieService.pushMovies(movie) }
     }
 
 

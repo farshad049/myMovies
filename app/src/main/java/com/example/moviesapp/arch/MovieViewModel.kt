@@ -8,6 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.moviesapp.model.domain.DomainMovieModel
+import com.example.moviesapp.model.network.UploadMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,6 +25,9 @@ class MovieViewModel @Inject constructor(
     private val _movieByGenreLiveData= MutableLiveData<List<DomainMovieModel?>>()
     val movieByGenreLiveData: LiveData<List<DomainMovieModel?>> = _movieByGenreLiveData
 
+    private val _pushMovieLiveData= MutableLiveData<UploadMovieModel?>()
+    val pushMovieLiveData: LiveData<UploadMovieModel?> = _pushMovieLiveData
+
 
     fun fetchMovie(movieId: Int){
         viewModelScope.launch {
@@ -37,6 +41,14 @@ class MovieViewModel @Inject constructor(
             val response=repository.getMovieByGenre(genreId)
             _movieByGenreLiveData.postValue(response)
         }
+    }
+
+    fun pushMovie(movie:UploadMovieModel){
+        viewModelScope.launch {
+            val response=repository.pushMovie(movie)
+            _pushMovieLiveData.postValue(response)
+        }
+
     }
 
 
