@@ -1,5 +1,8 @@
 package com.example.moviesapp.network
 
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.moviesapp.MoviesApplication
 import com.example.moviesapp.arch.SearchDataSource
 import com.example.moviesapp.model.mapper.MovieMapper
 import dagger.Module
@@ -7,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.time.Duration
@@ -31,11 +35,25 @@ object NetworkModule {
     @Singleton
     fun providesOkHttpClient(): OkHttpClient {
         val duration = Duration.ofSeconds(30)
-        return OkHttpClient.Builder()
-            .connectTimeout(duration)
-            .readTimeout(duration)
-            .writeTimeout(duration)
-            .build()
+        val builder=OkHttpClient.Builder()
+        builder.addInterceptor(HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BASIC)
+        })
+        builder.addInterceptor(
+            ChuckerInterceptor.Builder(MoviesApplication.context)
+                .collector(ChuckerCollector(MoviesApplication.context))
+                .maxContentLength(250000L)
+                .redactHeaders(emptySet())
+                .alwaysReadResponseBody(false)
+                .build()
+        )
+
+        return builder.build()
+//        return OkHttpClient.Builder()
+//            .connectTimeout(duration)
+//            .readTimeout(duration)
+//            .writeTimeout(duration)
+//            .build()
     }
 
     @Provides

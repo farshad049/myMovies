@@ -12,6 +12,9 @@ import android.provider.MediaStore;
 
 import androidx.loader.content.CursorLoader;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 public class RealPathUtil {
 
     public static String getRealPath(Context context, Uri fileUri) {
@@ -208,3 +211,5 @@ public class RealPathUtil {
     }
 
 }
+
+

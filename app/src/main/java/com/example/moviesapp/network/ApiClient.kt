@@ -28,7 +28,6 @@ class ApiClient (private val movieService:MovieService){
     }
 
 
-
     //run safe check for network issues
     private inline fun <T> safeApiCall(apiCall: () -> Response<T>): SimpleResponse<T> {
         return try {
