@@ -2,6 +2,7 @@ package com.example.moviesapp.arch
 
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.mapper.MovieMapper
+import com.example.moviesapp.model.network.RegisterUserModel
 import com.example.moviesapp.model.network.UploadMovieModel
 import com.example.moviesapp.network.ApiClient
 import javax.inject.Inject
@@ -27,6 +28,14 @@ class MovieRepository @Inject constructor(private val apiClient: ApiClient, priv
 
     suspend fun pushMovie(movie:UploadMovieModel):UploadMovieModel?{
         val response= apiClient.pushMovie(movie)
+        if (!response.isSuccessful){
+            return null
+        }
+        return response.body
+    }
+
+    suspend fun registerUser(user:RegisterUserModel):Any?{
+        val response= apiClient.registerUser(user)
         if (!response.isSuccessful){
             return null
         }

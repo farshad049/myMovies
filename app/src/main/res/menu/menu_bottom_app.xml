@@ -23,6 +23,14 @@
         app:showAsAction="always"
         />
 
+    <item
+        android:id="@+id/registerFragment"
+        android:icon="@drawable/ic_round_person_add_24"
+        android:orderInCategory="4"
+        android:title=""
+        app:showAsAction="always"
+        />
+
 
 
 </menu>

@@ -16,12 +16,17 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/menu/menu_drawer_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/button_background.xml" value="0.18" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_image_24.xml" value="0.18" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_local_movies_24.xml" value="0.18" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_local_movies_24_black.xml" value="0.18" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragmenr_search.xml" value="0.365625" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movie_list.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movies_detail.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_register.xml" value="0.25" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_submit_movie.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/login_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_exeption_error.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_image_carusel.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_image_view.xml" value="0.36666666666666664" />

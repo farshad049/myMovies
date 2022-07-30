@@ -23,20 +23,30 @@ import com.example.moviesapp.R
 import com.example.moviesapp.arch.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitMovieBinding
 import com.example.moviesapp.model.network.UploadMovieModel
+import com.example.moviesapp.network.ApiClient
+import com.example.moviesapp.network.MovieService
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
+import java.io.File
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SubmitMovieFragment:BaseFragment(R.layout.fragment_submit_movie) {
+
+    @Inject lateinit var movieService: MovieService
 
     private var _binding: FragmentSubmitMovieBinding? = null
     private val binding by lazy { _binding!! }
     private var currentImageUri: Uri? = null
     private var path:String=""
-    private var movieToUpload:UploadMovieModel?=null
     private val viewModel: MovieViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,14 +109,29 @@ class SubmitMovieFragment:BaseFragment(R.layout.fragment_submit_movie) {
                     year = year.toInt(),
                     poster = path
                 )
+                val file= File(path)
 
-                    viewModel.pushMovie(
-                      post
-                    )
+//                lifecycleScope.launch {
+//                    val response=movieService.pushMoviesMulti(
+//                        title = title.toRequestBody(title.toMediaTypeOrNull()),
+//                       // poster = MultipartBody.Part.createFormData("jpeg",file.name,file.asRequestBody("image/*".toMediaType())),
+//                        poster = file.asRequestBody("image/jpeg".toMediaTypeOrNull()),
+//                        imdb_id = imdbId.toRequestBody(imdbId.toMediaTypeOrNull()),
+//                        country = country.toRequestBody(country.toMediaTypeOrNull()),
+//                        year = year.toRequestBody(year.toMediaTypeOrNull()),
+//                        )
+//                    Log.i("submit",response.body().toString())
+//                }
 
-                    viewModel.pushMovieLiveData.observe(viewLifecycleOwner){pusheddata->
-                        Log.i("taghi",pusheddata.toString())
-                    }
+
+
+//                    viewModel.pushMovie(
+//                      post
+//                    )
+//
+//                    viewModel.pushMovieLiveData.observe(viewLifecycleOwner){pusheddata->
+//                        Log.i("taghi",pusheddata.toString())
+//                    }
 
 
 

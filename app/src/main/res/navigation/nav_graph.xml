@@ -38,6 +38,22 @@
         android:label="SubmitMovie"
         tools:layout="@layout/fragment_submit_movie"/>
 
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.moviesapp.ui.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.moviesapp.ui.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"/>
+
 
     <action
         android:id="@+id/action_global_to_movieDetailFragment"
@@ -47,6 +63,7 @@
         app:popExitAnim="@anim/slide_out_to_right"
         app:popEnterAnim="@anim/slide_in_from_left"
         />
+
 
 
 </navigation>
