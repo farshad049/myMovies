@@ -6,6 +6,7 @@ import com.example.moviesapp.model.network.RegisterUserModel
 import com.example.moviesapp.model.network.UploadMovieModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Response
 
 
@@ -30,13 +31,20 @@ class ApiClient (private val movieService:MovieService){
         return safeApiCall { movieService.pushMovies(movie) }
     }
 
-    suspend fun pushMovieMulti(poster: MultipartBody.Part, title: RequestBody, imdb_id:RequestBody, country:RequestBody, year:RequestBody):SimpleResponse<UploadMovieModel>{
+    suspend fun pushMovieMulti(poster: RequestBody, title: RequestBody, imdb_id:RequestBody, country:RequestBody, year:RequestBody):SimpleResponse<UploadMovieModel>{
         return safeApiCall { movieService.pushMoviesMulti(poster,title,imdb_id,country,year) }
     }
 
     suspend fun registerUser( user:RegisterUserModel): SimpleResponse<Any>{
         return  safeApiCall { movieService.registerUser(user) }
     }
+
+    suspend fun loginUser(email:RequestBody,password:RequestBody,grantType:RequestBody):SimpleResponse<Any>{
+        return safeApiCall { movieService.loginUser(email,password,grantType) }
+
+    }
+
+
 
 
     //run safe check for network issues

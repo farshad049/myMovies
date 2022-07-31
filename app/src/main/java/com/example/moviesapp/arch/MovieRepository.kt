@@ -5,6 +5,7 @@ import com.example.moviesapp.model.mapper.MovieMapper
 import com.example.moviesapp.model.network.RegisterUserModel
 import com.example.moviesapp.model.network.UploadMovieModel
 import com.example.moviesapp.network.ApiClient
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(private val apiClient: ApiClient, private val movieMapper: MovieMapper){
@@ -36,6 +37,14 @@ class MovieRepository @Inject constructor(private val apiClient: ApiClient, priv
 
     suspend fun registerUser(user:RegisterUserModel):Any?{
         val response= apiClient.registerUser(user)
+        if (!response.isSuccessful){
+            return null
+        }
+        return response.body
+    }
+
+    suspend fun loginUser(email: RequestBody, password: RequestBody, grantType: RequestBody):Any?{
+        val response=apiClient.loginUser(email,password,grantType)
         if (!response.isSuccessful){
             return null
         }

@@ -1,5 +1,6 @@
 package com.example.moviesapp.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,8 +17,12 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.create
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class LoginFragment:BaseFragment(R.layout.fragment_login) {
@@ -51,27 +56,17 @@ class LoginFragment:BaseFragment(R.layout.fragment_login) {
                 Snackbar.make(mainActivity.findViewById(android.R.id.content),"please enter password", Snackbar.LENGTH_LONG).show()
             }
             else -> {
+                val userNameBody :RequestBody= userName.toRequestBody("text/plain".toMediaTypeOrNull())
+                val passwordBody: RequestBody = password.toRequestBody("text/plain".toMediaTypeOrNull())
+                val grantTypeBody: RequestBody = "password".toRequestBody("text/plain".toMediaTypeOrNull())
 
 
-            val pass="password"
-                lifecycleScope.launch {
-                   val request= movieService.loginUser(
-                        username = userName.toRequestBody(),
-                        password = password.toRequestBody(),
-                        grantType = pass.toRequestBody()
-                    )
-                    Log.i("login",request.body().toString())
+
+                viewModel.loginUser(userNameBody,passwordBody,grantTypeBody)
+
+                viewModel.loginUserLiveData.observe(viewLifecycleOwner){
+                    Log.i("login",it.toString())
                 }
-
-
-
-
-
-
-
-
-
-
 
             }
         }

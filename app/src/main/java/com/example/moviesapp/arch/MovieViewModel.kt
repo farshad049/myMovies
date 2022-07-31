@@ -12,6 +12,7 @@ import com.example.moviesapp.model.network.RegisterUserModel
 import com.example.moviesapp.model.network.UploadMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +32,9 @@ class MovieViewModel @Inject constructor(
 
     private val _registerUserLiveData= MutableLiveData<Any?>()
     val registerUserLiveData: LiveData<Any?> = _registerUserLiveData
+
+    private val _loginUserLiveData= MutableLiveData<Any?>()
+    val loginUserLiveData: LiveData<Any?> = _loginUserLiveData
 
 
     fun fetchMovie(movieId: Int){
@@ -58,6 +62,13 @@ class MovieViewModel @Inject constructor(
         viewModelScope.launch {
             val response=repository.registerUser(user)
             _registerUserLiveData.postValue(response)
+        }
+    }
+
+    fun loginUser(email: RequestBody, password: RequestBody, grantType: RequestBody){
+        viewModelScope.launch {
+            val response=repository.loginUser(email,password,grantType)
+            _loginUserLiveData.postValue(response)
         }
     }
 

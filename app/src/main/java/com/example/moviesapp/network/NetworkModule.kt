@@ -25,7 +25,7 @@ object NetworkModule {
     @Singleton
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://moviesapi.ir/api/v1/")
+            .baseUrl("https://moviesapi.ir/")
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
