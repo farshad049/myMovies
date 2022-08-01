@@ -3,8 +3,7 @@ package com.example.moviesapp.network
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.moviesapp.MoviesApplication
-import com.example.moviesapp.arch.SearchDataSource
-import com.example.moviesapp.model.mapper.MovieMapper
+import com.example.moviesapp.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +24,7 @@ object NetworkModule {
     @Singleton
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://moviesapi.ir/")
+            .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
@@ -33,13 +32,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(): OkHttpClient {
+    fun providesOkHttpClient(interceptor: AuthInterceptor): OkHttpClient {
         val duration = Duration.ofSeconds(30)
-        val builder=OkHttpClient.Builder()
-        builder.addInterceptor(HttpLoggingInterceptor().apply {
-            setLevel(HttpLoggingInterceptor.Level.BASIC)
-        })
-        builder.addInterceptor(
+        return OkHttpClient.Builder()
+            .connectTimeout(duration)
+            .readTimeout(duration)
+            .writeTimeout(duration)
+            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BASIC) })
+            .addInterceptor(
             ChuckerInterceptor.Builder(MoviesApplication.context)
                 .collector(ChuckerCollector(MoviesApplication.context))
                 .maxContentLength(250000L)
@@ -47,13 +47,8 @@ object NetworkModule {
                 .alwaysReadResponseBody(false)
                 .build()
         )
-
-        return builder.build()
-//        return OkHttpClient.Builder()
-//            .connectTimeout(duration)
-//            .readTimeout(duration)
-//            .writeTimeout(duration)
-//            .build()
+            .addInterceptor(interceptor)
+            .build()
     }
 
     @Provides

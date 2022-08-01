@@ -1,4 +1,4 @@
-package com.example.moviesapp.arch
+package com.example.moviesapp.ViewModelAndRepository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,11 +8,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.moviesapp.model.domain.DomainMovieModel
-import com.example.moviesapp.model.network.RegisterUserModel
 import com.example.moviesapp.model.network.UploadMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,11 +28,7 @@ class MovieViewModel @Inject constructor(
     private val _pushMovieLiveData= MutableLiveData<UploadMovieModel?>()
     val pushMovieLiveData: LiveData<UploadMovieModel?> = _pushMovieLiveData
 
-    private val _registerUserLiveData= MutableLiveData<Any?>()
-    val registerUserLiveData: LiveData<Any?> = _registerUserLiveData
 
-    private val _loginUserLiveData= MutableLiveData<Any?>()
-    val loginUserLiveData: LiveData<Any?> = _loginUserLiveData
 
 
     fun fetchMovie(movieId: Int){
@@ -58,19 +52,7 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-    fun registerUser(user:RegisterUserModel){
-        viewModelScope.launch {
-            val response=repository.registerUser(user)
-            _registerUserLiveData.postValue(response)
-        }
-    }
 
-    fun loginUser(email: RequestBody, password: RequestBody, grantType: RequestBody){
-        viewModelScope.launch {
-            val response=repository.loginUser(email,password,grantType)
-            _loginUserLiveData.postValue(response)
-        }
-    }
 
 
     val movieListFlow = Pager(PagingConfig(

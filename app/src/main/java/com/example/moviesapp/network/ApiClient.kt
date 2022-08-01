@@ -1,9 +1,6 @@
 package com.example.moviesapp.network
 
-import com.example.moviesapp.model.network.NetworkMovieModel
-import com.example.moviesapp.model.network.PagingModel
-import com.example.moviesapp.model.network.RegisterUserModel
-import com.example.moviesapp.model.network.UploadMovieModel
+import com.example.moviesapp.model.network.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -35,13 +32,17 @@ class ApiClient (private val movieService:MovieService){
         return safeApiCall { movieService.pushMoviesMulti(poster,title,imdb_id,country,year) }
     }
 
-    suspend fun registerUser( user:RegisterUserModel): SimpleResponse<Any>{
+    suspend fun registerUser( user:RegisterUserModel): SimpleResponse<UserRegisteredModel>{
         return  safeApiCall { movieService.registerUser(user) }
     }
 
-    suspend fun loginUser(email:RequestBody,password:RequestBody,grantType:RequestBody):SimpleResponse<Any>{
+    suspend fun loginUser(email:RequestBody,password:RequestBody,grantType:RequestBody):SimpleResponse<UserAuthModel>{
         return safeApiCall { movieService.loginUser(email,password,grantType) }
 
+    }
+
+    suspend fun getUserInfo():SimpleResponse<UserRegisteredModel>{
+        return safeApiCall { movieService.getUserInfo() }
     }
 
 

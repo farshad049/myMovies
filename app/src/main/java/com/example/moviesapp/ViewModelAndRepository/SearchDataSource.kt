@@ -1,13 +1,11 @@
-package com.example.moviesapp.arch
+package com.example.moviesapp.ViewModelAndRepository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.mapper.MovieMapper
 import com.example.moviesapp.network.ApiClient
-import dagger.Provides
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 class SearchDataSource @Inject constructor(

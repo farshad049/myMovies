@@ -1,10 +1,7 @@
 package com.example.moviesapp.network
 
 import android.media.session.MediaSession
-import com.example.moviesapp.model.network.NetworkMovieModel
-import com.example.moviesapp.model.network.PagingModel
-import com.example.moviesapp.model.network.RegisterUserModel
-import com.example.moviesapp.model.network.UploadMovieModel
+import com.example.moviesapp.model.network.*
 import com.squareup.moshi.JsonReader
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -37,15 +34,20 @@ interface MovieService {
                                 @Part ("year") year:RequestBody
     ): Response<UploadMovieModel>
 
+
     @POST("api/v1/register/")
-    suspend fun registerUser (@Body user: RegisterUserModel): Response<Any>
+    suspend fun registerUser (@Body user: RegisterUserModel): Response<UserRegisteredModel>
+
 
     @Multipart
     @POST("oauth/token")
     suspend fun loginUser (@Part ("username") username:RequestBody,
                            @Part ("password") password:RequestBody,
                            @Part("grant_type") grantType:RequestBody
-    ):Response<Any>
+    ):Response<UserAuthModel>
+
+    @GET("api/user")
+    suspend fun getUserInfo():Response<UserRegisteredModel>
 
 
 

@@ -6,9 +6,9 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.moviesapp.ViewModelAndRepository.UserViewModel
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
-import com.example.moviesapp.arch.MovieViewModel
 import com.example.moviesapp.databinding.FragmentRegisterBinding
 import com.example.moviesapp.model.network.RegisterUserModel
 import com.google.android.material.snackbar.Snackbar
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment:BaseFragment(R.layout.fragment_register) {
-    private val viewModel: MovieViewModel by viewModels()
+    private val viewModel: UserViewModel by viewModels()
     private var _binding: FragmentRegisterBinding? = null
     private val binding by lazy { _binding!! }
 
@@ -73,9 +73,15 @@ class RegisterFragment:BaseFragment(R.layout.fragment_register) {
                 viewModel.registerUser(user)
 
                 viewModel.registerUserLiveData.observe(viewLifecycleOwner){registeredUser->
-                    Log.i("registered",registeredUser.toString())
-
+                    if (registeredUser != null){
+                        Log.i("registered",registeredUser.toString())
+                        binding.etUserName.text?.clear()
+                        binding.etPassword.text?.clear()
+                        binding.etEmail.text?.clear()
+                        findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+                    }
                 }
+
             }
         }
     }

@@ -11,13 +11,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
-import com.example.moviesapp.arch.SearchViewModel
+import com.example.moviesapp.ViewModelAndRepository.SearchViewModel
 import com.example.moviesapp.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Named
 
 @AndroidEntryPoint
 class SearchFragment:BaseFragment(R.layout.fragment_search) {

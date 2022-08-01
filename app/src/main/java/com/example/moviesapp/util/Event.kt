@@ -1,4 +1,4 @@
-package com.example.moviesapp.arch
+package com.example.moviesapp.util
 
 
 

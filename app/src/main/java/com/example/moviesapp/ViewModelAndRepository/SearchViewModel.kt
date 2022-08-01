@@ -1,4 +1,4 @@
-package com.example.moviesapp.arch
+package com.example.moviesapp.ViewModelAndRepository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingSource
 import androidx.paging.cachedIn
 import com.example.moviesapp.model.mapper.MovieMapper
 import com.example.moviesapp.network.ApiClient
+import com.example.moviesapp.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

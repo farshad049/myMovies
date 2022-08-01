@@ -1,17 +1,15 @@
 package com.example.moviesapp.ui.movieDetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
-import com.example.moviesapp.arch.MovieViewModel
+import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentMoviesDetailBinding
 import com.example.moviesapp.network.ApiClient
 import com.example.moviesapp.network.MovieService

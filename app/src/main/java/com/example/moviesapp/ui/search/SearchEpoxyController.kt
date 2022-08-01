@@ -6,10 +6,9 @@ import coil.load
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.example.moviesapp.R
-import com.example.moviesapp.arch.SearchDataSource
+import com.example.moviesapp.ViewModelAndRepository.SearchDataSource
 import com.example.moviesapp.databinding.ModelExeptionErrorBinding
 import com.example.moviesapp.databinding.ModelMovieListItemBinding
-import com.example.moviesapp.databinding.ModelSimilarMovieItemBinding
 import com.example.moviesapp.epoxy.LoadingEpoxyModel
 import com.example.moviesapp.epoxy.ViewBindingKotlinModel
 import com.example.moviesapp.model.domain.DomainMovieModel

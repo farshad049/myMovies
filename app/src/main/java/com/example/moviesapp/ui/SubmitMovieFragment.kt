@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,22 +19,15 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
-import com.example.moviesapp.arch.MovieViewModel
+import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitMovieBinding
 import com.example.moviesapp.model.network.UploadMovieModel
-import com.example.moviesapp.network.ApiClient
 import com.example.moviesapp.network.MovieService
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
-import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
