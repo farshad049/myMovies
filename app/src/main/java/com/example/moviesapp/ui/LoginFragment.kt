@@ -1,6 +1,7 @@
 package com.example.moviesapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.moviesapp.Authentication.TokenManager
@@ -50,9 +51,9 @@ class LoginFragment:BaseFragment(R.layout.fragment_login) {
                 Snackbar.make(mainActivity.findViewById(android.R.id.content),"please enter password", Snackbar.LENGTH_LONG).show()
             }
             else -> {
-                val userNameBody :RequestBody= userName.toRequestBody("text/plain".toMediaTypeOrNull())
-                val passwordBody: RequestBody = password.toRequestBody("text/plain".toMediaTypeOrNull())
-                val grantTypeBody: RequestBody = "password".toRequestBody("text/plain".toMediaTypeOrNull())
+                val userNameBody :RequestBody= userName.toRequestBody()
+                val passwordBody: RequestBody = password.toRequestBody()
+                val grantTypeBody: RequestBody = "password".toRequestBody()
 
 
 
@@ -60,6 +61,7 @@ class LoginFragment:BaseFragment(R.layout.fragment_login) {
 
                 viewModel.loginUserLiveData.observe(viewLifecycleOwner){
                     tokenManager.saveToken(it)
+                    Log.i("response",it.toString())
                 }
 
             }

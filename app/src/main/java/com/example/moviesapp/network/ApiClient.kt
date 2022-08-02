@@ -38,7 +38,6 @@ class ApiClient (private val movieService:MovieService){
 
     suspend fun loginUser(email:RequestBody,password:RequestBody,grantType:RequestBody):SimpleResponse<UserAuthModel>{
         return safeApiCall { movieService.loginUser(email,password,grantType) }
-
     }
 
     suspend fun getUserInfo():SimpleResponse<UserRegisteredModel>{

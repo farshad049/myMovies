@@ -25,4 +25,8 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
     fun getToken(): String? {
         return prefs.getString(USER_TOKEN, null)
     }
+
+    fun getRefreshToken(): String? {
+        return prefs.getString(USER_REFRESH_TOKEN, null)
+    }
 }

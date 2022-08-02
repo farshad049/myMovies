@@ -7,7 +7,9 @@ import com.example.moviesapp.ViewModelAndRepository.UserViewModel
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.FragmentUserInfoBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserInfoFragment:BaseFragment(R.layout.fragment_user_info) {
     private val viewModel: UserViewModel by viewModels()
     private var _binding: FragmentUserInfoBinding? = null
@@ -16,6 +18,8 @@ class UserInfoFragment:BaseFragment(R.layout.fragment_user_info) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentUserInfoBinding.bind(view)
+
+        viewModel.getUserInfo()
 
         viewModel.userInfoLiveData.observe(viewLifecycleOwner){userInfo->
             if (userInfo != null){
