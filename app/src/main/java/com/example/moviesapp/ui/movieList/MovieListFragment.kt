@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.collectLatest
 class MovieListFragment:BaseFragment(R.layout.fragment_movie_list) {
     private val viewModel: MovieViewModel by viewModels()
     private var _binding: FragmentMovieListBinding? = null
-    private val binding by lazy { _binding!! }
+    private val binding get() = _binding!!
     private val controller= MovieListEpoxyController( ::movieOnClick)
 
 

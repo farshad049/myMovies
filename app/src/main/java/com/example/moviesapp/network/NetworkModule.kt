@@ -26,22 +26,21 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit (): Retrofit {
-        val authenticator = AuthAuthenticator(buildTokenApi())
+    fun providesRetrofit (okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(providesOkHttpClient())
+            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
 
-
-    fun providesOkHttpClient(interceptor: AuthInterceptor,authenticator: Authenticator? = null): OkHttpClient {
+    @Provides
+    @Singleton
+    fun providesOkHttpClient(interceptor: AuthInterceptor,authAuthenticator: AuthAuthenticator): OkHttpClient {
         val duration = Duration.ofSeconds(30)
         return OkHttpClient.Builder()
             .connectTimeout(duration)
             .readTimeout(duration)
-            .also { client -> authenticator?.let { client.authenticator(it) }}
             .writeTimeout(duration)
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BASIC) })
 
@@ -55,15 +54,16 @@ object NetworkModule {
         )
 
             .addInterceptor(interceptor)
+            .authenticator(authAuthenticator)
 
             .build()
     }
 
-//    @Provides
-//    @Singleton
-//    fun providesMovieService(retrofit: Retrofit): MovieService {
-//        return retrofit.create(MovieService::class.java)
-//    }
+    @Provides
+    @Singleton
+    fun providesMovieService(retrofit: Retrofit): MovieService {
+        return retrofit.create(MovieService::class.java)
+    }
 
 
 
@@ -74,26 +74,6 @@ object NetworkModule {
     }
 
 
-
-
-
-
-
-
-    private fun buildTokenApi(): AuthService {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(providesOkHttpClient())
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
-            .create(AuthService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun providesAuthService(retrofit: Retrofit) : AuthService {
-        return retrofit.create(AuthService::class.java)
-    }
 
 
 

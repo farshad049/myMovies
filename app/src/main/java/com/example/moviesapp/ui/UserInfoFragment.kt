@@ -22,15 +22,15 @@ class UserInfoFragment:BaseFragment(R.layout.fragment_user_info) {
         viewModel.getUserInfo()
 
         viewModel.userInfoLiveData.observe(viewLifecycleOwner){userInfo->
-            if (userInfo != null){
-                binding.tvName.text=userInfo.name
-                binding.tvEmail.text=userInfo.email
-                binding.tvId.text= userInfo.id.toString()
-                binding.tvCreate.text=userInfo.created_at
-                binding.tvUpdate.text=userInfo.updated_at
-            }else{
-                binding.tvAccess.text="you don't have access"
-            }
+//            if (userInfo != null){
+                binding.tvName.text=userInfo?.name
+                binding.tvEmail.text=userInfo?.email
+                binding.tvId.text= userInfo?.id.toString()
+                binding.tvCreate.text=userInfo?.created_at
+                binding.tvUpdate.text=userInfo?.updated_at
+//            }else{
+//                binding.tvAccess.text="you don't have access"
+//            }
         }
 
 
