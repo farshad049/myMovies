@@ -1,8 +1,13 @@
-package com.example.moviesapp.network
+package com.example.moviesapp.Authentication
 
-import com.example.moviesapp.Authentication.TokenManager
+import android.content.Context
+import android.content.Intent
+import com.example.moviesapp.MainActivity
+import com.example.moviesapp.MoviesApplication.Companion.context
 import com.example.moviesapp.model.network.UserAuthModel
+import com.example.moviesapp.network.AuthService
 import com.example.moviesapp.util.Constants.BASE_URL
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -11,7 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
-class AuthAuthenticator @Inject constructor() : Authenticator {
+class AuthAuthenticator @Inject constructor(@ApplicationContext context: Context) : Authenticator {
 
     @Inject lateinit var tokenManager: TokenManager
 
@@ -27,7 +32,15 @@ class AuthAuthenticator @Inject constructor() : Authenticator {
             //val newAccessToken = authService.safeRefreshTokenFromApi(refreshToken,grantType)
             val newAccessToken = getUpdatedToken(refreshTokenR,grantTypeR)
 
+            if (!newAccessToken.isSuccessful){
+                val intent=Intent(context,MainActivity::class.java)
+                context.startActivity(intent)
+            }
+
             tokenManager.saveToken(newAccessToken.body()) // save new access_token for next called
+
+
+
 
             newAccessToken.body()?.let {
                 response.request.newBuilder()

@@ -31,13 +31,7 @@
         app:showAsAction="always"
         />
 
-    <item
-        android:id="@+id/userInfoFragment"
-        android:icon="@drawable/ic_round_person_pin_24"
-        android:orderInCategory="5"
-        android:title=""
-        app:showAsAction="always"
-        />
+
 
 
 

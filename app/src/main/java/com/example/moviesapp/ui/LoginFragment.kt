@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.Authentication.TokenManager
 import com.example.moviesapp.ViewModelAndRepository.UserViewModel
 import com.example.moviesapp.BaseFragment
@@ -62,6 +63,9 @@ class LoginFragment:BaseFragment(R.layout.fragment_login) {
                 viewModel.loginUserLiveData.observe(viewLifecycleOwner){
                     tokenManager.saveToken(it)
                     Log.i("response",it.toString())
+                    binding.etEditLoginEmail.text?.clear()
+                    binding.etEditLoginPassword.text?.clear()
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
                 }
 
             }

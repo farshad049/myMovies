@@ -2,21 +2,19 @@ package com.example.moviesapp.network
 
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.moviesapp.Authentication.AuthAuthenticator
+import com.example.moviesapp.Authentication.AuthInterceptor
 import com.example.moviesapp.MoviesApplication
-import com.example.moviesapp.util.Constants
 import com.example.moviesapp.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import java.time.Duration
-import javax.inject.Inject
 import javax.inject.Singleton
 
 
@@ -36,7 +34,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(interceptor: AuthInterceptor,authAuthenticator: AuthAuthenticator): OkHttpClient {
+    fun providesOkHttpClient(interceptor: AuthInterceptor, authAuthenticator: AuthAuthenticator): OkHttpClient {
         val duration = Duration.ofSeconds(30)
         return OkHttpClient.Builder()
             .connectTimeout(duration)

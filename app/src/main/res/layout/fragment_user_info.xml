@@ -133,6 +133,18 @@
         android:textSize="20sp"
         />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/update"
+        android:layout_marginTop="48dp"
+        android:text="log out"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="?colorOnBackground"
+        android:background="@drawable/button_background"
+        />
+
 
 
 

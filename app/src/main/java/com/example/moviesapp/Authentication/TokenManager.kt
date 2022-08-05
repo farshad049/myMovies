@@ -3,6 +3,7 @@ package com.example.moviesapp.Authentication
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.moviesapp.model.network.UserAuthModel
+import com.example.moviesapp.util.Constants.IS_LOGGED_IN
 import com.example.moviesapp.util.Constants.PREFS_TOKEN_FILE
 import com.example.moviesapp.util.Constants.USER_REFRESH_TOKEN
 import com.example.moviesapp.util.Constants.USER_TOKEN
@@ -19,6 +20,7 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
         token?.let {
             editor.putString(USER_TOKEN, token.access_token).apply()
             editor.putString(USER_REFRESH_TOKEN,token.refresh_token).apply()
+            editor.putBoolean(IS_LOGGED_IN,true).apply ()
         }
     }
 
@@ -28,5 +30,15 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
 
     fun getRefreshToken(): String? {
         return prefs.getString(USER_REFRESH_TOKEN, null)
+    }
+
+    fun getIsLoggedIn():Boolean?{
+        return prefs.getBoolean(IS_LOGGED_IN,false)
+    }
+
+    fun clearSharedPref(){
+        val editor = prefs.edit()
+        editor.clear().apply()
+
     }
 }

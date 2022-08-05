@@ -1,4 +1,4 @@
-package com.example.moviesapp.network
+package com.example.moviesapp.Authentication
 
 import com.example.moviesapp.Authentication.TokenManager
 import okhttp3.Interceptor
