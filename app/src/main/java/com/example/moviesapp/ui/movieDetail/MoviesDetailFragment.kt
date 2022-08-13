@@ -25,7 +25,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
 
 
     private var _binding: FragmentMoviesDetailBinding? = null
-    private val binding by lazy { _binding!! }
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,9 +35,10 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
         val similarMovieController=MovieSimilarEpoxyController( ::onSimilarMovieClick)
 
 
-
+        showProgressBar()
         viewModel.fetchMovie(safeArg.movieId)
         viewModel.movieByIdLiveData.observe(viewLifecycleOwner){movieById->
+            dismissProgressBar()
             binding.ivMovie.load(movieById?.poster)
             binding.tvMovieName.text=movieById?.title
             binding.tvIMDB.text= movieById?.imdb_rating
@@ -45,7 +46,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
             binding.tvRate.text= movieById?.rated
             binding.tvCountry.text= movieById?.country
             binding.tvDirector.text= movieById?.director
-            binding.tvGenres.text= movieById?.genres?.component1()
+            binding.tvGenres.text= movieById?.genres.toString()
             binding.tvActors.text= movieById?.actors
             binding.tvPlot.text= movieById?.plot
             imageController.setData(movieById)

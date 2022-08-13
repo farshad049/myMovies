@@ -23,7 +23,7 @@ import javax.inject.Inject
 class LoginFragment:BaseFragment(R.layout.fragment_login) {
     private val viewModel: UserViewModel by viewModels()
     private var _binding: FragmentLoginBinding? = null
-    private val binding by lazy { _binding!! }
+    private val binding get() = _binding!!
 
     @Inject lateinit var movieService:MovieService
     @Inject lateinit var tokenManager: TokenManager

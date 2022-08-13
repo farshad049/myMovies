@@ -8,6 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.moviesapp.model.domain.DomainMovieModel
+import com.example.moviesapp.model.domain.FilterModel
 import com.example.moviesapp.model.network.UploadMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

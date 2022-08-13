@@ -1,5 +1,7 @@
 package com.example.moviesapp.Authentication
 
+
+
 import android.content.Context
 import android.content.Intent
 import com.example.moviesapp.MainActivity
@@ -16,7 +18,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
-class AuthAuthenticator @Inject constructor(@ApplicationContext context: Context) : Authenticator {
+class AuthAuthenticator @Inject constructor() : Authenticator {
 
     @Inject lateinit var tokenManager: TokenManager
 
@@ -26,20 +28,18 @@ class AuthAuthenticator @Inject constructor(@ApplicationContext context: Context
         return runBlocking {
 
             val refreshToken=tokenManager.getRefreshToken()
-            val refreshTokenR:RequestBody= refreshToken?.toRequestBody() ?: "".toRequestBody()
-            val grantTypeR:RequestBody= "refresh_token".toRequestBody()
+            val refreshTokenB:RequestBody= refreshToken?.toRequestBody() ?: "".toRequestBody()
+            val grantTypeB:RequestBody= "refresh_token".toRequestBody()
 
-            //val newAccessToken = authService.safeRefreshTokenFromApi(refreshToken,grantType)
-            val newAccessToken = getUpdatedToken(refreshTokenR,grantTypeR)
+            val newAccessToken = getUpdatedToken(refreshTokenB,grantTypeB)
 
             if (!newAccessToken.isSuccessful){
+                tokenManager.clearSharedPref()
                 val intent=Intent(context,MainActivity::class.java)
                 context.startActivity(intent)
             }
 
             tokenManager.saveToken(newAccessToken.body()) // save new access_token for next called
-
-
 
 
             newAccessToken.body()?.let {

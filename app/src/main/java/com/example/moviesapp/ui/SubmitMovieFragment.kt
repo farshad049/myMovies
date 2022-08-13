@@ -36,7 +36,7 @@ class SubmitMovieFragment:BaseFragment(R.layout.fragment_submit_movie) {
     @Inject lateinit var movieService: MovieService
 
     private var _binding: FragmentSubmitMovieBinding? = null
-    private val binding by lazy { _binding!! }
+    private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
     private var path:String=""
     private val viewModel: MovieViewModel by viewModels()

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="12dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Country"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <CheckBox
+            android:id="@+id/checkUk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UK"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountry"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="10dp"
+            />
+            <CheckBox
+                android:id="@+id/checkUs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="US"
+                app:layout_constraintTop_toBottomOf="@+id/checkUk"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/genres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Genres"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                app:layout_constraintTop_toBottomOf="@id/checkUs"
+                app:layout_constraintStart_toStartOf="@id/tvCountry"
+                />
+
+            <CheckBox
+                android:id="@+id/checkGenresCrime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crime"
+                app:layout_constraintTop_toBottomOf="@+id/genres"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
+                />
+            <CheckBox
+                android:id="@+id/checkGenresDrama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drama"
+                app:layout_constraintTop_toBottomOf="@+id/checkGenresCrime"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
+                />
+            <CheckBox
+                android:id="@+id/checkGenresAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Action"
+                app:layout_constraintTop_toBottomOf="@+id/checkGenresDrama"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/checkGenresAction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="filter"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

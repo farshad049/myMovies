@@ -20,7 +20,7 @@ import javax.inject.Inject
 class RegisterFragment:BaseFragment(R.layout.fragment_register) {
     private val viewModel: UserViewModel by viewModels()
     private var _binding: FragmentRegisterBinding? = null
-    private val binding by lazy { _binding!! }
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var tokenManager: TokenManager

@@ -1,12 +1,20 @@
 package com.example.moviesapp.ViewModelAndRepository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.mapper.MovieMapper
 import com.example.moviesapp.model.network.UploadMovieModel
 import com.example.moviesapp.network.ApiClient
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MovieRepository @Inject constructor(private val apiClient: ApiClient, private val movieMapper: MovieMapper){
+class MovieRepository @Inject constructor(
+    private val apiClient: ApiClient,
+    private val movieMapper: MovieMapper,
+    private val movieDataSource: MovieDataSource,
+    ){
 
 
     suspend fun getMovieById(movieId: Int): DomainMovieModel? {
@@ -32,6 +40,7 @@ class MovieRepository @Inject constructor(private val apiClient: ApiClient, priv
         }
         return response.body
     }
+
 
 
 

@@ -39,8 +39,10 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/menu/menu_bottom_app.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/drawable/button_background.xml" value="0.133" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/activity_main.xml" value="0.209375" />
+        <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_filter.xml" value="0.22" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movie_list.xml" value="0.209375" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movies_detail.xml" value="0.209375" />
+        <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_register.xml" value="0.11666666666666667" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_submit_movie.xml" value="0.2" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_user_info.xml" value="0.209375" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_image_carusel.xml" value="0.1175925925925926" />

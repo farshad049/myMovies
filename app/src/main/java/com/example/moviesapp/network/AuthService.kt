@@ -18,17 +18,6 @@ interface AuthService:MovieService {
      suspend fun refreshTokenFromApi (@Part("refresh_token") username: RequestBody,
                               @Part("grant_type") grantType: RequestBody
     ): Response<UserAuthModel>
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

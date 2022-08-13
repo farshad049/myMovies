@@ -16,25 +16,23 @@ import javax.inject.Inject
 class UserInfoFragment:BaseFragment(R.layout.fragment_user_info) {
     private val viewModel: UserViewModel by viewModels()
     private var _binding: FragmentUserInfoBinding? = null
-    private val binding by lazy { _binding!! }
+    private val binding get() = _binding!!
     @Inject lateinit var tokenManager: TokenManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentUserInfoBinding.bind(view)
 
+        showProgressBar()
         viewModel.getUserInfo()
 
         viewModel.userInfoLiveData.observe(viewLifecycleOwner){userInfo->
-//            if (userInfo != null){
+            dismissProgressBar()
                 binding.tvName.text=userInfo?.name
                 binding.tvEmail.text=userInfo?.email
                 binding.tvId.text= userInfo?.id.toString()
                 binding.tvCreate.text=userInfo?.created_at
                 binding.tvUpdate.text=userInfo?.updated_at
-//            }else{
-//                binding.tvAccess.text="you don't have access"
-//            }
         }
 
         binding.btnLogOut.setOnClickListener {

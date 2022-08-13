@@ -10,6 +10,7 @@ import com.example.moviesapp.databinding.ModelMovieListItemBinding
 import com.example.moviesapp.epoxy.LoadingEpoxyModel
 import com.example.moviesapp.epoxy.ViewBindingKotlinModel
 import com.example.moviesapp.model.domain.DomainMovieModel
+import okhttp3.internal.notifyAll
 
 class MovieListEpoxyController(
     private val movieOnClick:(Int)-> Unit
@@ -18,6 +19,7 @@ class MovieListEpoxyController(
     override fun buildItemModel(currentPosition: Int, item: DomainMovieModel?): EpoxyModel<*> {
         return MoviesEpoxyModel(item!!,movieOnClick).id(item.id)
     }
+
 
     override fun addModels(models: List<EpoxyModel<*>>) {
         if (models.isEmpty()){
