@@ -1,9 +1,7 @@
 package com.example.moviesapp.ui.movieList
 
-import android.app.AlertDialog
-import android.content.DialogInterface
+
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,8 +12,6 @@ import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentMovieListBinding
-import com.example.moviesapp.model.domain.DomainMovieModel
-import com.example.moviesapp.model.domain.FilterModel
 import com.example.moviesapp.util.Constants.appliedFilter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -34,12 +30,15 @@ class MovieListFragment:BaseFragment (R.layout.fragment_movie_list) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentMovieListBinding.bind(view)
 
+        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
+
+
 
         binding.btnFilter1.setOnClickListener {
             findNavController().navigate(MovieListFragmentDirections.actionMovieListToFilterFragment())
         }
 
-        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
+
 
 
 
