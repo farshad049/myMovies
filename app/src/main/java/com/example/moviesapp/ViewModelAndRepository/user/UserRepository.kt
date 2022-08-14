@@ -1,4 +1,4 @@
-package com.example.moviesapp.ViewModelAndRepository
+package com.example.moviesapp.ViewModelAndRepository.user
 
 import com.example.moviesapp.model.network.RegisterUserModel
 import com.example.moviesapp.model.network.UserAuthModel

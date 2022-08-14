@@ -13,6 +13,9 @@ interface MovieService {
     @GET("api/v1/movies?")
     suspend fun getMoviesPage(@Query("page") pageIndex:Int): Response<PagingModel>
 
+    @GET("api/v1/movies?page=1")
+    suspend fun getFirstPageMovie(): Response<PagingModel>
+
     @GET("api/v1/movies/{movie-id}")
     suspend fun getSingleMovie(@Path("movie-id") movieId:Int):Response<NetworkMovieModel>
 
@@ -48,6 +51,8 @@ interface MovieService {
 
     @GET("api/user")
     suspend fun getUserInfo():Response<UserRegisteredModel>
+
+
 
 
 

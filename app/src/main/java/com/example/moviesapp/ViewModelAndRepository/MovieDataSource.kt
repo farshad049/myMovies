@@ -13,9 +13,9 @@ class MovieDataSource@Inject constructor(private val apiClient: ApiClient, priva
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainMovieModel> {
         val pageNumber = params.key ?: 1
         val previewPage= if (pageNumber ==1 ) null else pageNumber -1
-        val nextPage= if (pageNumber < 25) pageNumber+1 else null
 
-        val request=apiClient.getCharactersPage(pageNumber)
+
+        val request=apiClient.getMoviesPage(pageNumber)
 
         //when !pageRequest.isSuccessful do this
         request.exception?.let {
@@ -24,7 +24,7 @@ class MovieDataSource@Inject constructor(private val apiClient: ApiClient, priva
 
 
         return LoadResult.Page(
-            //we map it because the parent function has to return Character
+            //we map it because the parent function has to return DomainMovie
             data = request.bodyNullable?.data?.map { movieMapper.buildFrom(it) } ?: emptyList(),
             prevKey = previewPage,
             nextKey = request.bodyNullable?.metadata?.current_page?.toInt()?.plus(1)

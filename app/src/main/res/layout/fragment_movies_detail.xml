@@ -248,34 +248,9 @@
             tools:itemCount="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPlot"
-            tools:listitem="@layout/model_image_item"/>
+            />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/similarMovies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Similar Movies"
-            android:textColor="?colorSecondaryVariant"
-            android:textSize="20sp"
-            android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="@id/Plot"
-            app:layout_constraintTop_toBottomOf="@id/imageEpoxyRecyclerView" />
 
-        <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/similarEpoxyRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:itemCount="1"
-            android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="12dp"
-            android:orientation="vertical"
-            android:paddingBottom="12dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/similarMovies"
-            tools:listitem="@layout/model_similar_movie_item"/>
 
 
 

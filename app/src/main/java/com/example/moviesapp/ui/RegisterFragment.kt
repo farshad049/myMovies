@@ -7,7 +7,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.Authentication.TokenManager
-import com.example.moviesapp.ViewModelAndRepository.UserViewModel
+import com.example.moviesapp.ViewModelAndRepository.user.UserViewModel
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.FragmentRegisterBinding

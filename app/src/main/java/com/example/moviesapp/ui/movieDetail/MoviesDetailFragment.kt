@@ -31,8 +31,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentMoviesDetailBinding.bind(view)
 
-        val imageController= MovieImageEpoxyController()
-        val similarMovieController=MovieSimilarEpoxyController( ::onSimilarMovieClick)
+        val controller= MovieDetailEpoxyController(::onSimilarMovieClick)
 
 
         showProgressBar()
@@ -49,18 +48,22 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
             binding.tvGenres.text= movieById?.genres.toString()
             binding.tvActors.text= movieById?.actors
             binding.tvPlot.text= movieById?.plot
-            imageController.setData(movieById)
-            binding.imageEpoxyRecyclerView.setController(imageController)
+
+
 
             val genreId =genreNameToId(movieById?.genres?.component1())
 
             viewModel.fetchMovieByGenre(genreId)
             viewModel.movieByGenreLiveData.observe(viewLifecycleOwner){movieByGenre->
-                similarMovieController.setData(movieByGenre)
-                binding.similarEpoxyRecyclerView.setController(similarMovieController)
 
+
+                controller.setData(movieById,movieByGenre)
+                binding.imageEpoxyRecyclerView.setController(controller)
             }
         }
+
+
+
 
 
 
@@ -85,6 +88,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
         findNavController().navigate(directions)
 
     }
+
 
     private fun genreNameToId(genreName:String?):Int{
         return when(genreName){

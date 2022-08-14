@@ -6,8 +6,6 @@ import coil.load
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.example.moviesapp.R
-import com.example.moviesapp.ViewModelAndRepository.SearchDataSource
-import com.example.moviesapp.databinding.ModelExeptionErrorBinding
 import com.example.moviesapp.databinding.ModelMovieListItemBinding
 import com.example.moviesapp.epoxy.LoadingEpoxyModel
 import com.example.moviesapp.epoxy.ViewBindingKotlinModel
@@ -75,16 +73,16 @@ class SearchEpoxyController(
         }
     }
 
-    data class LocalExceptionErrorEpoxyModel(val localException:SearchDataSource.LocalException)
-        :ViewBindingKotlinModel<ModelExeptionErrorBinding>(R.layout.model_exeption_error){
-        override fun ModelExeptionErrorBinding.bind() {
-            tvErrorTitle.text=localException.title
-            tvErrorDescription.text=localException.description
-        }
-        //let this to take whole span count
-        override fun getSpanSize(totalSpanCount: Int, position: Int, itemCount: Int): Int {
-            return totalSpanCount
-        }
-
-    }
+//    data class LocalExceptionErrorEpoxyModel(val localException:SearchDataSource.LocalException)
+//        :ViewBindingKotlinModel<ModelExeptionErrorBinding>(R.layout.model_exeption_error){
+//        override fun ModelExeptionErrorBinding.bind() {
+//            tvErrorTitle.text=localException.title
+//            tvErrorDescription.text=localException.description
+//        }
+//        //let this to take whole span count
+//        override fun getSpanSize(totalSpanCount: Int, position: Int, itemCount: Int): Int {
+//            return totalSpanCount
+//        }
+//
+//    }
 }

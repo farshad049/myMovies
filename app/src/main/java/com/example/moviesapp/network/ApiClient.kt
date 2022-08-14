@@ -12,8 +12,12 @@ class ApiClient (private val movieService:MovieService){
         return safeApiCall { movieService.getSingleMovie(movieId) }
     }
 
-    suspend fun getCharactersPage(pageIndex:Int): SimpleResponse<PagingModel> {
+    suspend fun getMoviesPage(pageIndex:Int): SimpleResponse<PagingModel> {
         return safeApiCall { movieService.getMoviesPage(pageIndex) }
+    }
+
+    suspend fun getFirstMoviePage(): SimpleResponse<PagingModel> {
+        return safeApiCall { movieService.getFirstPageMovie() }
     }
 
     suspend fun getMovieByGenre(genreId: Int): SimpleResponse<PagingModel> {

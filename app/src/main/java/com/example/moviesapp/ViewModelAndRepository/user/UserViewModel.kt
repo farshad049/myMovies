@@ -1,4 +1,4 @@
-package com.example.moviesapp.ViewModelAndRepository
+package com.example.moviesapp.ViewModelAndRepository.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

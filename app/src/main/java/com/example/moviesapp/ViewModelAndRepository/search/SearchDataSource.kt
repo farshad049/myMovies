@@ -1,4 +1,4 @@
-package com.example.moviesapp.ViewModelAndRepository
+package com.example.moviesapp.ViewModelAndRepository.search
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -12,36 +12,18 @@ class SearchDataSource @Inject constructor(
     private val apiClient: ApiClient,
     private val movieMapper: MovieMapper,
     private val userSearch:String,
-    private val localExceptionCallBack: (LocalException)->Unit
 )  :PagingSource<Int,DomainMovieModel>() {
 
 
-    sealed class LocalException(val title:String, val description:String=""):Exception(){
-        object EmptySearch :LocalException(title = "Start Typing To Search")
-        object NoResult:LocalException(title = "whoops", description = "looks like your search didn't return any result")
-    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainMovieModel> {
-        //if user didn't type anything yet, do this exception
-        if (userSearch.isEmpty()) {
-            val exception = LocalException.EmptySearch
-            localExceptionCallBack(exception)
-            return LoadResult.Error(exception)
-        }
 
         val pageNumber = params.key ?: 1
         val previewPage= if (pageNumber ==1 ) null else pageNumber -1
 
         val request=apiClient.getMoviesPageByName(userSearch,pageNumber)
 
-//        //if there were no result for search, do this exception, this is handling by the backend, it has been set to answer back code 404 when request was not found
 
-
-        if (request.data?.code()==429) {
-            val exception = LocalException.NoResult
-            localExceptionCallBack(exception)
-            return LoadResult.Error(exception)
-        }
 
         //when !pageRequest.isSuccessful do this
         request.exception?.let {

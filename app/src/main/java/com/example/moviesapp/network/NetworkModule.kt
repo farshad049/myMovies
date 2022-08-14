@@ -35,7 +35,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesOkHttpClient(interceptor: AuthInterceptor, authAuthenticator: AuthAuthenticator): OkHttpClient {
-        val duration = Duration.ofSeconds(30)
+        val duration = Duration.ofSeconds(10)
         return OkHttpClient.Builder()
             .connectTimeout(duration)
             .readTimeout(duration)

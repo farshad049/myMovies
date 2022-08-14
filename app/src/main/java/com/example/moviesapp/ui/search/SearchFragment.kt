@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
-import com.example.moviesapp.ViewModelAndRepository.SearchViewModel
+import com.example.moviesapp.ViewModelAndRepository.search.SearchViewModel
 import com.example.moviesapp.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -34,9 +36,17 @@ class SearchFragment:BaseFragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         _binding=FragmentSearchBinding.bind(view)
 
-        if (binding.edSearch.text.toString().trim().isEmpty()){
-            binding.edSearch.hint="Please Enter Some"
+
+        binding.edSearch.addTextChangedListener{
+            if (binding.edSearch.text.toString().trim().isEmpty()){
+                binding.tvPleaseType.isVisible=true
+                binding.epoxyRecyclerView.isVisible=false
+            }else{
+                binding.tvPleaseType.isVisible=false
+                binding.epoxyRecyclerView.isVisible=true
+            }
         }
+
 
         binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
 
@@ -49,23 +59,19 @@ class SearchFragment:BaseFragment(R.layout.fragment_search) {
             handler.removeCallbacks(searchRunnable)
             //run search function after 0.5 second pause which is almost after user stop typing the text
             handler.postDelayed(searchRunnable,500L)
+
+            if (it!!.isEmpty()){
+                binding.tvPleaseType.isVisible=true
+                binding.epoxyRecyclerView.isVisible=false
+            }
         }
 
         lifecycleScope.launch{
-            viewModel.searchFlow.collectLatest {
-                //at first we set local exception to null, in order to run the epoxy controller(look at epoxy controller code)
-               // controller.localException = null
-                controller.submitData(it)
+            viewModel.searchFlow.collectLatest {data->
+                controller.submitData(data)
             }
         }
-        //handing error  state  when get into fragment before user type anything
-//        viewModel.localExceptionEventLiveData.observe(viewLifecycleOwner){
-//            //if getContent is not null then set the localException State from live data and set it to epoxy display
-//            it.getContent()?.let { localException->
-//                //handle displaying local exception
-//                controller.localException=localException
-//            }
-//        }
+
 
 
 
