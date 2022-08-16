@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:fadeScrollbars="false"
         android:scrollbarSize="6dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="48dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -177,24 +177,6 @@
                 android:layout_marginTop="12dp"
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/addPoster"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                style="@style/Widget.Material3.Button.Icon"
-                app:layout_constraintEnd_toEndOf="@id/imdbVote"
-                app:layout_constraintTop_toTopOf="@id/ivPoster"
-                app:layout_constraintBottom_toBottomOf="@id/ivPoster"
-                app:layout_constraintStart_toEndOf="@id/ivPoster"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:icon="@drawable/ic_round_add_24"
-                app:iconGravity="textTop"
-                app:iconSize="40dp"
-                android:padding="20dp"
-                android:layout_margin="20dp"
-                />
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/BtnSubmit"
                 android:layout_width="match_parent"
@@ -207,7 +189,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivPoster"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="24dp"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

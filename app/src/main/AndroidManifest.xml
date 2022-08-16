@@ -21,7 +21,9 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.Starting"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan|adjustResize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

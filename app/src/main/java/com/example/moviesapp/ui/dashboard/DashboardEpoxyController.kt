@@ -4,8 +4,11 @@ package com.example.moviesapp.ui.dashboard
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.Typed2EpoxyController
+import com.commit451.coiltransformations.BlurTransformation
+import com.example.moviesapp.MoviesApplication
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ModelGenreIconBinding
 import com.example.moviesapp.databinding.ModelImageItemBinding

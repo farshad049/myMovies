@@ -29,6 +29,8 @@ class MovieListByGenre:BaseFragment(R.layout.fragment_movie_list_by_genre) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentMovieListByGenreBinding.bind(view)
 
+        showProgressBar()
+
         val controller=MovieListByGenreController(::onMovieClick,safeArg.genreName)
 
         binding.epoxyRecyclerView.setController(controller)
@@ -39,6 +41,7 @@ class MovieListByGenre:BaseFragment(R.layout.fragment_movie_list_by_genre) {
 
         lifecycleScope.launch{
             viewModel.movieByGenreFlow.collectLatest {data->
+                dismissProgressBar()
                 controller.submitData(data)
             }
         }

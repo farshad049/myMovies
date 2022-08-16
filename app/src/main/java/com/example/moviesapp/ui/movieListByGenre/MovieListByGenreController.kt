@@ -21,11 +21,12 @@ class MovieListByGenreController (
     override fun addModels(models: List<EpoxyModel<*>>) {
 
         if (models.isEmpty()){
-            LoadingEpoxyModel().id("loading5").addTo(this)
+            LoadingEpoxyModel().id("loading6").addTo(this)
             return
         }
 
         HeaderEpoxyModel(genreName).id("genreName").addTo(this)
+
         super.addModels(models)
     }
 

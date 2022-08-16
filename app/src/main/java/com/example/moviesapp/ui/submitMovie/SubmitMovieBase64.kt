@@ -1,4 +1,4 @@
-package com.example.moviesapp.ui
+package com.example.moviesapp.ui.submitMovie
 
 import android.Manifest
 import android.app.Activity
@@ -20,7 +20,7 @@ import coil.load
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
-import com.example.moviesapp.databinding.FragmentSubmitMovieBinding
+import com.example.moviesapp.databinding.FragmentSubmitBase64Binding
 import com.example.moviesapp.model.network.UploadMovieModel
 import com.example.moviesapp.network.MovieService
 import com.google.android.material.snackbar.Snackbar
@@ -31,11 +31,11 @@ import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubmitMovieFragment:BaseFragment(R.layout.fragment_submit_movie) {
+class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
 
     @Inject lateinit var movieService: MovieService
 
-    private var _binding: FragmentSubmitMovieBinding? = null
+    private var _binding: FragmentSubmitBase64Binding? = null
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
     private var path:String=""
@@ -43,9 +43,9 @@ class SubmitMovieFragment:BaseFragment(R.layout.fragment_submit_movie) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding= FragmentSubmitMovieBinding.bind(view)
+        _binding= FragmentSubmitBase64Binding.bind(view)
 
-        binding.addPoster.setOnClickListener {
+        binding.ivPoster.setOnClickListener {
             choosePhotoFromGallery()
         }
 
