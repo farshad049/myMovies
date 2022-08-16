@@ -11,7 +11,7 @@ import retrofit2.http.*
 
 interface MovieService {
     @GET("api/v1/movies?")
-    suspend fun getMoviesPage(@Query("page") pageIndex:Int): Response<PagingModel>
+    suspend fun getMoviesPaging(@Query("page") pageIndex:Int): Response<PagingModel>
 
     @GET("api/v1/movies?page=1")
     suspend fun getFirstPageMovie(): Response<PagingModel>
@@ -19,11 +19,17 @@ interface MovieService {
     @GET("api/v1/movies/{movie-id}")
     suspend fun getSingleMovie(@Path("movie-id") movieId:Int):Response<NetworkMovieModel>
 
+    @GET("api/v1/genres")
+    suspend fun getAllGenres():Response<List<GenresModel>>
+
     @GET("api/v1/genres/{genre-id}/movies?page")
-    suspend fun getMovieByGenre(@Path("genre-id") genreId:Int): Response<PagingModel>
+    suspend fun getFirsPageMovieByGenre(@Path("genre-id") genreId:Int): Response<PagingModel>
+
+    @GET("api/v1/genres/{genre-id}/movies?page")
+    suspend fun getMovieByGenrePaging(@Path("genre-id") genreId:Int, @Query("page") pageIndex:Int): Response<PagingModel>
 
     @GET("api/v1/movies?")
-    suspend fun getMoviesPageByName(@Query("q") movieName:String, @Query("page") pageIndex:Int): Response<PagingModel>
+    suspend fun getMoviesPagingByName(@Query("q") movieName:String, @Query("page") pageIndex:Int): Response<PagingModel>
 
     @POST("api/v1/movies")
     suspend fun pushMovies(@Body movie:UploadMovieModel): Response<UploadMovieModel>
@@ -51,6 +57,8 @@ interface MovieService {
 
     @GET("api/user")
     suspend fun getUserInfo():Response<UserRegisteredModel>
+
+
 
 
 

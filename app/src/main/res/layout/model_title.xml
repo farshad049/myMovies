@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#00000000"
+    app:cardBackgroundColor="?colorPrimary"
+    android:layout_marginVertical="2dp"
     >
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -16,12 +17,12 @@
         android:id="@+id/tvHeaderTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="2dp"
         android:textColor="?colorSecondaryVariant"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="italic"
         tools:text="header title"
-
+        android:paddingStart="8dp"
         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

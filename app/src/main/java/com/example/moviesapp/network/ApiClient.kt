@@ -1,9 +1,7 @@
 package com.example.moviesapp.network
 
 import com.example.moviesapp.model.network.*
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.Response
 
 
@@ -12,20 +10,28 @@ class ApiClient (private val movieService:MovieService){
         return safeApiCall { movieService.getSingleMovie(movieId) }
     }
 
-    suspend fun getMoviesPage(pageIndex:Int): SimpleResponse<PagingModel> {
-        return safeApiCall { movieService.getMoviesPage(pageIndex) }
+    suspend fun getMoviesPaging(pageIndex:Int): SimpleResponse<PagingModel> {
+        return safeApiCall { movieService.getMoviesPaging(pageIndex) }
     }
 
     suspend fun getFirstMoviePage(): SimpleResponse<PagingModel> {
         return safeApiCall { movieService.getFirstPageMovie() }
     }
 
-    suspend fun getMovieByGenre(genreId: Int): SimpleResponse<PagingModel> {
-        return safeApiCall { movieService.getMovieByGenre(genreId) }
+    suspend fun getAllGenres(): SimpleResponse<List<GenresModel>> {
+        return safeApiCall { movieService.getAllGenres() }
     }
 
-    suspend fun getMoviesPageByName(movieName:String ,pageIndex:Int ): SimpleResponse<PagingModel> {
-        return safeApiCall { movieService.getMoviesPageByName(movieName,pageIndex) }
+    suspend fun getFirstPageMovieByGenre(genreId: Int): SimpleResponse<PagingModel> {
+        return safeApiCall { movieService.getFirsPageMovieByGenre(genreId) }
+    }
+
+    suspend fun getMovieByGenrePaging(genreId: Int, pageIndex:Int): SimpleResponse<PagingModel> {
+        return safeApiCall { movieService.getMovieByGenrePaging(genreId,pageIndex) }
+    }
+
+    suspend fun getMoviesPagingByName(movieName:String, pageIndex:Int ): SimpleResponse<PagingModel> {
+        return safeApiCall { movieService.getMoviesPagingByName(movieName,pageIndex) }
     }
 
     suspend fun pushMovie(movie:UploadMovieModel): SimpleResponse<UploadMovieModel> {

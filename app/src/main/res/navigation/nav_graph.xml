@@ -5,11 +5,35 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/dashboardFragment">
 
+
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.moviesapp.ui.dashboard.DashboardFragment"
         android:label="DashboardFragment"
-        tools:layout="@layout/fragment_dashboard"/>
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_movieListByGenre"
+            app:destination="@id/movieListByGenre" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/movieListByGenre"
+        android:name="com.example.moviesapp.ui.movieListByGenre.MovieListByGenre"
+        android:label="MovieListByGenre"
+        tools:layout="@layout/fragment_movie_list_by_genre">
+        <argument
+            android:name="genreId"
+            android:defaultValue="-1"
+            app:argType="integer"
+            />
+        <argument
+            android:name="genreName"
+            android:defaultValue="no genre"
+            app:argType="string"
+            />
+    </fragment>
+
 
     <fragment
         android:id="@+id/movieList"
@@ -21,6 +45,7 @@
             app:destination="@id/filterFragment" />
 
     </fragment>
+
 
     <fragment
         android:id="@+id/moviesDetailFragment"
@@ -34,17 +59,20 @@
             />
     </fragment>
 
+
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.moviesapp.ui.search.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search"/>
 
+
     <fragment
         android:id="@+id/submitMovie"
         android:name="com.example.moviesapp.ui.SubmitMovieFragment"
         android:label="SubmitMovie"
         tools:layout="@layout/fragment_submit_movie"/>
+
 
     <fragment
         android:id="@+id/registerFragment"
@@ -69,6 +97,7 @@
             />
     </fragment>
 
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.moviesapp.ui.LoginFragment"
@@ -84,23 +113,12 @@
             app:popEnterAnim="@anim/slide_in_from_left"/>
     </fragment>
 
+
     <fragment
         android:id="@+id/userInfoFragment"
         android:name="com.example.moviesapp.ui.UserInfoFragment"
         android:label="UserInfoFragment"
         tools:layout="@layout/fragment_user_info"
-        >
-
-    </fragment>
-
-
-    <action
-        android:id="@+id/action_global_to_movieDetailFragment"
-        app:destination="@id/moviesDetailFragment"
-        app:enterAnim="@anim/slide_in_from_right"
-        app:exitAnim="@anim/slide_out_to_left"
-        app:popExitAnim="@anim/slide_out_to_right"
-        app:popEnterAnim="@anim/slide_in_from_left"
         />
 
 
@@ -113,8 +131,21 @@
             android:id="@+id/action_filterFragment_to_movieList"
             app:destination="@id/movieList" />
 
-
     </fragment>
+
+
+
+    <action
+        android:id="@+id/action_global_to_movieDetailFragment"
+        app:destination="@id/moviesDetailFragment"
+        app:enterAnim="@anim/slide_in_from_right"
+        app:exitAnim="@anim/slide_out_to_left"
+        app:popExitAnim="@anim/slide_out_to_right"
+        app:popEnterAnim="@anim/slide_in_from_left"
+        />
+
+
+
 
 
 

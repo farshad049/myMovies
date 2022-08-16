@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="ShapeAppearanceOverlay.App.CornerRound" parent="">
-        <item name="cornerSize">12dp</item>
+        <item name="cornerSize">7dp</item>
         <item name="cornerFamily">rounded</item>
     </style>
 

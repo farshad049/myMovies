@@ -32,14 +32,14 @@ class MovieViewModel @Inject constructor(
 
 
 
-    fun fetchMovie(movieId: Int){
+    fun getMovieById(movieId: Int){
         viewModelScope.launch {
             val response=repository.getMovieById(movieId)
             _movieByIdLiveData.postValue(response)
         }
     }
 
-    fun  fetchMovieByGenre(genreId: Int){
+    fun  getMovieByGenre(genreId: Int){
         viewModelScope.launch {
             val response=repository.getMovieByGenre(genreId)
             _movieByGenreLiveData.postValue(response)

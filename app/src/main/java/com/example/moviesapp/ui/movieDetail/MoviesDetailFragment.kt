@@ -35,7 +35,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
 
 
         showProgressBar()
-        viewModel.fetchMovie(safeArg.movieId)
+        viewModel.getMovieById(safeArg.movieId)
         viewModel.movieByIdLiveData.observe(viewLifecycleOwner){movieById->
             dismissProgressBar()
             binding.ivMovie.load(movieById?.poster)
@@ -53,7 +53,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
 
             val genreId =genreNameToId(movieById?.genres?.component1())
 
-            viewModel.fetchMovieByGenre(genreId)
+            viewModel.getMovieByGenre(genreId)
             viewModel.movieByGenreLiveData.observe(viewLifecycleOwner){movieByGenre->
 
 
@@ -103,16 +103,15 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
             "Comedy" -> 9
             "Sci-Fi" -> 10
             "Mystery" -> 11
-            "Mystery" -> 12
-            "Thriller" -> 13
-            "War" -> 14
-            "Animation" -> 15
-            "Romance" -> 16
-            "Horror" -> 17
-            "Music" -> 18
-            "Film-Noir" -> 19
-            "Musical" -> 20
-            "Sport" ->21
+            "Thriller" -> 12
+            "War" -> 13
+            "Animation" -> 14
+            "Romance" -> 15
+            "Horror" -> 16
+            "Music" -> 17
+            "Film-Noir" -> 18
+            "Musical" -> 19
+            "Sport" ->20
             else -> 0
         }
     }

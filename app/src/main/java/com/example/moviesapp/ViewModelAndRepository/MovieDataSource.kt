@@ -15,7 +15,7 @@ class MovieDataSource@Inject constructor(private val apiClient: ApiClient, priva
         val previewPage= if (pageNumber ==1 ) null else pageNumber -1
 
 
-        val request=apiClient.getMoviesPage(pageNumber)
+        val request=apiClient.getMoviesPaging(pageNumber)
 
         //when !pageRequest.isSuccessful do this
         request.exception?.let {

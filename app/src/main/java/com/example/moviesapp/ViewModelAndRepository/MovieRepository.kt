@@ -37,7 +37,7 @@ class MovieRepository @Inject constructor(
             return cachedSimilarMovie
         }
 
-        val response = apiClient.getMovieByGenre(genreId)
+        val response = apiClient.getFirstPageMovieByGenre(genreId)
         if (!response.isSuccessful) {
             return emptyList()
         }
@@ -56,6 +56,9 @@ class MovieRepository @Inject constructor(
         }
         return response.body
     }
+
+
+
 
 
 
