@@ -132,14 +132,15 @@ class DashboardEpoxyController(
                 10 -> R.drawable.sci_fi
                 11 -> R.drawable.mystery
                 12 -> R.drawable.thriller
-                13 -> R.drawable.war
-                14 -> R.drawable.animation
-                15 -> R.drawable.romance
-                16 -> R.drawable.horror
-                17 -> R.drawable.music
-                18 -> R.drawable.film_noir
-                19 -> R.drawable.musical
-                20 -> R.drawable.sport
+                13 -> R.drawable.family
+                14 -> R.drawable.war
+                15 -> R.drawable.animation
+                16 -> R.drawable.romance
+                17 -> R.drawable.horror
+                18 -> R.drawable.music
+                19 -> R.drawable.film_noir
+                20 -> R.drawable.musical
+                21 -> R.drawable.sport
                 else -> R.drawable.sport
             }
 

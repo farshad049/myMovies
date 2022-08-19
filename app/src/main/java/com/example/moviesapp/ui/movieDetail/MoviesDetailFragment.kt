@@ -104,14 +104,15 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
             "Sci-Fi" -> 10
             "Mystery" -> 11
             "Thriller" -> 12
-            "War" -> 13
-            "Animation" -> 14
-            "Romance" -> 15
-            "Horror" -> 16
-            "Music" -> 17
-            "Film-Noir" -> 18
-            "Musical" -> 19
-            "Sport" ->20
+            "Family" -> 13
+            "War" -> 14
+            "Animation" -> 15
+            "Romance" -> 16
+            "Horror" -> 17
+            "Music" -> 18
+            "Film-Noir" -> 19
+            "Musical" -> 20
+            "Sport" ->21
             else -> 0
         }
     }
