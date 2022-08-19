@@ -1,18 +1,22 @@
 package com.example.moviesapp.ui.submitMovie
 
 import android.Manifest
+import android.R.attr.bitmap
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +32,11 @@ import com.permissionx.guolindev.PermissionX
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
@@ -44,6 +52,8 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentSubmitBase64Binding.bind(view)
+
+        (activity as AppCompatActivity).supportActionBar
 
         binding.ivPoster.setOnClickListener {
             choosePhotoFromGallery()
@@ -116,13 +126,18 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
 
 
 
-                    viewModel.pushMovie(
-                      post
-                    )
+//                    viewModel.pushMovie(
+//                      post
+//                    )
 //
 //                    viewModel.pushMovieLiveData.observe(viewLifecycleOwner){pusheddata->
 //                        Log.i("taghi",pusheddata.toString())
 //                    }
+
+                lifecycleScope.launch{
+                    val a=    movieService.pushMovies(post)
+                    Log.i("uploaded", a.body().toString())
+                   }
 
 
 
@@ -176,8 +191,6 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
                     lifecycleScope.launch {
                         currentImageUri = data?.data
                         binding.ivPoster.load(data?.data)
-                        //path= RealPathUtil.getRealPath(requireContext(),data?.data)
-                        //val bitmap: Bitmap = path as Bitmap
                         val bitmap = convertUriToBitmap(data?.data!!)
                         path= convertBitmapTOBase64(bitmap)
                         dismissProgressBar()
@@ -186,6 +199,7 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
             Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
           }
         }
+
 
     private fun convertUriToBitmap(uri:Uri):Bitmap{
         return if (Build.VERSION.SDK_INT < 28) {
@@ -198,10 +212,33 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
 
     private fun convertBitmapTOBase64(bitmap:Bitmap):String{
         val stream= ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG,50,stream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
         val image= stream.toByteArray()
         return Base64.encodeToString(image,Base64.DEFAULT)
     }
+
+
+//    private fun setupActionBar() {
+//
+//        (activity as AppCompatActivity).supportActionBar
+//
+//        val actionBar = supportActionBar
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true)
+//            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24dp)
+//        }
+//
+//        toolbar_register_activity.setNavigationOnClickListener { onBackPressed() }
+//    }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -11,8 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
-    private val repository: DashboardRepository,
-    private val movieDataSource: MovieDataSource,
+    private val repository: DashboardRepository
 ) : ViewModel() {
 
     private val _firstPageMovieLiveData= MutableLiveData<List<DomainMovieModel?>>()
@@ -42,9 +41,9 @@ class DashboardViewModel @Inject constructor(
             var topMovies: List<DomainMovieModel?>? = emptyList()
             var genresList: List<GenresModel?>? = emptyList()
             init {
-                addSource(firstPageMovieLiveData) { yek ->
-                    this.topMovies = yek
-                    genresList?.let { value = yek to it }
+                addSource(firstPageMovieLiveData) { top ->
+                    this.topMovies = top
+                    genresList?.let { value = top to it }
                 }
                 addSource(allGenresMovieLiveData) { genre ->
                     this.genresList = genre

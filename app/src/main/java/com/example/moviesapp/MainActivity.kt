@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
+import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
 import com.example.moviesapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,8 +26,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val viewModel: MovieViewModel by lazy {
-        ViewModelProvider(this)[MovieViewModel::class.java]
+
+    private val viewModel: DashboardViewModel by lazy {
+        ViewModelProvider(this)[DashboardViewModel::class.java]
     }
 
 

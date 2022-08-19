@@ -34,7 +34,7 @@ class MovieListFragment:BaseFragment (R.layout.fragment_movie_list) {
 
 
 
-        binding.btnFilter1.setOnClickListener {
+        binding.rootFilterClick.setOnClickListener {
             findNavController().navigate(MovieListFragmentDirections.actionMovieListToFilterFragment())
         }
 

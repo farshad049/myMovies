@@ -9,8 +9,8 @@
         app:showAsAction="always"
         />
     <item
-        android:id="@+id/searchFragment"
-        android:icon="@drawable/ic_round_search_24"
+        android:id="@+id/movieList"
+        android:icon="@drawable/ic_round_local_movies_24"
         android:orderInCategory="2"
         android:title=""
         app:showAsAction="always"

@@ -19,7 +19,6 @@ class DashboardFragment:BaseFragment(R.layout.fragment_dashboard),OnClickInterfa
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
     private val dashboardViewModel: DashboardViewModel by viewModels()
-    private val movieViewModel: MovieViewModel by viewModels()
     private val controller= DashboardEpoxyController( this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,22 +27,20 @@ class DashboardFragment:BaseFragment(R.layout.fragment_dashboard),OnClickInterfa
 
         binding.epoxyRecyclerView.setController(controller)
 
+
         dashboardViewModel.getFirstPageMovie()
         dashboardViewModel.getAllGenres()
 
+
+        binding.rootSearchClick.setOnClickListener {
+            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToSearchFragment())
+        }
 
 
 
         dashboardViewModel.topAndGenresLiveData.observe(viewLifecycleOwner){(top,genre)->
            controller.setData(top,genre)
         }
-
-
-
-
-
-
-
 
 
 

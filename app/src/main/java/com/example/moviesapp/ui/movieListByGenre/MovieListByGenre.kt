@@ -10,7 +10,6 @@ import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.movieListByGenre.MovieByGenreViewModel
-import com.example.moviesapp.ViewModelAndRepository.search.SearchViewModel
 import com.example.moviesapp.databinding.FragmentMovieListByGenreBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -29,27 +28,23 @@ class MovieListByGenre:BaseFragment(R.layout.fragment_movie_list_by_genre) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentMovieListByGenreBinding.bind(view)
 
-        showProgressBar()
-
         val controller=MovieListByGenreController(::onMovieClick,safeArg.genreName)
 
-        binding.epoxyRecyclerView.setController(controller)
 
-        viewModel.submitQuery(safeArg.genreId)
+        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
 
-
-
-        lifecycleScope.launch{
-            viewModel.movieByGenreFlow.collectLatest {data->
-                dismissProgressBar()
-                controller.submitData(data)
-            }
+        //if the value is not what has been defaulted in nav_graph, then run this code
+        if (safeArg.genreId != -1){
+            viewModel.submitQuery(safeArg.genreId)
         }
 
 
 
-
-
+        lifecycleScope.launchWhenStarted{
+            viewModel.movieByGenreFlow.collectLatest {data->
+                controller.submitData(data)
+            }
+        }
 
 
 

@@ -6,19 +6,58 @@
     android:layout_height="match_parent"
     android:background="?background">
 
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnFilter1"
-        android:layout_width="48dp"
-        android:layout_height="36dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:icon="@drawable/ic_round_filter_list_24"
-        app:iconGravity="textEnd"
-        app:iconSize="40dp"
+        android:clickable="true"
+        android:clipChildren="false"
+        app:cardBackgroundColor="?background"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="?colorPrimary"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootFilterClick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/linier_background">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTopRatedMovies"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Top Rated Movies"
+                android:textColor="?colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnSearch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSearch"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/ic_round_filter_list_24"
+                app:layout_constraintBottom_toBottomOf="@id/tvTopRatedMovies"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTopRatedMovies"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/epoxyRecyclerView"
@@ -28,7 +67,7 @@
         android:orientation="vertical"
         app:itemSpacing="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/btnFilter1"
+        app:layout_constraintTop_toBottomOf="@id/cardHeader"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/model_movie_list_item" />
 

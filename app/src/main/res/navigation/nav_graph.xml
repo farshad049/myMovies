@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_movieListByGenre"
             app:destination="@id/movieListByGenre" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
 
