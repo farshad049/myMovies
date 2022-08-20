@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
@@ -20,7 +21,9 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
         app:strokeColor="?colorOnSurface"
         app:strokeWidth="1dp"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        tools:src="@tools:sample/backgrounds/scenic"
+        android:background="?colorPrimary"
+        />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progressImage"

@@ -17,7 +17,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
-        tools:src="@tools:sample/avatars[2]" />
+        tools:src="@tools:sample/avatars[2]"
+        app:strokeWidth="1dp"
+        app:strokeColor="?colorOnSurface"/>
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progressImage"
