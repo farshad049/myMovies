@@ -112,27 +112,6 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
                     poster = path
                 )
 
-//                val file= File(currentImageUri?.path)
-//                lifecycleScope.launch {
-//                    val response=movieService.pushMoviesMulti(
-//                        poster=file.asRequestBody("image/*".toMediaTypeOrNull()),
-//                        title = title.toRequestBody("text/plain".toMediaTypeOrNull()),
-//                        imdb_id = imdbId.toRequestBody("text/plain".toMediaTypeOrNull()),
-//                        country = country.toRequestBody("text/plain".toMediaTypeOrNull()),
-//                        year = year.toRequestBody("text/plain".toMediaTypeOrNull()),
-//                        )
-//                    Log.i("submit",response.body().toString())
-//                }
-
-
-
-//                    viewModel.pushMovie(
-//                      post
-//                    )
-//
-//                    viewModel.pushMovieLiveData.observe(viewLifecycleOwner){pusheddata->
-//                        Log.i("taghi",pusheddata.toString())
-//                    }
 
                 lifecycleScope.launch{
                     val a=    movieService.pushMovies(post)
