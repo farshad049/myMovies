@@ -36,7 +36,8 @@ interface MovieService {
 
     @Multipart
     @POST("api/v1/movies/multi")
-    suspend fun pushMoviesMulti(@Part ("poster") poster: RequestBody,
+    suspend fun pushMoviesMulti(
+        @Part ("poster") poster: MultipartBody.Part,
                                 @Part ("title") title:RequestBody,
                                 @Part ("imdb_id") imdb_id:RequestBody,
                                 @Part ("country") country:RequestBody,

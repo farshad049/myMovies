@@ -49,13 +49,21 @@ class MovieRepository @Inject constructor(
     }
 
 
-    suspend fun pushMovie(movie:UploadMovieModel):UploadMovieModel?{
-        val response= apiClient.pushMovie(movie)
+    suspend fun pushMovieBase64(movie:UploadMovieModel):UploadMovieModel?{
+        val response= apiClient.pushMovieBase64(movie)
         if (!response.isSuccessful){
             return null
         }
         return response.body
     }
+
+//    suspend fun pushMovieMultipart(movie:UploadMovieModel):UploadMovieModel?{
+//        val response= apiClient.pushMovieMulti(movie)
+//        if (!response.isSuccessful){
+//            return null
+//        }
+//        return response.body
+//    }
 
 
 

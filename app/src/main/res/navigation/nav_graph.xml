@@ -79,7 +79,6 @@
             android:id="@+id/action_submit_to_moviesDetailFragment"
             app:destination="@id/moviesDetailFragment"
             app:popUpTo="@id/dashboardFragment"
-            app:popUpToInclusive="true"
             />
     </fragment>
 

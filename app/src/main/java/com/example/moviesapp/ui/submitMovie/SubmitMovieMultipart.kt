@@ -10,30 +10,44 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitMultipartBinding
-import com.example.moviesapp.model.network.UploadMovieModel
+import com.example.moviesapp.network.MovieService
+import com.example.moviesapp.util.RealPathUtil
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.net.URI
+import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
+
+    @Inject lateinit var movieService: MovieService
+
     private var _binding: FragmentSubmitMultipartBinding? = null
     private val binding get() = _binding!!
-    private var currentImageUri: Uri? = null
-    private val imageFile: File? = null
+    private lateinit var imageFile:File
     private var path:String=""
     private val viewModel: MovieViewModel by viewModels()
 
@@ -88,30 +102,47 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
 
             else -> {
 
-                val post= UploadMovieModel(
-                    title = title,
-                    imdb_id = imdbId,
-                    country = country,
-                    year = year.toInt(),
-                    poster = "data:image/jpeg;base64,$path"
-                )
 
-                showProgressBar()
-                viewModel.pushMovie(post)
 
-                viewModel.pushMovieLiveData.observe(viewLifecycleOwner){uploadedMovie->
-                    if (uploadedMovie != null){
-                        dismissProgressBar()
-                        findNavController().navigate(SubmitDirections.actionSubmitToMoviesDetailFragment(uploadedMovie.id))
-                    }else{
-                        Snackbar.make(mainActivity.findViewById(android.R.id.content),"Oops!! ,something went wrong", Snackbar.LENGTH_LONG).show()
-                    }
+                val titleBody : RequestBody = title.toRequestBody()
+                val imdbIdBody : RequestBody = imdbId.toRequestBody()
+                val yearBody : RequestBody = year.toRequestBody()
+                val countryBody : RequestBody = country.toRequestBody()
+
+              //  val f :ResponseBody = imageFile.asRequestBody(MediaType.parse("image/*"), imageFile)
+
+
+
+//                val fileBody = imageFile.asRequestBody(imageFile.extension.toMediaTypeOrNull())
+//
+//                val filePart = fileBody.let {
+//                    MultipartBody.Part.createFormData(
+//                        "blob", imageFile.name, it
+//                    )
+//                }
+
+
+
+                lifecycleScope.launch{
+                    val a=   movieService.pushMoviesMulti(
+                           poster = filePart,
+                           title = titleBody,
+                           imdb_id = imdbIdBody,
+                           year = yearBody,
+                           country = countryBody
+                       )
+                    Log.i("test",a.body().toString())
                 }
+
+
+
 
             }
 
         }
     }
+
+
 
 
     private fun choosePhotoFromGallery() {
@@ -156,10 +187,9 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
             if (resultCode == Activity.RESULT_OK) {
                 showProgressBar()
                 lifecycleScope.launch {
-                    currentImageUri = data?.data
                     binding.ivPoster.load(data?.data)
-                    val bitmap = convertUriToBitmap(data?.data!!)
-                    path= convertBitmapTOBase64(bitmap)
+
+
                     dismissProgressBar()
                 }
             }  else {
@@ -182,6 +212,16 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
         val image= stream.toByteArray()
         return Base64.encodeToString(image, Base64.DEFAULT)
+    }
+
+
+    private fun file1(uri:Uri,path:String){
+        var body: MultipartBody.Part? = null
+        if (!path.equals("", ignoreCase = true)) {
+            val file = File(path)
+            val reqFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+            body = MultipartBody.Part.createFormData("profile_picture", file.name, reqFile)
+        }
     }
 
 
