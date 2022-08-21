@@ -22,6 +22,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+
     @Provides
     @Singleton
     fun providesRetrofit (okHttpClient: OkHttpClient): Retrofit {
@@ -32,6 +33,7 @@ object NetworkModule {
             .build()
     }
 
+
     @Provides
     @Singleton
     fun providesOkHttpClient(interceptor: AuthInterceptor, authAuthenticator: AuthAuthenticator): OkHttpClient {
@@ -40,7 +42,7 @@ object NetworkModule {
             .connectTimeout(duration)
             .readTimeout(duration)
             .writeTimeout(duration)
-            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BASIC) })
+            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
 
             .addInterceptor(
             ChuckerInterceptor.Builder(MoviesApplication.context)
@@ -56,6 +58,7 @@ object NetworkModule {
 
             .build()
     }
+
 
     @Provides
     @Singleton

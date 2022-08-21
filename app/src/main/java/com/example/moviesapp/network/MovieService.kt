@@ -1,11 +1,8 @@
 package com.example.moviesapp.network
 
-import android.media.session.MediaSession
 import com.example.moviesapp.model.network.*
-import com.squareup.moshi.JsonReader
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -37,7 +34,7 @@ interface MovieService {
     @Multipart
     @POST("api/v1/movies/multi")
     suspend fun pushMoviesMulti(
-        @Part ("poster") poster: MultipartBody.Part,
+                                @Part poster: MultipartBody.Part?,
                                 @Part ("title") title:RequestBody,
                                 @Part ("imdb_id") imdb_id:RequestBody,
                                 @Part ("country") country:RequestBody,

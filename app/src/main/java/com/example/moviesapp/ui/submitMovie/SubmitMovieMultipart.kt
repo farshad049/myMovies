@@ -28,7 +28,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -36,7 +35,6 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.net.URI
 import javax.inject.Inject
 
 
@@ -47,9 +45,8 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
 
     private var _binding: FragmentSubmitMultipartBinding? = null
     private val binding get() = _binding!!
-    private lateinit var imageFile:File
-    private var path:String=""
     private val viewModel: MovieViewModel by viewModels()
+    private var imageRequestBody: MultipartBody.Part? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -109,23 +106,11 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
                 val yearBody : RequestBody = year.toRequestBody()
                 val countryBody : RequestBody = country.toRequestBody()
 
-              //  val f :ResponseBody = imageFile.asRequestBody(MediaType.parse("image/*"), imageFile)
-
-
-
-//                val fileBody = imageFile.asRequestBody(imageFile.extension.toMediaTypeOrNull())
-//
-//                val filePart = fileBody.let {
-//                    MultipartBody.Part.createFormData(
-//                        "blob", imageFile.name, it
-//                    )
-//                }
-
 
 
                 lifecycleScope.launch{
                     val a=   movieService.pushMoviesMulti(
-                           poster = filePart,
+                           poster = imageRequestBody,
                            title = titleBody,
                            imdb_id = imdbIdBody,
                            year = yearBody,
@@ -188,8 +173,8 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
                 showProgressBar()
                 lifecycleScope.launch {
                     binding.ivPoster.load(data?.data)
-
-
+                    val imageRealPath =RealPathUtil.getRealPath(requireContext(),data?.data)
+                    imageRequestBody=convertImagePathToRequestBody(imageRealPath)
                     dismissProgressBar()
                 }
             }  else {
@@ -198,31 +183,23 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
         }
 
 
-    private fun convertUriToBitmap(uri:Uri): Bitmap {
-        return if (Build.VERSION.SDK_INT < 28) {
-            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-        } else {
-            val source= ImageDecoder.createSource(requireContext().contentResolver, uri)
-            ImageDecoder.decodeBitmap(source)
-        }
-    }
-
-    private fun convertBitmapTOBase64(bitmap: Bitmap):String{
-        val stream= ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
-        val image= stream.toByteArray()
-        return Base64.encodeToString(image, Base64.DEFAULT)
-    }
 
 
-    private fun file1(uri:Uri,path:String){
-        var body: MultipartBody.Part? = null
+
+    private fun convertImagePathToRequestBody(path:String):MultipartBody.Part?{
         if (!path.equals("", ignoreCase = true)) {
             val file = File(path)
-            val reqFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-            body = MultipartBody.Part.createFormData("profile_picture", file.name, reqFile)
+            val reqFile = file.asRequestBody("*/*".toMediaTypeOrNull())
+            imageRequestBody = MultipartBody.Part.createFormData("movie_poster", file.name, reqFile)
         }
+        return imageRequestBody
     }
+
+
+
+
+
+
 
 
 
