@@ -41,6 +41,18 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
             tools:src="@tools:sample/avatars[2]" />
 
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progressOnPoster"
+            style="?android:attr/progressBarStyleSmall"
+            android:indeterminateOnly="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivMovie"
+            app:layout_constraintEnd_toEndOf="@id/ivMovie"
+            app:layout_constraintStart_toStartOf="@id/ivMovie"
+            app:layout_constraintTop_toTopOf="@id/ivMovie" />
+
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/IMDB"
             android:layout_width="wrap_content"

@@ -17,7 +17,7 @@ class ViewPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0-> SubmitMovieBase64()
-            1-> SubmitMultipart()
+            1-> SubmitMovieMultipart()
             else-> Fragment()
         }
 

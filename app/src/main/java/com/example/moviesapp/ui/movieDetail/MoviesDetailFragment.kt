@@ -2,6 +2,8 @@ package com.example.moviesapp.ui.movieDetail
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -38,7 +40,14 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
         viewModel.getMovieById(safeArg.movieId)
         viewModel.movieByIdLiveData.observe(viewLifecycleOwner){movieById->
             dismissProgressBar()
-            binding.ivMovie.load(movieById?.poster)
+
+            binding.progressOnPoster.isVisible=true
+            binding.ivMovie.load(movieById?.poster){
+                listener { request, result ->
+                    binding.progressOnPoster.isGone=true
+                }
+            }
+
             binding.tvMovieName.text=movieById?.title
             binding.tvIMDB.text= movieById?.imdb_rating
             binding.tvYear.text= movieById?.year
@@ -50,16 +59,16 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
             binding.tvPlot.text= movieById?.plot
 
 
-
-            val genreId =genreNameToId(movieById?.genres?.component1())
-
-            viewModel.getMovieByGenre(genreId)
-            viewModel.movieByGenreLiveData.observe(viewLifecycleOwner){movieByGenre->
-
-
-                controller.setData(movieById,movieByGenre)
-                binding.imageEpoxyRecyclerView.setController(controller)
+            if (movieById?.genres?.isNotEmpty() == true){
+                val genreId =genreNameToId(movieById.genres.component1())
+                viewModel.getMovieByGenre(genreId)
+                viewModel.movieByGenreLiveData.observe(viewLifecycleOwner){movieByGenre->
+                    controller.setData(movieById,movieByGenre)
+                    binding.imageEpoxyRecyclerView.setController(controller)
+                }
             }
+
+
         }
 
 

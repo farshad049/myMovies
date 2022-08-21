@@ -10,11 +10,9 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,30 +21,25 @@ import coil.load
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
-import com.example.moviesapp.databinding.FragmentSubmitBase64Binding
+import com.example.moviesapp.databinding.FragmentSubmitMultipartBinding
 import com.example.moviesapp.model.network.UploadMovieModel
-import com.example.moviesapp.network.MovieService
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
-import javax.inject.Inject
+import java.io.File
 
-
-@AndroidEntryPoint
-class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
-
-    private var _binding: FragmentSubmitBase64Binding? = null
+class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
+    private var _binding: FragmentSubmitMultipartBinding? = null
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
+    private val imageFile: File? = null
     private var path:String=""
     private val viewModel: MovieViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding= FragmentSubmitBase64Binding.bind(view)
-
+        _binding= FragmentSubmitMultipartBinding.bind(view)
 
         binding.ivPoster.setOnClickListener {
             choosePhotoFromGallery()
@@ -55,8 +48,6 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
         binding.BtnSubmit.setOnClickListener {
             validateFields()
         }
-
-
 
 
 
@@ -97,7 +88,7 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
 
             else -> {
 
-                val post=UploadMovieModel(
+                val post= UploadMovieModel(
                     title = title,
                     imdb_id = imdbId,
                     country = country,
@@ -163,45 +154,35 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
             val resultCode = result.resultCode
             val data = result.data
             if (resultCode == Activity.RESULT_OK) {
-                    showProgressBar()
-                    lifecycleScope.launch {
-                        currentImageUri = data?.data
-                        binding.ivPoster.load(data?.data)
-                        val bitmap = convertUriToBitmap(data?.data!!)
-                        path= convertBitmapTOBase64(bitmap)
-                        dismissProgressBar()
-                    }
+                showProgressBar()
+                lifecycleScope.launch {
+                    currentImageUri = data?.data
+                    binding.ivPoster.load(data?.data)
+                    val bitmap = convertUriToBitmap(data?.data!!)
+                    path= convertBitmapTOBase64(bitmap)
+                    dismissProgressBar()
+                }
             }  else {
-            Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
-          }
+                Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
-    private fun convertUriToBitmap(uri:Uri):Bitmap{
+    private fun convertUriToBitmap(uri:Uri): Bitmap {
         return if (Build.VERSION.SDK_INT < 28) {
             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         } else {
-            val source=ImageDecoder.createSource(requireContext().contentResolver, uri)
+            val source= ImageDecoder.createSource(requireContext().contentResolver, uri)
             ImageDecoder.decodeBitmap(source)
         }
     }
 
-    private fun convertBitmapTOBase64(bitmap:Bitmap):String{
+    private fun convertBitmapTOBase64(bitmap: Bitmap):String{
         val stream= ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
         val image= stream.toByteArray()
-        return Base64.encodeToString(image,Base64.DEFAULT)
+        return Base64.encodeToString(image, Base64.DEFAULT)
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
