@@ -2,9 +2,11 @@ package com.example.moviesapp.ViewModelAndRepository
 
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.mapper.MovieMapper
-import com.example.moviesapp.model.network.UploadMovieModel
+import com.example.moviesapp.model.network.UploadMovieModelStringPoster
 import com.example.moviesapp.network.ApiClient
 import com.example.moviesapp.util.MovieCache
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
@@ -49,7 +51,7 @@ class MovieRepository @Inject constructor(
     }
 
 
-    suspend fun pushMovieBase64(movie:UploadMovieModel):UploadMovieModel?{
+    suspend fun pushMovieBase64(movie:UploadMovieModelStringPoster):UploadMovieModelStringPoster?{
         val response= apiClient.pushMovieBase64(movie)
         if (!response.isSuccessful){
             return null
@@ -57,13 +59,19 @@ class MovieRepository @Inject constructor(
         return response.body
     }
 
-//    suspend fun pushMovieMultipart(movie:UploadMovieModel):UploadMovieModel?{
-//        val response= apiClient.pushMovieMulti(movie)
-//        if (!response.isSuccessful){
-//            return null
-//        }
-//        return response.body
-//    }
+    suspend fun pushMovieMultipart(
+        poster: MultipartBody.Part?,
+        title: RequestBody,
+        imdb_id: RequestBody,
+        country: RequestBody,
+        year: RequestBody
+    ):UploadMovieModelStringPoster?{
+        val response= apiClient.pushMovieMulti(poster,title,imdb_id,country,year)
+        if (!response.isSuccessful){
+            return null
+        }
+        return response.body
+    }
 
 
 

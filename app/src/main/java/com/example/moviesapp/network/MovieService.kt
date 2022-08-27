@@ -6,6 +6,7 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
+
 interface MovieService {
     @GET("api/v1/movies?")
     suspend fun getMoviesPaging(@Query("page") pageIndex:Int): Response<PagingModel>
@@ -29,17 +30,17 @@ interface MovieService {
     suspend fun getMoviesPagingByName(@Query("q") movieName:String, @Query("page") pageIndex:Int): Response<PagingModel>
 
     @POST("api/v1/movies")
-    suspend fun pushMovies(@Body movie:UploadMovieModel): Response<UploadMovieModel>
+    suspend fun pushMovies(@Body movie:UploadMovieModelStringPoster): Response<UploadMovieModelStringPoster>
 
     @Multipart
     @POST("api/v1/movies/multi")
     suspend fun pushMoviesMulti(
-                                @Part poster: MultipartBody.Part?,
-                                @Part ("title") title:RequestBody,
-                                @Part ("imdb_id") imdb_id:RequestBody,
-                                @Part ("country") country:RequestBody,
-                                @Part ("year") year:RequestBody
-    ): Response<UploadMovieModel>
+                    @Part poster: MultipartBody.Part?,
+                    @Part ("title") title:RequestBody,
+                    @Part ("imdb_id") imdb_id:RequestBody,
+                    @Part ("country") country:RequestBody,
+                    @Part ("year") year:RequestBody,
+        ): Response<UploadMovieModelStringPoster>
 
 
     @POST("api/v1/register/")

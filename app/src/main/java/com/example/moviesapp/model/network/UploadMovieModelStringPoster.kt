@@ -1,6 +1,6 @@
 package com.example.moviesapp.model.network
 
-data class UploadMovieModel(
+data class UploadMovieModelStringPoster(
     val country: String,
     val director: String = "",
     val id: Int = 0,

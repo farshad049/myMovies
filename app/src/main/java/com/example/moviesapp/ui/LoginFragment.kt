@@ -13,6 +13,7 @@ import com.example.moviesapp.databinding.FragmentLoginBinding
 import com.example.moviesapp.network.MovieService
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject

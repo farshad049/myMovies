@@ -22,7 +22,7 @@ import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitBase64Binding
-import com.example.moviesapp.model.network.UploadMovieModel
+import com.example.moviesapp.model.network.UploadMovieModelStringPoster
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import dagger.hilt.android.AndroidEntryPoint
@@ -93,7 +93,7 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
 
             else -> {
 
-                val post=UploadMovieModel(
+                val movieForUpload=UploadMovieModelStringPoster(
                     title = title,
                     imdb_id = imdbId,
                     country = country,
@@ -102,13 +102,14 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
                 )
 
                 showProgressBar()
-                viewModel.pushMovieBase64(post)
+                viewModel.pushMovieBase64(movieForUpload)
 
                 viewModel.pushMovieBase64LiveData.observe(viewLifecycleOwner){ uploadedMovie->
                     if (uploadedMovie != null){
                         dismissProgressBar()
                         findNavController().navigate(SubmitDirections.actionSubmitToMoviesDetailFragment(uploadedMovie.id))
                     }else{
+                        dismissProgressBar()
                         Snackbar.make(mainActivity.findViewById(android.R.id.content),"Oops!! ,something went wrong", Snackbar.LENGTH_LONG).show()
                     }
                 }
