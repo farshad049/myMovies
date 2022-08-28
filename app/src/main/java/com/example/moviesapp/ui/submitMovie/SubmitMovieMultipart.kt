@@ -19,6 +19,7 @@ import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitMultipartBinding
 import com.example.moviesapp.network.MovieService
+import com.example.moviesapp.util.RealPathUtil
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +45,7 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
     private var _binding: FragmentSubmitMultipartBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MovieViewModel by viewModels()
-    private lateinit var imageRequestBody: MultipartBody.Part
+    private var imageRequestBody: MultipartBody.Part?= null
     private var currentImageUri: Uri? = null
     private var filePart: MultipartBody.Part? =null
 
@@ -106,21 +107,22 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
                 val yearBody : RequestBody = year.toRequestBody("text/plain".toMediaTypeOrNull())
                 val countryBody : RequestBody = country.toRequestBody("text/plain".toMediaTypeOrNull())
 
-                if (currentImageUri != null){
-                    val inputStream :InputStream= requireContext().contentResolver.openInputStream(currentImageUri!!)!!
-                    val outPutDir =context!!.cacheDir
-                    val outputFile =File.createTempFile("prefix",".jpg",outPutDir)
-                    val newFile = copyInputStreamToFile(inputStream,outputFile)
+//                if (currentImageUri != null){
+//                    val inputStream :InputStream= requireContext().contentResolver.openInputStream(currentImageUri!!)!!
+//                    val outPutDir =context!!.cacheDir
+//                    val outputFile =File.createTempFile("prefix",".jpg",outPutDir)
+//                    val newFile = copyInputStreamToFile(inputStream,outputFile)
+//
+//                    val reqFile = newFile.asRequestBody("image/*".toMediaType())
+//
+//                    filePart= MultipartBody.Part.createFormData("poster", "poster.jpg", reqFile)
+//                }
 
-                    val reqFile = newFile.asRequestBody("image/*".toMediaType())
-
-                    filePart= MultipartBody.Part.createFormData("poster", "poster.jpg", reqFile)
-                }
 
 
                 showProgressBar()
                 viewModel.pushMovieMultipart(
-                    poster =filePart,
+                    poster =imageRequestBody,
                     title = titleBody,
                     imdb_id = imdbIdBody,
                     year = yearBody,
@@ -205,9 +207,8 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
                 lifecycleScope.launch {
                     binding.ivPoster.load(data?.data)
                     currentImageUri=data?.data
-
-//                    val imageRealPath =RealPathUtil.getRealPath(requireContext(),data?.data)
-//                    imageRequestBody=convertImagePathToRequestBody(imageRealPath)
+                    val imageRealPath = RealPathUtil.getRealPath(requireContext(),data?.data)
+                    imageRequestBody=convertImagePathToRequestBody(imageRealPath)
                     dismissProgressBar()
                 }
             }  else {
@@ -217,30 +218,30 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
 
 
 
-    //convert uri to file request body
-//    private fun convertImagePathToRequestBody(path:String):MultipartBody.Part{
-//        if (!path.equals("", ignoreCase = true)) {
-//            val file = File(path)
-//            val reqFile = file.asRequestBody("image/*".toMediaType())
-//            imageRequestBody = MultipartBody.Part.createFormData("movie_poster", file.name, reqFile)
-//        }
-//        return imageRequestBody
-//    }
-
-
-
-
-    @Throws(IOException::class)
-    private fun copyInputStreamToFile(inputStream: InputStream,file:File):File{
-        FileOutputStream(file,false).use { outputStream->
-            var read:Int
-            val bytes =ByteArray(DEFAULT_BUFFER_SIZE)
-            while (inputStream.read(bytes).also { read = it } != -1){
-                outputStream.write(bytes,0,read)
-            }
+   // convert uri to file request body
+    private fun convertImagePathToRequestBody(path:String): MultipartBody.Part? {
+        if (!path.equals("", ignoreCase = true)) {
+            val file = File(path)
+            val reqFile = file.asRequestBody("image/*".toMediaType())
+            imageRequestBody = MultipartBody.Part.createFormData("poster", file.name, reqFile)
         }
-        return file
+        return imageRequestBody
     }
+
+
+
+
+//    @Throws(IOException::class)
+//    private fun copyInputStreamToFile(inputStream: InputStream,file:File):File{
+//        FileOutputStream(file,false).use { outputStream->
+//            var read:Int
+//            val bytes =ByteArray(DEFAULT_BUFFER_SIZE)
+//            while (inputStream.read(bytes).also { read = it } != -1){
+//                outputStream.write(bytes,0,read)
+//            }
+//        }
+//        return file
+//    }
 
 
 
