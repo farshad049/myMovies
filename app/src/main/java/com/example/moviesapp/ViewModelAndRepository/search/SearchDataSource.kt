@@ -8,7 +8,7 @@ import com.example.moviesapp.network.ApiClient
 import javax.inject.Inject
 
 
-class SearchDataSource @Inject constructor(
+class SearchDataSource (
     private val apiClient: ApiClient,
     private val movieMapper: MovieMapper,
     private val userSearch:String,

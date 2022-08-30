@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:clickable="true"
-        android:clipChildren="false"
         app:cardBackgroundColor="?background"
         app:cardCornerRadius="5dp"
         app:cardElevation="12dp"
@@ -38,23 +37,11 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btnSearch"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-
+                android:drawableEnd="@drawable/ic_round_filter_list_24"
                 />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnSearch"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:background="@drawable/ic_round_filter_list_24"
-                app:layout_constraintBottom_toBottomOf="@id/tvTopRatedMovies"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvTopRatedMovies"
-
-                />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -69,7 +56,23 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/cardHeader"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/model_movie_list_item" />
+        tools:listitem="@layout/model_movie_list_item"
+        android:visibility="visible"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNothingFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cardHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Nothing Found !"
+        android:textSize="25sp"
+        android:textColor="?colorOnBackground"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

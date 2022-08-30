@@ -30,6 +30,7 @@ class SearchEpoxyController(
             LoadingEpoxyModel().id("loading3").addTo(this)
             return
         }
+
         super.addModels(models)
     }
 

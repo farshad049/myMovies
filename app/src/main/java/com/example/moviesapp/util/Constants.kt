@@ -1,6 +1,7 @@
 package com.example.moviesapp.util
 
 import com.example.moviesapp.model.domain.FilterModel
+import com.example.moviesapp.model.domain.FilterModel1
 
 object Constants {
     const val USER_TOKEN = "user_token"
@@ -10,4 +11,6 @@ object Constants {
     const val IS_LOGGED_IN = "is_logged_in"
 
     val appliedFilter=FilterModel()
+
+    //val filter1:FilterModel1 = FilterModel1()
 }

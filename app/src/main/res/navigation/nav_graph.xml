@@ -147,7 +147,7 @@
 
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.example.moviesapp.ui.FilterFragment"
+        android:name="com.example.moviesapp.ui.filter.FilterFragment"
         android:label="FilterFragment"
         tools:layout="@layout/fragment_filter">
         <action

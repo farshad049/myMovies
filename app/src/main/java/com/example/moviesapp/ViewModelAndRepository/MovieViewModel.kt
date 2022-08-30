@@ -8,8 +8,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.moviesapp.model.domain.DomainMovieModel
+import com.example.moviesapp.model.domain.FilterModel1
 import com.example.moviesapp.model.network.UploadMovieModelStringPoster
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -32,6 +34,9 @@ class MovieViewModel @Inject constructor(
 
     private val _pushMovieMultipartLiveData= MutableLiveData<UploadMovieModelStringPoster?>()
     val pushMovieMultipartLiveData: LiveData<UploadMovieModelStringPoster?> = _pushMovieMultipartLiveData
+
+    val filterLiveData= MutableLiveData<FilterModel1>()
+
 
 
 
@@ -79,6 +84,9 @@ class MovieViewModel @Inject constructor(
             enablePlaceholders = false
         )
     ) { movieDataSource }.flow.cachedIn(viewModelScope)
+
+
+
 
 
 
