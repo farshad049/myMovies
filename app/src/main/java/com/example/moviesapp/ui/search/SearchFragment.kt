@@ -68,9 +68,18 @@ class SearchFragment:BaseFragment(R.layout.fragment_search) {
 
         lifecycleScope.launch{
             viewModel.searchFlow.collectLatest {data->
+              //  controller.localException = null
                 controller.submitData(data)
             }
         }
+
+//        viewModel.localExceptionEventLiveData.observe(viewLifecycleOwner){
+//            //if getContent is not null then set the localException State from live data and set it to epoxy display
+//            it.getContent()?.let { localException->
+//                //handle displaying local exception
+//                controller.localException=localException
+//            }
+//        }
 
 
 

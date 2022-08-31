@@ -14,9 +14,9 @@ import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.example.moviesapp.databinding.FragmentMovieListBinding
-import com.example.moviesapp.util.Constants.appliedFilter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -28,9 +28,6 @@ class MovieListFragment:BaseFragment (R.layout.fragment_movie_list) {
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
     private val controller= MovieListEpoxyController( ::movieOnClick)
-    private val filter= appliedFilter
-    var filterSet:Set<String> = emptySet()
-
 
 
 
@@ -63,33 +60,26 @@ class MovieListFragment:BaseFragment (R.layout.fragment_movie_list) {
 
 
 
-                filterViewModel.store.stateFlow.map { it.productFilterInfo.selectedGenres }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){selectedFilters->
-                    val finalData=data.filter { toBeFilter->
-                        selectedFilters.all { toBeFilter.genres.contains(it) }
+
+
+                combine(
+                    filterViewModel.store.stateFlow.map { it.movieFilterByGenre.selectedGenres },
+                    filterViewModel.store.stateFlow.map { it.movieFilterByImdb.selectedImdbRate }
+                ){genreSelectedFilters , imdbRateSelectedGenre ->
+
+                    data.filter { toBeFilter->
+                        genreSelectedFilters.all { toBeFilter.genres.contains(it) } &&
+                                imdbRateSelectedGenre.all { toBeFilter.imdb_rating.toDouble() > it }
                     }
 
-
-
-//                        controller.addLoadStateListener {loadState->
-//                            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached){
-//                                Toast.makeText(requireContext(),"nothing found",Toast.LENGTH_LONG).show()
-//                                binding.tvNothingFound.isVisible = true
-//                                binding.epoxyRecyclerView.isVisible = false
-//                            }else{
-                               lifecycleScope.launch { controller.submitData(finalData)}
-//                                binding.tvNothingFound.isVisible = false
-//                                binding.epoxyRecyclerView.isVisible = true
-//                            }
-//
-//                        }
-
-
-
-
-
-
-
+                }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){dataForEpoxy->
+                    lifecycleScope.launch { controller.submitData(dataForEpoxy)}
                 }
+
+
+
+
+
 
 
             }
@@ -118,28 +108,6 @@ class MovieListFragment:BaseFragment (R.layout.fragment_movie_list) {
         findNavController().navigate(directions)
 
     }
-
-
-
-
-//    var choice = arrayOf("kotlin","java")
-//    var selected= booleanArrayOf(false,false)
-//    fun dialog2(){
-//
-//        var alertDialog=AlertDialog.Builder(requireContext())
-//        alertDialog.setTitle("Filter Option")
-//        alertDialog.setMultiChoiceItems(choice,selected){ dialogInterface:DialogInterface , postion:Int, check:Boolean ->
-//            if (check){
-//
-//            }else{
-//
-//            }
-//        }
-//        alertDialog.setPositiveButton("ok",null)
-//        alertDialog.setCancelable(false)
-//        alertDialog.show()
-//    }
-
 
 
 

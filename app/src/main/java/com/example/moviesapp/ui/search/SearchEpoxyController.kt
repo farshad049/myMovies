@@ -6,6 +6,8 @@ import coil.load
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.example.moviesapp.R
+import com.example.moviesapp.ViewModelAndRepository.search.SearchDataSource
+import com.example.moviesapp.databinding.ModelExeptionErrorBinding
 import com.example.moviesapp.databinding.ModelMovieListItemBinding
 import com.example.moviesapp.epoxy.LoadingEpoxyModel
 import com.example.moviesapp.epoxy.MovieListModel
@@ -16,6 +18,15 @@ class SearchEpoxyController(
     private val onMovieClick:(Int)-> Unit
 ):PagingDataEpoxyController<DomainMovieModel>() {
 
+//    var localException:SearchDataSource.LocalException?=null
+//        set(value) {
+//            field=value
+//            if (localException !=null){
+//                //if localException is not null .immediately run "addModels" block of code,otherwise it will run "buildItemModel"
+//                requestForcedModelBuild()
+//            }
+//        }
+
 
 
     override fun buildItemModel(currentPosition: Int, item: DomainMovieModel?): EpoxyModel<*> {
@@ -24,6 +35,12 @@ class SearchEpoxyController(
     }
 
     override fun addModels(models: List<EpoxyModel<*>>) {
+
+//        if (localException != null){
+//            //show error information
+//            LocalExceptionErrorEpoxyModel(localException!!).id("error_state").addTo(this)
+//            return
+//        }
 
 
         if (models.isEmpty()){
@@ -40,7 +57,18 @@ class SearchEpoxyController(
 
 
 
-
+//    data class LocalExceptionErrorEpoxyModel(val localException:SearchDataSource.LocalException)
+//        :ViewBindingKotlinModel<ModelExeptionErrorBinding>(R.layout.model_exeption_error){
+//        override fun ModelExeptionErrorBinding.bind() {
+//            tvErrorTitle.text=localException.title
+//            tvErrorDescription.text=localException.description
+//        }
+//        //let this to take whole span count
+//        override fun getSpanSize(totalSpanCount: Int, position: Int, itemCount: Int): Int {
+//            return totalSpanCount
+//        }
+//
+//    }
 
 
 

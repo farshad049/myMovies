@@ -1,6 +1,6 @@
-package com.example.moviesapp.model.domaind
+package com.example.moviesapp.model.ui
 
-data class UiFilter (
+data class UiGenreFilter (
     val filterDisplayName:String,
     val isSelected:Boolean
         )

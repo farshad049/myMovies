@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.NavGraphDirections
@@ -38,7 +39,7 @@ class DashboardFragment:BaseFragment(R.layout.fragment_dashboard),OnClickInterfa
 
 
 
-        dashboardViewModel.topAndGenresLiveData.observe(viewLifecycleOwner){(top,genre)->
+        dashboardViewModel.topAndGenresLiveData.distinctUntilChanged().observe(viewLifecycleOwner){(top,genre)->
            controller.setData(top,genre)
         }
 

@@ -12,16 +12,39 @@ class SearchDataSource (
     private val apiClient: ApiClient,
     private val movieMapper: MovieMapper,
     private val userSearch:String,
+   // private val localExceptionCallBack: (LocalException)->Unit
 )  :PagingSource<Int,DomainMovieModel>() {
+
+//    sealed class LocalException(val title:String, val description:String=""):Exception(){
+//        object EmptySearch :LocalException(title = "Start Typing To Search")
+//        object NoResult:LocalException(title = "whoops", description = "looks like your search didn't return any result")
+//    }
 
 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainMovieModel> {
 
+//        if (userSearch.isEmpty()) {
+//            val exception = LocalException.EmptySearch
+//            localExceptionCallBack(exception)
+//            return LoadResult.Error(exception)
+//        }
+
+
+
+
         val pageNumber = params.key ?: 1
         val previewPage= if (pageNumber ==1 ) null else pageNumber -1
 
         val request=apiClient.getMoviesPagingByName(userSearch,pageNumber)
+
+
+
+//        if (request.bodyNullable?.data?.isEmpty() == true) {
+//            val exception = LocalException.NoResult
+//            localExceptionCallBack(exception)
+//            return LoadResult.Error(exception)
+//        }
 
 
 

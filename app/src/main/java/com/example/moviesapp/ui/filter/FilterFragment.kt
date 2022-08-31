@@ -8,8 +8,11 @@ import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.example.moviesapp.databinding.FragmentFilterBinding
-import com.example.moviesapp.model.domaind.UiFilter
+import com.example.moviesapp.model.ui.FilterByGenreAndImdbRate
+import com.example.moviesapp.model.ui.UiGenreFilter
+import com.example.moviesapp.model.ui.UiImdbRateFilter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
@@ -18,7 +21,7 @@ class FilterFragment:BaseFragment(R.layout.fragment_filter) {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FilterViewModel by viewModels()
-    //private val filter=appliedFilter
+
 
 
 
@@ -28,74 +31,48 @@ class FilterFragment:BaseFragment(R.layout.fragment_filter) {
         _binding=FragmentFilterBinding.bind(view)
 
 
-//        binding.checkUk.isChecked=filter.country.contains("UK")
-//        binding.checkUs.isChecked=filter.country.contains("US")
-//        binding.checkGenresCrime.isChecked=filter.genres.contains("Crime")
-//        binding.checkGenresAction.isChecked=filter.genres.contains("Action")
-//        binding.checkGenresDrama.isChecked=filter.genres.contains("Drama")
-//
-//
-//
-//
-//
-//        binding.checkUk.setOnCheckedChangeListener { button, isCheck ->
-//            if (button.isChecked){
-//                filter.country.add("UK")
-//            }else{
-//                filter.country.remove("UK")
-//            }
-//        }
-//
-//        binding.checkUs.setOnCheckedChangeListener { button, isCheck ->
-//            if (button.isChecked){
-//                filter.country.add("US")
-//            }else{
-//                filter.country.remove("US")
-//            }
-//        }
-//
-//        binding.checkGenresCrime.setOnCheckedChangeListener { button, isCheck ->
-//            if (button.isChecked){
-//                filter.genres.add("Crime")
-//            }else{
-//                filter.genres.remove("Crime")
-//            }
-//        }
-//
-//        binding.checkGenresDrama.setOnCheckedChangeListener { button, isCheck ->
-//            if (button.isChecked){
-//                filter.genres.add("Drama")
-//            }else{
-//                filter.genres.remove("Drama")
-//            }
-//        }
-//
-//        binding.checkGenresAction.setOnCheckedChangeListener { button, isCheck ->
-//            if (button.isChecked){
-//                filter.genres.add("Action")
-//            }else{
-//                filter.genres.remove("Action")
-//            }
-//        }
-
-//        binding.btnFilter.setOnClickListener {
-//            findNavController().navigate(FilterFragmentDirections.actionFilterFragmentToMovieList())
-//        }
 
         val controller= FilterFragmentEpoxyController(viewModel)
 
         binding.epoxyRecyclerView.setController(controller)
 
-        viewModel.store.stateFlow.map { it.productFilterInfo }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){setOfGenresFilter->
+//        viewModel.store.stateFlow.map { it.movieFilterByGenre }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){ setOfGenresFilter->
+//
+//            val data=setOfGenresFilter.genres.map {
+//                UiFilter(
+//                    filterDisplayName = it,
+//                    isSelected = setOfGenresFilter.selectedGenres.contains(it)
+//                )
+//            }
+//
+//            controller.setData(data)
+//        }
 
-            val a=setOfGenresFilter.genres.map {
-                UiFilter(
-                    filterDisplayName = it,
-                    isSelected = setOfGenresFilter.selectedGenres.contains(it)
+
+        combine(
+            viewModel.store.stateFlow.map { it.movieFilterByGenre } ,
+            viewModel.store.stateFlow.map { it.movieFilterByImdb }
+        ) { setOfGenresFilter, setOfImdbFilter ->
+
+            val genreData = setOfGenresFilter.genres.map { genres ->
+                UiGenreFilter(
+                    filterDisplayName = genres,
+                    isSelected = setOfGenresFilter.selectedGenres.contains(genres)
                 )
             }
 
-            controller.setData(a)
+            val imdbData = setOfImdbFilter.imdbRate.map { imdbRate ->
+                UiImdbRateFilter(
+                    filterDisplayName = imdbRate,
+                    isSelected = setOfImdbFilter.selectedImdbRate.contains(imdbRate)
+
+                )
+            }
+
+            return@combine FilterByGenreAndImdbRate(genreData , imdbData)
+
+        }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){data->
+            controller.setData(data.filteredByGenreList, data.filteredByImdbList)
         }
 
 
