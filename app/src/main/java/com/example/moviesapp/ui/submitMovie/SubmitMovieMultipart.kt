@@ -2,23 +2,37 @@ package com.example.moviesapp.ui.submitMovie
 
 import android.Manifest
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.moviesapp.BaseFragment
+import com.example.moviesapp.MainActivity
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitMultipartBinding
 import com.example.moviesapp.network.MovieService
+import com.example.moviesapp.util.Constants
+import com.example.moviesapp.util.Constants.CHANNEL_ID
+import com.example.moviesapp.util.Constants.NOTIFICATION_ID_BIG_STYLE
 import com.example.moviesapp.util.RealPathUtil
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
@@ -31,9 +45,6 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
 import javax.inject.Inject
 
 
@@ -47,7 +58,8 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
     private val viewModel: MovieViewModel by viewModels()
     private var imageRequestBody: MultipartBody.Part?= null
     private var currentImageUri: Uri? = null
-    private var filePart: MultipartBody.Part? =null
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -132,7 +144,9 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
                 viewModel.pushMovieMultipartLiveData.observe(viewLifecycleOwner){uploadedMovie->
                     if (uploadedMovie != null){
                         dismissProgressBar()
+                        //i don't use global action because i want to customize app:popUpTo in nav_graph
                         findNavController().navigate(SubmitDirections.actionSubmitToMoviesDetailFragment(uploadedMovie.id))
+                        if (currentImageUri != null) showBigNotification(title) else showNotification(title)
                     }else{
                         dismissProgressBar()
                         Snackbar.make(mainActivity.findViewById(android.R.id.content),"Oops!! ,something went wrong", Snackbar.LENGTH_LONG).show()
@@ -231,6 +245,8 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
 
 
 
+
+
 //    @Throws(IOException::class)
 //    private fun copyInputStreamToFile(inputStream: InputStream,file:File):File{
 //        FileOutputStream(file,false).use { outputStream->
@@ -242,6 +258,99 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
 //        }
 //        return file
 //    }
+
+
+
+    private fun showNotification(title:String){
+        val intent = Intent(requireContext() , MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        val pendingIntent = PendingIntent.getActivity(requireContext() , 0 , intent , 0)
+
+        val builder = NotificationCompat.Builder(requireContext() , CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_round_local_movies_24)
+            .setContentTitle("Upload Status")
+            .setContentText("${title}\n Uploaded successfully !")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val channelName = "Upload Status"
+            val channelDescription = "${title}\n Uploaded successfully !"
+            val channelPriority = NotificationManager.IMPORTANCE_DEFAULT
+
+            val channel = NotificationChannel(CHANNEL_ID , channelName , channelPriority ).apply {
+                description = channelDescription
+            }
+
+            val notificationManager = mainActivity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        with(NotificationManagerCompat.from(requireContext())){
+            notify(Constants.NOTIFICATION_ID, builder.build())
+        }
+    }
+
+
+
+
+
+    private fun showBigNotification(title: String){
+        val intent = Intent(requireContext() , MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent = PendingIntent.getActivity(requireContext() , 0 , intent , 0)
+
+        val movieImage = NotificationCompat.BigPictureStyle()
+            .bigPicture(currentImageUri?.let { convertUriToBitmap(it) })
+            .setBigContentTitle("Upload Status")
+
+        val builder = NotificationCompat.Builder(requireContext() , CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_round_local_movies_24)
+            .setContentTitle("Upload Status")
+            .setContentText("${title}\n Uploaded successfully !")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setStyle(movieImage)
+            .setAutoCancel(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val channelName = "Upload Status"
+            val channelDescription = "${title}\n Uploaded successfully !"
+            val channelPriority = NotificationManager.IMPORTANCE_DEFAULT
+
+            val channel = NotificationChannel(CHANNEL_ID, channelName , channelPriority ).apply {
+                description = channelDescription
+            }
+
+            val notificationManager = mainActivity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        with(NotificationManagerCompat.from(requireContext())){
+            notify(NOTIFICATION_ID_BIG_STYLE , builder.build())
+        }
+    }
+
+
+
+
+
+    private fun convertUriToBitmap(uri:Uri): Bitmap {
+        return if (Build.VERSION.SDK_INT < 28) {
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+        } else {
+            val source= ImageDecoder.createSource(requireContext().contentResolver, uri)
+            ImageDecoder.decodeBitmap(source)
+        }
+    }
+
+
 
 
 

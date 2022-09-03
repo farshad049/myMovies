@@ -6,4 +6,9 @@ object Constants {
     const val PREFS_TOKEN_FILE = "prefs_token_file"
     const val BASE_URL = "https://moviesapi.ir/"
     const val IS_LOGGED_IN = "is_logged_in"
+
+    //FOR NOTIFICATION
+    val CHANNEL_ID = "channel_Id"
+    val NOTIFICATION_ID = 1
+    val NOTIFICATION_ID_BIG_STYLE = 2
 }

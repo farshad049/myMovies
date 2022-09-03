@@ -55,6 +55,7 @@
         android:name="com.example.moviesapp.ui.movieDetail.MoviesDetailFragment"
         android:label="MoviesDetailFragment"
         tools:layout="@layout/fragment_movies_detail">
+        <deepLink app:uri="https://moviesapi.ir/api/v1/movies/{movieId}"/>
         <argument
             android:name="movieId"
             android:defaultValue="-1"
