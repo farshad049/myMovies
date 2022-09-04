@@ -24,13 +24,10 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.MainActivity
-import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitBase64Binding
 import com.example.moviesapp.model.network.UploadMovieModelStringPoster
-import com.example.moviesapp.ui.movieDetail.MoviesDetailFragmentArgs
-import com.example.moviesapp.util.Constants
 import com.example.moviesapp.util.Constants.CHANNEL_ID
 import com.example.moviesapp.util.Constants.NOTIFICATION_ID
 import com.google.android.material.snackbar.Snackbar
@@ -120,7 +117,7 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
 
                 viewModel.pushMovieBase64LiveData.observe(viewLifecycleOwner){ uploadedMovie->
                     if (uploadedMovie != null){
-                        dismissProgressBar()
+                       dismissProgressBar()
                         //i don't use global action because i want to customize app:popUpTo in nav_graph
                         findNavController().navigate(SubmitDirections.actionSubmitToMoviesDetailFragment(uploadedMovie.id))
                         movieIdCallBack = uploadedMovie.id
@@ -211,23 +208,28 @@ class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
 
 
 
+
     private fun showNotification(title : String ){
-        val intent = Intent(requireContext() , MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
+        //I can use it if i want to sent the notification to main activity
 
-        val pendingIntent = PendingIntent.getActivity(requireContext() , 0 , intent , 0)
+//        val intent = Intent(requireContext() , MainActivity::class.java).apply {
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
+//       val pendingIntent = PendingIntent.getActivity(requireContext() , 0 , intent , 0)
 
-//        val a = Bundle()
-//        a.putInt("movieId", movieIdCallBack)
-//
-//
-//        val pendingIntent = NavDeepLinkBuilder(requireContext())
-//            .setComponentName(MainActivity::class.java)
-//            .setGraph(R.navigation.nav_graph)
-//            .setDestination(R.id.moviesDetailFragment)
-//            .setArguments(a)
-//            .createPendingIntent()
+        //put movie id like safe args, so the destination fragment will receive the movie id, remember the key "movieId" should be the same in nav_graph
+        val movieIdInNotification = Bundle()
+        movieIdInNotification.putInt("movieId", movieIdCallBack)
+        //make an intent to sent to destination fragment
+        val pendingIntent = NavDeepLinkBuilder(requireContext())
+            .setComponentName(MainActivity::class.java)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(R.id.moviesDetailFragment)
+            .setArguments(movieIdInNotification)
+            .createPendingIntent()
+
+
+
 
         val builder = NotificationCompat.Builder(requireContext() , CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_round_local_movies_24)

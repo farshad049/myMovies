@@ -22,6 +22,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.moviesapp.BaseFragment
@@ -58,6 +59,7 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
     private val viewModel: MovieViewModel by viewModels()
     private var imageRequestBody: MultipartBody.Part?= null
     private var currentImageUri: Uri? = null
+    private var movieIdCallBack:Int=0
 
 
 
@@ -147,6 +149,7 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
                         //i don't use global action because i want to customize app:popUpTo in nav_graph
                         findNavController().navigate(SubmitDirections.actionSubmitToMoviesDetailFragment(uploadedMovie.id))
                         if (currentImageUri != null) showBigNotification(title) else showNotification(title)
+                        movieIdCallBack = uploadedMovie.id
                     }else{
                         dismissProgressBar()
                         Snackbar.make(mainActivity.findViewById(android.R.id.content),"Oops!! ,something went wrong", Snackbar.LENGTH_LONG).show()
@@ -262,11 +265,21 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
 
 
     private fun showNotification(title:String){
-        val intent = Intent(requireContext() , MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
+//        val intent = Intent(requireContext() , MainActivity::class.java).apply {
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
+//
+//        val pendingIntent = PendingIntent.getActivity(requireContext() , 0 , intent , 0)
 
-        val pendingIntent = PendingIntent.getActivity(requireContext() , 0 , intent , 0)
+        val movieIdInNotification = Bundle()
+        movieIdInNotification.putInt("movieId", movieIdCallBack)
+
+        val pendingIntent = NavDeepLinkBuilder(requireContext())
+            .setComponentName(MainActivity::class.java)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(R.id.moviesDetailFragment)
+            .setArguments(movieIdInNotification)
+            .createPendingIntent()
 
         val builder = NotificationCompat.Builder(requireContext() , CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_round_local_movies_24)
@@ -300,10 +313,20 @@ class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
 
 
     private fun showBigNotification(title: String){
-        val intent = Intent(requireContext() , MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent = PendingIntent.getActivity(requireContext() , 0 , intent , 0)
+//        val intent = Intent(requireContext() , MainActivity::class.java).apply {
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
+//        val pendingIntent = PendingIntent.getActivity(requireContext() , 0 , intent , 0)
+
+        val movieIdInNotification = Bundle()
+        movieIdInNotification.putInt("movieId", movieIdCallBack)
+
+        val pendingIntent = NavDeepLinkBuilder(requireContext())
+            .setComponentName(MainActivity::class.java)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(R.id.moviesDetailFragment)
+            .setArguments(movieIdInNotification)
+            .createPendingIntent()
 
         val movieImage = NotificationCompat.BigPictureStyle()
             .bigPicture(currentImageUri?.let { convertUriToBitmap(it) })

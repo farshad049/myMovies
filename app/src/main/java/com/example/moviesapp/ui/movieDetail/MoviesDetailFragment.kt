@@ -25,13 +25,14 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
     private val viewModel:MovieViewModel by viewModels()
     private val safeArg:MoviesDetailFragmentArgs by navArgs()
 
-
     private var _binding: FragmentMoviesDetailBinding? = null
     private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentMoviesDetailBinding.bind(view)
+
+      //  val b = arguments?.getInt("movieId")
 
         val controller= MovieDetailEpoxyController(::onSimilarMovieClick)
 
