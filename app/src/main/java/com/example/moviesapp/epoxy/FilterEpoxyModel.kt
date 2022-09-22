@@ -12,7 +12,7 @@ data class FilterEpoxyModel(
     override fun ModelFilterBinding.bind() {
         tvFilterName.text=uiFilter.filterDisplayName
         root.setOnClickListener { onFilterClick(uiFilter.filterDisplayName) }
-        checkbox.isClickable=false
+        //checkbox.isClickable=false
         checkbox.isChecked = uiFilter.isSelected
 
     }

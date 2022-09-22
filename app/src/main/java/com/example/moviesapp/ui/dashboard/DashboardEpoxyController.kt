@@ -90,6 +90,7 @@ class DashboardEpoxyController(
         override fun ModelImageItemBinding.bind(){
             progressImage.isVisible=true
             imageView.load(imageUrl){
+                crossfade(500)
                 listener { request, result ->
                     progressImage.isGone=true
                 }
@@ -104,6 +105,7 @@ class DashboardEpoxyController(
         override fun ModelMovieThumbnailBinding.bind(){
             progressImage.isVisible=true
             ivMovie.load(item!!.poster){
+                crossfade(500)
                 listener { request, result ->
                     progressImage.isGone=true
                 }

@@ -1,11 +1,16 @@
 package com.example.moviesapp.ui.filter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import com.example.moviesapp.BaseFragment
+import com.example.moviesapp.MainActivity
 import com.example.moviesapp.R
+import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
 import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.example.moviesapp.databinding.FragmentFilterBinding
 import com.example.moviesapp.model.ui.FilterByGenreAndImdbRate
@@ -20,7 +25,11 @@ import kotlinx.coroutines.flow.map
 class FilterFragment:BaseFragment(R.layout.fragment_filter) {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: FilterViewModel by viewModels()
+    //private val viewModel: FilterViewModel by viewModels()
+    private val viewModel: FilterViewModel by lazy {
+        ViewModelProvider(mainActivity)[FilterViewModel::class.java]
+    }
+
 
 
 
@@ -29,7 +38,6 @@ class FilterFragment:BaseFragment(R.layout.fragment_filter) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding=FragmentFilterBinding.bind(view)
-
 
 
         val controller= FilterFragmentEpoxyController(viewModel)
@@ -49,9 +57,44 @@ class FilterFragment:BaseFragment(R.layout.fragment_filter) {
 //        }
 
 
+//        combine(
+//            viewModel.store.stateFlow.map { it.movieFilterByGenre } ,
+//            viewModel.store.stateFlow.map { it.movieFilterByImdb }
+//        ) { setOfGenresFilter, setOfImdbFilter ->
+//
+//            val genreData = setOfGenresFilter.genres.map { genres ->
+//                UiGenreFilter(
+//                    filterDisplayName = genres,
+//                    isSelected = setOfGenresFilter.selectedGenres.contains(genres)
+//                )
+//            }
+//
+//            val imdbData = setOfImdbFilter.imdbRate.map { imdbRate ->
+//                UiImdbRateFilter(
+//                    filterDisplayName = imdbRate,
+//                    isSelected = setOfImdbFilter.selectedImdbRate.contains(imdbRate)
+//
+//                )
+//            }
+//
+//            return@combine FilterByGenreAndImdbRate(genreData , imdbData)
+//
+//        }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){data->
+//            controller.setData(data.filteredByGenreList, data.filteredByImdbList)
+//        }
+
+
+
+
+
+        //viewModel.getFilterByGenreInfo()
+        //viewModel.getFilterByImdbRateInfo()
+
+        //viewModel.test()
+
         combine(
-            viewModel.store.stateFlow.map { it.movieFilterByGenre } ,
-            viewModel.store.stateFlow.map { it.movieFilterByImdb }
+            viewModel.filterByGenreInfo1LiveData ,
+            viewModel.filterByImdbRateInfo1LiveData
         ) { setOfGenresFilter, setOfImdbFilter ->
 
             val genreData = setOfGenresFilter.genres.map { genres ->
@@ -73,7 +116,10 @@ class FilterFragment:BaseFragment(R.layout.fragment_filter) {
 
         }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){data->
             controller.setData(data.filteredByGenreList, data.filteredByImdbList)
+            Log.i("test111" , data.filteredByGenreList.toString())
         }
+
+
 
 
 

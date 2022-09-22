@@ -4,6 +4,7 @@ package com.example.moviesapp.Authentication
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.example.moviesapp.MainActivity
 import com.example.moviesapp.MoviesApplication.Companion.context
 import com.example.moviesapp.model.network.UserAuthModel
@@ -36,6 +37,7 @@ class AuthAuthenticator @Inject constructor() : Authenticator {
             if (!newAccessToken.isSuccessful){
                 tokenManager.clearSharedPref()
                 val intent=Intent(context,MainActivity::class.java)
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             }
 

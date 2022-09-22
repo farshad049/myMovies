@@ -1,19 +1,22 @@
 package com.example.moviesapp.ui.dashboard
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
-import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
 import com.example.moviesapp.databinding.FragmentDashboardBinding
 import com.example.moviesapp.epoxy.OnClickInterface
+import com.example.moviesapp.model.ui.UiMovieAndGenre
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @AndroidEntryPoint
 class DashboardFragment:BaseFragment(R.layout.fragment_dashboard),OnClickInterface {
@@ -39,9 +42,26 @@ class DashboardFragment:BaseFragment(R.layout.fragment_dashboard),OnClickInterfa
 
 
 
-        dashboardViewModel.topAndGenresLiveData.distinctUntilChanged().observe(viewLifecycleOwner){(top,genre)->
-           controller.setData(top,genre)
+//        dashboardViewModel.topAndGenresLiveData.distinctUntilChanged().observe(viewLifecycleOwner){(top,genre)->
+//           controller.setData(top,genre)
+//        }
+
+        combine(
+            dashboardViewModel.firstPageMovieLiveData.asFlow() ,
+            dashboardViewModel.allGenresMovieLiveData.asFlow()
+        ){listOfMovie , listOfGenre ->
+                UiMovieAndGenre(
+                    movie = listOfMovie ,
+                    genre = listOfGenre
+                )
+
+        }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){
+            controller.setData(it.movie , it.genre)
         }
+
+
+
+
 
 
 
