@@ -4,6 +4,8 @@ package com.example.moviesapp.ui.movieList
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,6 +14,7 @@ import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
+import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
 import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.example.moviesapp.databinding.FragmentMovieListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,10 +27,16 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MovieListFragment:BaseFragment (R.layout.fragment_movie_list) {
     private val viewModel: MovieViewModel by viewModels()
-    private val filterViewModel: FilterViewModel by viewModels()
+    //private val filterViewModel: FilterViewModel by viewModels()
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
     private val controller= MovieListEpoxyController( ::movieOnClick)
+
+    private val filterViewModel: FilterViewModel by lazy {
+        ViewModelProvider(mainActivity)[FilterViewModel::class.java]
+    }
+
+
 
 
 
@@ -63,13 +72,13 @@ class MovieListFragment:BaseFragment (R.layout.fragment_movie_list) {
 
 
                 combine(
-                    filterViewModel.store.stateFlow.map { it.movieFilterByGenre.selectedGenres },
-                    filterViewModel.store.stateFlow.map { it.movieFilterByImdb.selectedImdbRate }
+                    filterViewModel.filterByGenreInfo1LiveData,
+                    filterViewModel.filterByImdbRateInfo1LiveData
                 ){genreSelectedFilters , imdbRateSelectedGenre ->
 
                     data.filter { toBeFilter->
-                        genreSelectedFilters.all { toBeFilter.genres.contains(it) } &&
-                                imdbRateSelectedGenre.all { toBeFilter.imdb_rating.toDouble() > it }
+                        genreSelectedFilters.selectedGenres.all { toBeFilter.genres.contains(it) } &&
+                                imdbRateSelectedGenre.selectedImdbRate.all { toBeFilter.imdb_rating.toDouble() > it }
                     }
 
                 }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){dataForEpoxy->
