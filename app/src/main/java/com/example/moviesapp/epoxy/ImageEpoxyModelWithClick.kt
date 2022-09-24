@@ -3,9 +3,6 @@ package com.example.moviesapp.epoxy
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import coil.load
-import coil.transform.CircleCropTransformation
-import com.commit451.coiltransformations.BlurTransformation
-import com.example.moviesapp.MoviesApplication.Companion.context
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ModelImageItemBinding
 

@@ -1,5 +1,6 @@
 package com.example.moviesapp.ViewModelAndRepository.filter
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.ui.FilterByGenreInfo1
@@ -12,17 +13,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class FilterViewModel @Inject constructor(
-    val store : Store<ApplicationState>,
-    val repository: FilterRepository ,
-    handle: SavedStateHandle
-): ViewModel() {
+
+class FilterViewModel : ViewModel() {
 
 
 
 
-    val _filterByGenreInfo1LiveData : MutableStateFlow<FilterByGenreInfo1> = MutableStateFlow(
+    val _filterByGenreInfo1LiveData = MutableLiveData(
         FilterByGenreInfo1(
             genres = setOf("Crime","Drama","Action","Biography","History","Adventure","Fantasy","Western","Comedy","Sci-Fi",
                 "Mystery","Thriller","Family","War","Animation","Romance","Horror","Music","Film-Noir","Musical","Sport"),
@@ -30,19 +27,20 @@ class FilterViewModel @Inject constructor(
         )
     )
 
-    val filterByGenreInfo1LiveData = _filterByGenreInfo1LiveData.asStateFlow()
+    val filterByGenreInfo1LiveData : LiveData<FilterByGenreInfo1> = _filterByGenreInfo1LiveData
 
 
 
 
-    val _filterByImdbRateInfo1LiveData :MutableStateFlow<FilterByImdbInfo1> = MutableStateFlow(
+    val _filterByImdbRateInfo1LiveData = MutableLiveData(
         FilterByImdbInfo1(
             imdbRate =  setOf( 9.0 , 8.5, 8.0 ),
             selectedImdbRate = emptySet()
         )
     )
 
-    val filterByImdbRateInfo1LiveData = _filterByImdbRateInfo1LiveData.asStateFlow()
+    val filterByImdbRateInfo1LiveData : LiveData<FilterByImdbInfo1> = _filterByImdbRateInfo1LiveData
+
 
 
 

@@ -12,8 +12,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
-import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
+import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.example.moviesapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,17 +28,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
 
-    private val viewModel: DashboardViewModel by lazy {
-        ViewModelProvider(this)[DashboardViewModel::class.java]
-    }
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
 
@@ -49,9 +45,15 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration= AppBarConfiguration(navController.graph)
 
 
+
         // Setup bottom nav bar
         val navBar=findViewById<BottomNavigationView>(R.id.bottomNavigation)
         NavigationUI.setupWithNavController(navBar, navController)
+
+
+
+
+
 
 
 

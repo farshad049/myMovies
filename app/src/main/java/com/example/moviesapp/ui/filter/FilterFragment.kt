@@ -2,11 +2,16 @@ package com.example.moviesapp.ui.filter
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.MainActivity
 import com.example.moviesapp.R
@@ -22,14 +27,19 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 @AndroidEntryPoint
-class FilterFragment:BaseFragment(R.layout.fragment_filter) {
+class FilterFragment:Fragment() {
     private var _binding: FragmentFilterBinding? = null
     private val binding get() = _binding!!
-    //private val viewModel: FilterViewModel by viewModels()
-    private val viewModel: FilterViewModel by lazy {
-        ViewModelProvider(mainActivity)[FilterViewModel::class.java]
-    }
+    private val viewModel: FilterViewModel by activityViewModels()
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentFilterBinding.inflate(inflater , container , false)
+        return binding.root
+    }
 
 
 
@@ -37,12 +47,13 @@ class FilterFragment:BaseFragment(R.layout.fragment_filter) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding=FragmentFilterBinding.bind(view)
+
 
 
         val controller= FilterFragmentEpoxyController(viewModel)
 
         binding.epoxyRecyclerView.setController(controller)
+
 
 //        viewModel.store.stateFlow.map { it.movieFilterByGenre }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){ setOfGenresFilter->
 //
@@ -93,8 +104,8 @@ class FilterFragment:BaseFragment(R.layout.fragment_filter) {
         //viewModel.test()
 
         combine(
-            viewModel.filterByGenreInfo1LiveData ,
-            viewModel.filterByImdbRateInfo1LiveData
+            viewModel.filterByGenreInfo1LiveData.asFlow() ,
+            viewModel.filterByImdbRateInfo1LiveData.asFlow()
         ) { setOfGenresFilter, setOfImdbFilter ->
 
             val genreData = setOfGenresFilter.genres.map { genres ->
