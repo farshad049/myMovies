@@ -33,6 +33,10 @@ class MovieViewModel @Inject constructor(
     private val _pushMovieMultipartLiveData= MutableLiveData<UploadMovieModelStringPoster?>()
     val pushMovieMultipartLiveData: LiveData<UploadMovieModelStringPoster?> = _pushMovieMultipartLiveData
 
+    private val _favoriteMovieMutableLiveData = MutableLiveData<Set<Int>>(setOf(1,3))
+    val favoriteMovieMutableLiveData : LiveData<Set<Int>> = _favoriteMovieMutableLiveData
+
+
 
 
 

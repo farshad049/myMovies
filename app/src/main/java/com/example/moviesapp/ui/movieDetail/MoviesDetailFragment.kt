@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
@@ -13,9 +15,14 @@ import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentMoviesDetailBinding
+import com.example.moviesapp.model.ui.UiMovieDetailModel
 import com.example.moviesapp.network.ApiClient
 import com.example.moviesapp.network.MovieService
+import com.example.moviesapp.roomDatabase.MovieEntity
+import com.example.moviesapp.roomDatabase.RoomViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,6 +30,7 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
     @Inject lateinit var movieService: MovieService
     @Inject lateinit var apiClient: ApiClient
     private val viewModel:MovieViewModel by viewModels()
+    private val roomViewModel : RoomViewModel by viewModels()
     private val safeArg:MoviesDetailFragmentArgs by navArgs()
 
     private var _binding: FragmentMoviesDetailBinding? = null
@@ -32,13 +40,93 @@ class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentMoviesDetailBinding.bind(view)
 
-      //  val b = arguments?.getInt("movieId")
-
         val controller= MovieDetailEpoxyController(::onSimilarMovieClick)
 
 
         showProgressBar()
+
         viewModel.getMovieById(safeArg.movieId)
+        roomViewModel.getMovieList()
+
+
+        combine(
+            viewModel.movieByIdLiveData.asFlow() ,
+            roomViewModel.movieListLiveData.asFlow()
+        ){ movieById , favoriteMovieList ->
+            return@combine if (movieById != null) {
+                 UiMovieDetailModel(
+                    movie = movieById ,
+                    isFavorite = favoriteMovieList.map { it.id }.contains(movieById.id)
+                    )
+            } else {
+                null
+            }
+        }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){uiModel ->
+            dismissProgressBar()
+
+            binding.progressOnPoster.isVisible=true
+            binding.ivMovie.load(uiModel?.movie?.poster){
+                listener { request, result ->
+                    binding.progressOnPoster.isGone=true
+                }
+            }
+
+            binding.tvMovieName.text=uiModel?.movie?.title
+            binding.tvIMDB.text= uiModel?.movie?.imdb_rating
+            binding.tvYear.text= uiModel?.movie?.year
+            binding.tvRate.text= uiModel?.movie?.rated
+            binding.tvCountry.text= uiModel?.movie?.country
+            binding.tvDirector.text= uiModel?.movie?.director
+            binding.tvGenres.text= uiModel?.movie?.genres.toString()
+            binding.tvActors.text= uiModel?.movie?.actors
+            binding.tvPlot.text= uiModel?.movie?.plot
+
+            val imageRes=if (uiModel?.isFavorite == true) {
+                R.drawable.ic_round_favorite_24
+            } else {
+                R.drawable.ic_round_favorite_border_24
+            }
+
+            binding.favoriteImage.load(imageRes)
+
+
+            if (uiModel?.movie?.genres?.isNotEmpty() == true){
+                val genreId =genreNameToId(uiModel.movie.genres.component1())
+                viewModel.getMovieByGenre(genreId)
+                viewModel.movieByGenreLiveData.observe(viewLifecycleOwner){movieByGenre->
+                    controller.setData(uiModel.movie , movieByGenre)
+                    binding.imageEpoxyRecyclerView.setController(controller)
+                }
+            }
+
+
+
+            binding.favoriteImage.setOnClickListener {
+                if (uiModel != null) {
+                    if (uiModel.isFavorite){
+                        roomViewModel.deleteMovie(
+                            MovieEntity(
+                                id = uiModel.movie.id ,
+                                title = uiModel.movie.title
+                            )
+                        )
+                    }else{
+                        roomViewModel.insertMovie(
+                            MovieEntity(
+                                id = uiModel.movie.id,
+                                title = uiModel.movie.title
+                            )
+                        )
+                    }
+                }
+            }
+
+
+
+        }
+
+
+
         viewModel.movieByIdLiveData.observe(viewLifecycleOwner){movieById->
             dismissProgressBar()
 

@@ -1,17 +1,10 @@
 package com.example.moviesapp.ViewModelAndRepository.filter
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
-import com.example.moviesapp.model.domain.DomainMovieModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.moviesapp.model.ui.FilterByGenreInfo1
 import com.example.moviesapp.model.ui.FilterByImdbInfo1
-import com.example.mystore.redux.ApplicationState
-import com.example.mystore.redux.Store
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 class FilterViewModel : ViewModel() {
