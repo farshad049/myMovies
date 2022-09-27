@@ -2,7 +2,6 @@ package com.example.moviesapp.Authentication
 
 
 
-import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.example.moviesapp.MainActivity
@@ -10,7 +9,6 @@ import com.example.moviesapp.MoviesApplication.Companion.context
 import com.example.moviesapp.model.network.UserAuthModel
 import com.example.moviesapp.network.AuthService
 import com.example.moviesapp.util.Constants.BASE_URL
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -19,7 +17,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
-class AuthAuthenticator @Inject constructor() : Authenticator {
+class AuthAuthenticator @Inject constructor( ) : Authenticator {
 
     @Inject lateinit var tokenManager: TokenManager
 
@@ -36,7 +34,7 @@ class AuthAuthenticator @Inject constructor() : Authenticator {
 
             if (!newAccessToken.isSuccessful){
                 tokenManager.clearSharedPref()
-                val intent=Intent(context,MainActivity::class.java)
+                val intent= Intent(context, MainActivity::class.java)
                 intent.flags = FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             }

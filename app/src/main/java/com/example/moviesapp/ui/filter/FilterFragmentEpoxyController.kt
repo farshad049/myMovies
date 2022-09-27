@@ -35,27 +35,27 @@ class FilterFragmentEpoxyController(
 
 
 
-    private fun onGenreFilterClick(selectedFilter : String){
-        viewModel.viewModelScope.launch {
-            viewModel.store.update {currentState->
-                val currentSelectedFilter = currentState.movieFilterByGenre.selectedGenres
-                return@update currentState.copy(
-                    movieFilterByGenre = currentState.movieFilterByGenre.copy(
-                        selectedGenres =
-                        if(currentSelectedFilter.contains(selectedFilter)){
-                            currentSelectedFilter.filter { it != selectedFilter }.toSet()
-                        }else{
-                            currentSelectedFilter + setOf(selectedFilter)
-                        })
-                )
-            }
-        }
-    }
+//    private fun onGenreFilterClick(selectedFilter : String){
+//        viewModel.viewModelScope.launch {
+//            viewModel.store.update {currentState->
+//                val currentSelectedFilter = currentState.movieFilterByGenre.selectedGenres
+//                return@update currentState.copy(
+//                    movieFilterByGenre = currentState.movieFilterByGenre.copy(
+//                        selectedGenres =
+//                        if(currentSelectedFilter.contains(selectedFilter)){
+//                            currentSelectedFilter.filter { it != selectedFilter }.toSet()
+//                        }else{
+//                            currentSelectedFilter + setOf(selectedFilter)
+//                        })
+//                )
+//            }
+//        }
+//    }
 
 
     private fun onGenreFilterClick1(selectedFilter : String){
         viewModel.viewModelScope.launch {
-            val currentSelectedFilter = viewModel.filterByGenreInfo1LiveData.value
+            val currentSelectedFilter = viewModel.filterByGenreInfo1LiveData.value!!
 
                 val newFilter =  currentSelectedFilter.copy(
                     selectedGenres = if(currentSelectedFilter.selectedGenres.contains(selectedFilter)){
@@ -75,27 +75,27 @@ class FilterFragmentEpoxyController(
 
 
 
-    private fun onImdbFilterClick(selectedFilter : Double){
-        viewModel.viewModelScope.launch {
-            viewModel.store.update {currentState->
-                val currentSelectedFilter = currentState.movieFilterByImdb.selectedImdbRate
-                return@update currentState.copy(
-                    movieFilterByImdb = currentState.movieFilterByImdb.copy(
-                        selectedImdbRate =
-                        if(currentSelectedFilter.contains(selectedFilter)){
-                            currentSelectedFilter.filter { it != selectedFilter }.toSet()
-                        }else{
-                            currentSelectedFilter + setOf(selectedFilter)
-                        })
-                )
-            }
-        }
-    }
+//    private fun onImdbFilterClick(selectedFilter : Double){
+//        viewModel.viewModelScope.launch {
+//            viewModel.store.update {currentState->
+//                val currentSelectedFilter = currentState.movieFilterByImdb.selectedImdbRate
+//                return@update currentState.copy(
+//                    movieFilterByImdb = currentState.movieFilterByImdb.copy(
+//                        selectedImdbRate =
+//                        if(currentSelectedFilter.contains(selectedFilter)){
+//                            currentSelectedFilter.filter { it != selectedFilter }.toSet()
+//                        }else{
+//                            currentSelectedFilter + setOf(selectedFilter)
+//                        })
+//                )
+//            }
+//        }
+//    }
 
 
     private fun onImdbFilterClick1(selectedFilter : Double){
         viewModel.viewModelScope.launch {
-            val currentSelectedFilter = viewModel.filterByImdbRateInfo1LiveData.value
+            val currentSelectedFilter = viewModel.filterByImdbRateInfo1LiveData.value!!
 
             val newFilter =  currentSelectedFilter.copy(
                 selectedImdbRate = if(currentSelectedFilter.selectedImdbRate.contains(selectedFilter)){
