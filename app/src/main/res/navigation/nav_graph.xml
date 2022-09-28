@@ -168,6 +168,11 @@
         app:popEnterAnim="@anim/slide_in_from_left"
         />
 
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.moviesapp.ui.favorite.FavoriteFragment"
+        android:label="FavoriteFragment"
+        tools:layout="@layout/fragment_favorite"/>
 
 
 </navigation>

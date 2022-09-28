@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviesapp.model.domain.DomainMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -17,6 +18,9 @@ class RoomViewModel @Inject constructor(
 
     private val _movieListMutableLiveData = MutableLiveData<List<MovieEntity>>()
     val movieListLiveData : LiveData<List<MovieEntity>> = _movieListMutableLiveData
+
+    private val _favoriteList = MutableLiveData<MutableSet<DomainMovieModel>>()
+    val favoriteList : LiveData<MutableSet<DomainMovieModel>> = _favoriteList
 
     private val _insertMovieMutableLiveData = MutableLiveData<Boolean>()
     val insertMovieLiveData : LiveData<Boolean> = _insertMovieMutableLiveData
@@ -44,6 +48,12 @@ class RoomViewModel @Inject constructor(
             repository.getAllMovies().collectLatest {
                 _movieListMutableLiveData.postValue(it)
             }
+        }
+    }
+
+    fun addToFavoriteList(movie : MutableSet<DomainMovieModel>){
+        viewModelScope.launch {
+            _favoriteList.postValue(movie)
         }
     }
 

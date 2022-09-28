@@ -1,11 +1,7 @@
 package com.example.moviesapp.ui.search
 
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import coil.load
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
-import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.search.SearchDataSource
 import com.example.moviesapp.databinding.ModelExeptionErrorBinding
 import com.example.moviesapp.databinding.ModelMovieListItemBinding

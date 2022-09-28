@@ -21,8 +21,8 @@ class MovieViewModel @Inject constructor(
     private val movieDataSource: MovieDataSource,
 ) : ViewModel() {
 
-    private val _movieByIdLiveData= MutableLiveData<DomainMovieModel?>()
-    val movieByIdLiveData: LiveData<DomainMovieModel?> =_movieByIdLiveData
+    private val _movieByIdLiveData= MutableLiveData<DomainMovieModel>()
+    val movieByIdLiveData: LiveData<DomainMovieModel> =_movieByIdLiveData
 
     private val _movieByGenreLiveData= MutableLiveData<List<DomainMovieModel?>>()
     val movieByGenreLiveData: LiveData<List<DomainMovieModel?>> = _movieByGenreLiveData
@@ -33,8 +33,8 @@ class MovieViewModel @Inject constructor(
     private val _pushMovieMultipartLiveData= MutableLiveData<UploadMovieModelStringPoster?>()
     val pushMovieMultipartLiveData: LiveData<UploadMovieModelStringPoster?> = _pushMovieMultipartLiveData
 
-    private val _favoriteMovieMutableLiveData = MutableLiveData<Set<Int>>(setOf(1,3))
-    val favoriteMovieMutableLiveData : LiveData<Set<Int>> = _favoriteMovieMutableLiveData
+//    private val _favoriteMovieMutableLiveData = MutableLiveData<Set<Int>>()
+//    val favoriteMovieMutableLiveData : LiveData<Set<Int>> = _favoriteMovieMutableLiveData
 
 
 

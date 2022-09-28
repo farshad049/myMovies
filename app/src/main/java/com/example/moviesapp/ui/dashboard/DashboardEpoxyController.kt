@@ -17,6 +17,7 @@ import com.example.moviesapp.epoxy.*
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.network.GenresModel
 
+
 class DashboardEpoxyController(
     private val onItemClick:OnClickInterface
 ): Typed2EpoxyController<List<DomainMovieModel?>,List<GenresModel?>>() {
