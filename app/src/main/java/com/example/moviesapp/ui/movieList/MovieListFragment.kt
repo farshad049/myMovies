@@ -77,8 +77,8 @@ class MovieListFragment: Fragment() {
 
 
                 combine(
-                    filterViewModel.filterByGenreInfo1LiveData.asFlow() ,
-                    filterViewModel.filterByImdbRateInfo1LiveData.asFlow()
+                    filterViewModel.filterByGenreInfo1LiveData ,
+                    filterViewModel.filterByImdbRateInfo1LiveData
                 ){genreSelectedFilters , imdbRateSelectedGenre ->
 
                     data.filter { toBeFilter->

@@ -34,7 +34,7 @@ class FilterFragmentEpoxyController(
 
     private fun onGenreFilterClick(selectedFilter : String){
         viewModel.viewModelScope.launch {
-            val currentSelectedFilter = viewModel.filterByGenreInfo1LiveData.value!!
+            val currentSelectedFilter = viewModel.filterByGenreInfo1LiveData.value
 
                 val newFilter =  currentSelectedFilter.copy(
                     selectedGenres = if(currentSelectedFilter.selectedGenres.contains(selectedFilter)){
@@ -53,7 +53,7 @@ class FilterFragmentEpoxyController(
 
     private fun onImdbFilterClick(selectedFilter : Double){
         viewModel.viewModelScope.launch {
-            val currentSelectedFilter = viewModel.filterByImdbRateInfo1LiveData.value!!
+            val currentSelectedFilter = viewModel.filterByImdbRateInfo1LiveData.value
 
             val newFilter =  currentSelectedFilter.copy(
                 selectedImdbRate = if(currentSelectedFilter.selectedImdbRate.contains(selectedFilter)){

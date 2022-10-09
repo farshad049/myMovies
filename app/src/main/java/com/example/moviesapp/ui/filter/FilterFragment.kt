@@ -104,8 +104,8 @@ class FilterFragment:Fragment() {
         //viewModel.test()
 
         combine(
-            viewModel.filterByGenreInfo1LiveData.asFlow() ,
-            viewModel.filterByImdbRateInfo1LiveData.asFlow()
+            viewModel.filterByGenreInfo1LiveData ,
+            viewModel.filterByImdbRateInfo1LiveData
         ) { setOfGenresFilter, setOfImdbFilter ->
 
             val genreData = setOfGenresFilter.genres.map { genres ->
