@@ -79,11 +79,11 @@ class MovieListFragment: Fragment() {
                 combine(
                     filterViewModel.filterByGenreInfo1LiveData ,
                     filterViewModel.filterByImdbRateInfo1LiveData
-                ){genreSelectedFilters , imdbRateSelectedGenre ->
+                ){genreSelectedFilters , imdbRateSelectedFilters ->
 
                     data.filter { toBeFilter->
                         genreSelectedFilters.selectedGenres.all { toBeFilter.genres.contains(it) } &&
-                                imdbRateSelectedGenre.selectedImdbRate.all { toBeFilter.imdb_rating.toDouble() > it }
+                                imdbRateSelectedFilters.selectedImdbRate.all { toBeFilter.imdb_rating.toDouble() > it.toDouble() }
                     }
 
                 }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){dataForEpoxy->

@@ -10,6 +10,7 @@ data class FilterEpoxyModel(
     )
     :ViewBindingKotlinModel<ModelFilterBinding>(R.layout.model_filter){
     override fun ModelFilterBinding.bind() {
+
         tvFilterName.text=uiFilter.filterDisplayName
         root.setOnClickListener { onFilterClick(uiFilter.filterDisplayName) }
         //checkbox.isClickable=false

@@ -32,7 +32,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     val _filterByImdbRateInfo1LiveData = MutableStateFlow(
         FilterByImdbInfo1(
-            imdbRate =  setOf( 9.0 , 8.5, 8.0 ),
+            imdbRate =  setOf( "9.0" , "8.5", "8.0" ),
             selectedImdbRate = emptySet()
         )
     )

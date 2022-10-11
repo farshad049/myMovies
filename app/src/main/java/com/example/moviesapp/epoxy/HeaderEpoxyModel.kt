@@ -1,11 +1,12 @@
 package com.example.moviesapp.epoxy
 
 import com.example.moviesapp.R
-import com.example.moviesapp.databinding.ModelTitleBinding
+import com.example.moviesapp.databinding.ModelHeaderTitleBinding
+
 
 data class HeaderEpoxyModel(val title:String)
-    :ViewBindingKotlinModel<ModelTitleBinding>(R.layout.model_title){
-    override fun ModelTitleBinding.bind() {
+    :ViewBindingKotlinModel<ModelHeaderTitleBinding>(R.layout.model_header_title){
+    override fun ModelHeaderTitleBinding.bind() {
         tvHeaderTitle.text=title
     }
     //let this to take whole span count

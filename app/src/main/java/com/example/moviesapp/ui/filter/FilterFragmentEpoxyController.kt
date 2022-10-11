@@ -1,31 +1,30 @@
 package com.example.moviesapp.ui.filter
 
 import androidx.lifecycle.viewModelScope
-import com.airbnb.epoxy.Typed2EpoxyController
+import com.airbnb.epoxy.TypedEpoxyController
 import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.example.moviesapp.epoxy.FilterEpoxyModel
-import com.example.moviesapp.epoxy.FilterImdbEpoxyModel
 import com.example.moviesapp.epoxy.HeaderEpoxyModel
-import com.example.moviesapp.model.ui.UiGenreFilter
-import com.example.moviesapp.model.ui.UiImdbRateFilter
+import com.example.moviesapp.model.ui.FilterByGenreAndImdbRate
 import kotlinx.coroutines.launch
 
 class FilterFragmentEpoxyController(
     private val viewModel: FilterViewModel
-):Typed2EpoxyController<List<UiGenreFilter>,List<UiImdbRateFilter>>() {
+): TypedEpoxyController<FilterByGenreAndImdbRate>() {
 
-    override fun buildModels(data1: List<UiGenreFilter>, data2: List<UiImdbRateFilter>) {
+    override fun buildModels(data: FilterByGenreAndImdbRate) {
 
         HeaderEpoxyModel("Genres").id("filter_base_on_genres").addTo(this)
 
-        data1.forEach {
+
+        data.filteredByGenreList.forEach {
             FilterEpoxyModel(it, ::onGenreFilterClick).id(it.filterDisplayName).addTo(this)
         }
 
         HeaderEpoxyModel("Imdb Rate").id("filter_base_on_Imdb_rate").addTo(this)
 
-        data2.forEach {
-            FilterImdbEpoxyModel(it, ::onImdbFilterClick).id(it.filterDisplayName).addTo(this)
+        data.filteredByImdbList.forEach {
+            FilterEpoxyModel(it, ::onImdbFilterClick).id(it.filterDisplayName).addTo(this)
         }
 
     }
@@ -51,7 +50,7 @@ class FilterFragmentEpoxyController(
 
 
 
-    private fun onImdbFilterClick(selectedFilter : Double){
+    private fun onImdbFilterClick(selectedFilter : String){
         viewModel.viewModelScope.launch {
             val currentSelectedFilter = viewModel.filterByImdbRateInfo1LiveData.value
 
