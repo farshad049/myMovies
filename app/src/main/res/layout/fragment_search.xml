@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Type something to search..."
+        android:text="@string/type_something_to_search"
         android:textStyle="bold"
         android:textSize="24sp"
         />

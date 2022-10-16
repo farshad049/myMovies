@@ -23,6 +23,7 @@ class UserRepository @Inject constructor(private val apiClient: ApiClient) {
             return null
         }
         return response.body
+
     }
 
     suspend fun getUserInfo():UserRegisteredModel?{

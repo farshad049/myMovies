@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.Authentication.TokenManager
 import com.example.moviesapp.ViewModelAndRepository.user.UserViewModel
-import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.FragmentRegisterBinding
 import com.example.moviesapp.model.network.RegisterUserModel
@@ -17,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RegisterFragment:BaseFragment(R.layout.fragment_register) {
+class RegisterFragment: BaseFragment(R.layout.fragment_register) {
     private val viewModel: UserViewModel by viewModels()
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!

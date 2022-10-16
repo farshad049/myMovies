@@ -42,7 +42,7 @@
         android:id="@+id/tvLoginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
         app:layout_constraintTop_toBottomOf="@+id/fl"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="38dp"
         android:layout_marginTop="24dp"
-        android:hint="username"
+        android:hint="@string/username"
         app:errorEnabled="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLoginTitle">
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="38dp"
         android:layout_marginTop="10dp"
-        android:hint="password"
+        android:hint="@string/password"
         app:errorEnabled="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etLoginEmail">
@@ -93,7 +93,7 @@
         android:id="@+id/tvForgetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="forget password"
+        android:text="@string/forget_password"
         app:layout_constraintEnd_toEndOf="@+id/etLoginPassword"
         app:layout_constraintTop_toBottomOf="@+id/etLoginPassword" />
 
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="30dp"
-        android:text="Login"
+        android:text="@string/login"
         app:layout_constraintTop_toBottomOf="@+id/tvForgetPassword" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="don't have an account?"
+        android:text="@string/don_t_have_an_account"
         app:layout_constraintEnd_toStartOf="@+id/tvRegister"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
-        android:text="Register"
+        android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvDontHaveAccount"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />

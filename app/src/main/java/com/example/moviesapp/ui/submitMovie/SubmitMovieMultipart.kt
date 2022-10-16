@@ -4,11 +4,9 @@ import android.Manifest
 import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -25,8 +23,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.example.moviesapp.BaseFragment
-import com.example.moviesapp.MainActivity
+import com.example.moviesapp.ui.BaseFragment
+import com.example.moviesapp.ui.MainActivity
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitMultipartBinding
@@ -50,7 +48,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class SubmitMovieMultipart:BaseFragment(R.layout.fragment_submit_multipart) {
+class SubmitMovieMultipart: BaseFragment(R.layout.fragment_submit_multipart) {
 
     @Inject lateinit var movieService: MovieService
 

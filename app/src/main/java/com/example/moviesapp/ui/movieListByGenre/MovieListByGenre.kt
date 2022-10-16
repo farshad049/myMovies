@@ -6,17 +6,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.moviesapp.BaseFragment
+import com.example.moviesapp.ui.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.movieListByGenre.MovieByGenreViewModel
 import com.example.moviesapp.databinding.FragmentMovieListByGenreBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MovieListByGenre:BaseFragment(R.layout.fragment_movie_list_by_genre) {
+class MovieListByGenre: BaseFragment(R.layout.fragment_movie_list_by_genre) {
 
     private var _binding: FragmentMovieListByGenreBinding? = null
     private val binding get() = _binding!!

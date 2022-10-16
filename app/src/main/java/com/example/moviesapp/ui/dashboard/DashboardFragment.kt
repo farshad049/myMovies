@@ -2,12 +2,12 @@ package com.example.moviesapp.ui.dashboard
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.findNavController
-import com.example.moviesapp.BaseFragment
+import com.example.moviesapp.ui.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
@@ -19,15 +19,18 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @AndroidEntryPoint
-class DashboardFragment:BaseFragment(R.layout.fragment_dashboard),OnClickInterface {
+class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterface {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
     private val dashboardViewModel: DashboardViewModel by viewModels()
-    private val controller= DashboardEpoxyController( this)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentDashboardBinding.bind(view)
+
+        val controller= DashboardEpoxyController( requireContext(),this)
+
 
         binding.epoxyRecyclerView.setController(controller)
 
@@ -46,7 +49,7 @@ class DashboardFragment:BaseFragment(R.layout.fragment_dashboard),OnClickInterfa
 //           controller.setData(top,genre)
 //        }
 
-        combine(
+         combine(
             dashboardViewModel.firstPageMovieLiveData.asFlow() ,
             dashboardViewModel.allGenresMovieLiveData.asFlow()
         ){listOfMovie , listOfGenre ->
@@ -57,6 +60,35 @@ class DashboardFragment:BaseFragment(R.layout.fragment_dashboard),OnClickInterfa
 
         }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){
             controller.setData(it.movie , it.genre)
+        }
+
+
+        binding.swipeToRefresh.setOnRefreshListener {
+            binding.epoxyRecyclerView.setController(controller)
+
+            combine(
+                dashboardViewModel.firstPageMovieLiveData.asFlow() ,
+                dashboardViewModel.allGenresMovieLiveData.asFlow()
+            ){listOfMovie , listOfGenre ->
+                UiMovieAndGenre(
+                    movie = listOfMovie ,
+                    genre = listOfGenre
+                )
+
+            }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){
+                controller.setData(it.movie , it.genre)
+                if (it.movie.isNotEmpty() && it.genre.isNotEmpty()){
+                    binding.swipeToRefresh.isRefreshing = false
+                }
+
+            }
+
+
+
+
+
+
+
         }
 
 

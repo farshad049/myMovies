@@ -10,7 +10,7 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.example.moviesapp.BaseFragment
+import com.example.moviesapp.ui.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MoviesDetailFragment:BaseFragment(R.layout.fragment_movies_detail) {
+class MoviesDetailFragment: BaseFragment(R.layout.fragment_movies_detail) {
     @Inject lateinit var movieService: MovieService
     @Inject lateinit var apiClient: ApiClient
     private val viewModel:MovieViewModel by viewModels()

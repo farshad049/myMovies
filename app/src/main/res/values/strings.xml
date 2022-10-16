@@ -1,3 +1,52 @@
 <resources>
-    <string name="app_name">MoviesApp</string>
+    <string name="app_name" translatable="false">MoviesApp</string>
+    <string name="register">Register</string>
+    <string name="user_name">User name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="you_are_not_logged_in">You Are Not Logged In</string>
+    <string name="please_login">Please Login</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="nothing_found">Nothing Found !</string>
+    <string name="imdb">IMDB:</string>
+    <string name="year">Year:</string>
+    <string name="rated">Rated:</string>
+    <string name="country">Country:</string>
+    <string name="genres">Genres:</string>
+    <string name="director">Director:</string>
+    <string name="actors">Actors:</string>
+    <string name="plot">Plot:</string>
+    <string name="username">username</string>
+    <string name="forget_password">forget password</string>
+    <string name="don_t_have_an_account">don\'t have an account?</string>
+    <string name="type_something_to_search">Type something to search...</string>
+    <string name="language">language</string>
+    <string name="english">English</string>
+    <string name="farsi">Farsi</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="imdb_id">Imdb Id</string>
+    <string name="country_name">Country</string>
+    <string name="year_title">Year</string>
+    <string name="director_title">Director</string>
+    <string name="imdb_rating">Imdb Rating</string>
+    <string name="imdb_voting">Imdb Voting</string>
+    <string name="submit_movie_base64">submit Movie (base64)</string>
+    <string name="id">id:</string>
+    <string name="name">Name:</string>
+    <string name="email_title">Email:</string>
+    <string name="create_at">create at:</string>
+    <string name="update_at">update at:</string>
+    <string name="log_out">log out</string>
+    <string name="you_have_no_favorite_movie">You Have No Favorite Movie</string>
+    <string name="filter">filter</string>
+    <string name="submit_movie_multipart">submit Movie (multipart)</string>
+    <string name="random_movies">Random Movies</string>
+    <string name="movies_by_genre">Movies by Genre</string>
+    <string name="upload_base_64">upload base64</string>
+    <string name="upload_multipart">upload multipart</string>
+
+
+
 </resources>

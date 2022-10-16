@@ -4,7 +4,7 @@ package com.example.moviesapp.Authentication
 
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import com.example.moviesapp.MainActivity
+import com.example.moviesapp.ui.MainActivity
 import com.example.moviesapp.MoviesApplication.Companion.context
 import com.example.moviesapp.model.network.UserAuthModel
 import com.example.moviesapp.network.AuthService

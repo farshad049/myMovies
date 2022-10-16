@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clipChildren="false">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -73,7 +73,7 @@
             android:layout_marginTop="64dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="IMDB:"
+            android:text="@string/imdb"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/ivMovie"
             app:layout_constraintTop_toTopOf="@+id/ivMovie" />
@@ -97,7 +97,7 @@
             android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Year:"
+            android:text="@string/year"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/IMDB"
             app:layout_constraintTop_toBottomOf="@id/IMDB" />
@@ -121,7 +121,7 @@
             android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Rated:"
+            android:text="@string/rated"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/Year"
             app:layout_constraintTop_toBottomOf="@id/Year" />
@@ -145,7 +145,7 @@
             android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Country:"
+            android:text="@string/country"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/Rate"
             app:layout_constraintTop_toBottomOf="@id/Rate" />
@@ -168,7 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Genres:"
+            android:text="@string/genres"
             android:textColor="?colorSecondaryVariant"
             android:textSize="20sp"
             android:textStyle="italic"
@@ -193,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Director:"
+            android:text="@string/director"
             android:textColor="?colorSecondaryVariant"
             android:textSize="20sp"
             android:textStyle="italic"
@@ -216,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Actors:"
+            android:text="@string/actors"
             android:textColor="?colorSecondaryVariant"
             android:textSize="20sp"
             android:textStyle="italic"
@@ -240,7 +240,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Plot:"
+            android:text="@string/plot"
             android:textColor="?colorSecondaryVariant"
             android:textSize="20sp"
             android:textStyle="italic"

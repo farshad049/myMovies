@@ -10,7 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.moviesapp.BaseFragment
+import com.example.moviesapp.ui.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.search.SearchViewModel
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment:BaseFragment(R.layout.fragment_search) {
+class SearchFragment: BaseFragment(R.layout.fragment_search) {
     private var _binding: FragmentSearchBinding? = null
     private val binding by lazy { _binding!! }
     private val viewModel: SearchViewModel by viewModels()

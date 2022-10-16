@@ -5,15 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.moviesapp.Authentication.TokenManager
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentFavoriteBinding
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.roomDatabase.RoomViewModel
+import com.example.moviesapp.ui.RegisterFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoriteFragment:Fragment() {
@@ -21,6 +25,9 @@ class FavoriteFragment:Fragment() {
     private val binding get() = _binding!!
     private val roomViewModel : RoomViewModel by viewModels()
     private val controller = FavoriteFragmentEpoxyController(::onMovieClick)
+
+    @Inject
+    lateinit var tokenManager: TokenManager
 
 
     override fun onCreateView(
@@ -35,12 +42,25 @@ class FavoriteFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
+        binding.btnLoginInFavorite.setOnClickListener {
+            findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToRegisterFragment())
+        }
+
         binding.epoxyRecyclerView.setController(controller)
 
         roomViewModel.getMovieList()
 
         roomViewModel.movieListLiveData.observe(viewLifecycleOwner){movieList ->
             controller.setData(movieList)
+        }
+
+
+        if (tokenManager.getIsLoggedIn()==true){
+            binding.epoxyRecyclerView.isVisible = true
+            binding.tvYouAreNotLoggeIn.isVisible = false
+            binding.btnLoginInFavorite.isVisible = false
         }
 
 

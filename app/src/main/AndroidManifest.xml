@@ -22,7 +22,7 @@
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/Theme.Starting"
             android:exported="true"
             android:windowSoftInputMode="adjustPan|adjustResize">

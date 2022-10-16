@@ -1,14 +1,12 @@
 package com.example.moviesapp.ui.dashboard
 
 
+import android.content.Context
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import coil.load
-import coil.transform.CircleCropTransformation
 import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.Typed2EpoxyController
-import com.commit451.coiltransformations.BlurTransformation
-import com.example.moviesapp.MoviesApplication
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ModelGenreIconBinding
 import com.example.moviesapp.databinding.ModelImageItemBinding
@@ -18,7 +16,9 @@ import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.network.GenresModel
 
 
+
 class DashboardEpoxyController(
+    private val context : Context ,
     private val onItemClick:OnClickInterface
 ): Typed2EpoxyController<List<DomainMovieModel?>,List<GenresModel?>>() {
 
@@ -31,9 +31,7 @@ class DashboardEpoxyController(
         }
 
 
-        HeaderEpoxyModel("Random Movies").id("random_movies").addTo(this)
-
-
+        HeaderEpoxyModel(context.getString(R.string.random_movies)).id("random_movies").addTo(this)
 
 
         val list1=data1.random()!!.let { randomItem->
@@ -46,7 +44,7 @@ class DashboardEpoxyController(
             .addTo(this)
 
 
-        HeaderEpoxyModel("Top Rated Movies").id("top_rated_movies").addTo(this)
+        HeaderEpoxyModel(context.getString(R.string.top_rated_movies)).id("top_rated_movies").addTo(this)
 
 
 
@@ -60,7 +58,7 @@ class DashboardEpoxyController(
             .numViewsToShowOnScreen(2.9f)
             .addTo(this)
 
-        HeaderEpoxyModel("Movies by Genre").id("movies_by_genre").addTo(this)
+        HeaderEpoxyModel(context.getString(R.string.movies_by_genre)).id("movies_by_genre").addTo(this)
 
 
 

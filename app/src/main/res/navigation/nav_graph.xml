@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.moviesapp.ui.dashboard.DashboardFragment"
-        android:label="DashboardFragment"
+        android:label=""
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_movieListByGenre"
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/movieListByGenre"
         android:name="com.example.moviesapp.ui.movieListByGenre.MovieListByGenre"
-        android:label="MovieListByGenre"
+        android:label=""
         tools:layout="@layout/fragment_movie_list_by_genre">
         <argument
             android:name="genreId"
@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/movieList"
         android:name="com.example.moviesapp.ui.movieList.MovieListFragment"
-        android:label="MovieList"
+        android:label=""
         tools:layout="@layout/fragment_movie_list">
         <action
             android:id="@+id/action_movieList_to_filterFragment"
@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/moviesDetailFragment"
         android:name="com.example.moviesapp.ui.movieDetail.MoviesDetailFragment"
-        android:label="MoviesDetailFragment"
+        android:label=""
         tools:layout="@layout/fragment_movies_detail">
         <deepLink app:uri="https://moviesapi.ir/api/v1/movies/{movieId}"/>
         <argument
@@ -67,13 +67,13 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.moviesapp.ui.search.SearchFragment"
-        android:label="SearchFragment"
+        android:label=""
         tools:layout="@layout/fragment_search"/>
 
     <fragment
         android:id="@+id/submit"
         android:name="com.example.moviesapp.ui.submitMovie.Submit"
-        android:label="Submit"
+        android:label=""
         tools:layout="@layout/fragment_submit"
         >
         <action
@@ -86,20 +86,20 @@
     <fragment
         android:id="@+id/submitMovieBase64"
         android:name="com.example.moviesapp.ui.submitMovie.SubmitMovieBase64"
-        android:label="SubmitMovieBase64"
+        android:label=""
         tools:layout="@layout/fragment_submit_base64"/>
 
     <fragment
         android:id="@+id/submitMovieMultipart"
         android:name="com.example.moviesapp.ui.submitMovie.SubmitMovieMultipart"
-        android:label="SubmitMultipart"
+        android:label=""
         tools:layout="@layout/fragment_submit_multipart"/>
 
 
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.moviesapp.ui.RegisterFragment"
-        android:label="RegisterFragment"
+        android:label=""
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
@@ -124,7 +124,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.moviesapp.ui.LoginFragment"
-        android:label="LoginFragment"
+        android:label=""
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_userInfoFragment"
@@ -141,7 +141,7 @@
     <fragment
         android:id="@+id/userInfoFragment"
         android:name="com.example.moviesapp.ui.UserInfoFragment"
-        android:label="UserInfoFragment"
+        android:label=""
         tools:layout="@layout/fragment_user_info"
         />
 
@@ -149,13 +149,29 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.moviesapp.ui.filter.FilterFragment"
-        android:label="FilterFragment"
+        android:label=""
         tools:layout="@layout/fragment_filter">
         <action
             android:id="@+id/action_filterFragment_to_movieList"
             app:destination="@id/movieList" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.moviesapp.ui.favorite.FavoriteFragment"
+        android:label=""
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.moviesapp.ui.setting.SettingFragment"
+        android:label=""
+        tools:layout="@layout/fragment_setting"/>
 
 
 
@@ -168,11 +184,7 @@
         app:popEnterAnim="@anim/slide_in_from_left"
         />
 
-    <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.example.moviesapp.ui.favorite.FavoriteFragment"
-        android:label="FavoriteFragment"
-        tools:layout="@layout/fragment_favorite"/>
+
 
 
 </navigation>

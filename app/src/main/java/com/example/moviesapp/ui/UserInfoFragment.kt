@@ -6,14 +6,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.moviesapp.Authentication.TokenManager
 import com.example.moviesapp.ViewModelAndRepository.user.UserViewModel
-import com.example.moviesapp.BaseFragment
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.FragmentUserInfoBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UserInfoFragment:BaseFragment(R.layout.fragment_user_info) {
+class UserInfoFragment: BaseFragment(R.layout.fragment_user_info) {
     private val viewModel: UserViewModel by viewModels()
     private var _binding: FragmentUserInfoBinding? = null
     private val binding get() = _binding!!

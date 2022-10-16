@@ -26,7 +26,7 @@
         android:layout_marginStart="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="id:"
+        android:text="@string/id"
         android:textSize="20sp"
         />
     <androidx.appcompat.widget.AppCompatTextView
@@ -49,7 +49,7 @@
         android:layout_marginStart="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name:"
+        android:text="@string/name"
         android:textSize="20sp"
         />
     <androidx.appcompat.widget.AppCompatTextView
@@ -72,7 +72,7 @@
         android:layout_marginStart="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email:"
+        android:text="@string/email_title"
         android:textSize="20sp"
         />
     <androidx.appcompat.widget.AppCompatTextView
@@ -95,7 +95,7 @@
         android:layout_marginStart="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="create at:"
+        android:text="@string/create_at"
         android:textSize="20sp"
         />
     <androidx.appcompat.widget.AppCompatTextView
@@ -118,7 +118,7 @@
         android:layout_marginStart="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="update at:"
+        android:text="@string/update_at"
         android:textSize="20sp"
         />
     <androidx.appcompat.widget.AppCompatTextView
@@ -139,7 +139,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/update"
         android:layout_marginTop="48dp"
-        android:text="log out"
+        android:text="@string/log_out"
         android:layout_marginHorizontal="16dp"
         android:textColor="?colorOnBackground"
         android:background="@drawable/button_background"

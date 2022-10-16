@@ -22,8 +22,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.example.moviesapp.BaseFragment
-import com.example.moviesapp.MainActivity
+import com.example.moviesapp.ui.BaseFragment
+import com.example.moviesapp.ui.MainActivity
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.MovieViewModel
 import com.example.moviesapp.databinding.FragmentSubmitBase64Binding
@@ -38,7 +38,7 @@ import java.io.ByteArrayOutputStream
 
 
 @AndroidEntryPoint
-class SubmitMovieBase64:BaseFragment(R.layout.fragment_submit_base64) {
+class SubmitMovieBase64: BaseFragment(R.layout.fragment_submit_base64) {
 
     private var _binding: FragmentSubmitBase64Binding? = null
     private val binding get() = _binding!!

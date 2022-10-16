@@ -31,13 +31,6 @@
         app:showAsAction="always"
         />
 
-    <item
-        android:id="@+id/favoriteFragment"
-        android:icon="@drawable/ic_round_favorite_menu"
-        android:orderInCategory="5"
-        android:title=""
-        app:showAsAction="always"
-        />
 
 
 

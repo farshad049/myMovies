@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivArrow"
-            tools:text="movie title"
+            tools:text="@string/movie_title"
             android:textColor="?colorOnBackground"
             android:textSize="20sp"
             android:padding="4dp"
