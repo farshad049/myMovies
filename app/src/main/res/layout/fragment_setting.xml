@@ -17,7 +17,7 @@
         />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroupLanguage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
@@ -55,7 +55,78 @@
         android:textStyle="bold"
         android:layout_marginStart="5dp"
         android:textSize="16sp" />
-
     </RadioGroup>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="24dp"
+        android:id="@+id/tvTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/theme"
+        app:layout_constraintTop_toBottomOf="@id/radioGroupLanguage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="24dp"
+        />
+
+
+
+    <RadioGroup
+        android:id="@+id/radioGroupTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:checkedButton="@id/radioButtonLight"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTheme">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButtonLight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_language_tab_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/light"
+            android:textColor="?colorOnSurface"
+            android:layout_marginEnd="5dp"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButtonDark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:background="@drawable/drawable_language_tab_selector"
+            android:text="@string/dark"
+            android:textColor="?colorOnSurface"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:textSize="16sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radioButtonSystem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:background="@drawable/drawable_language_tab_selector"
+            android:text="@string/system"
+            android:textColor="?colorOnSurface"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

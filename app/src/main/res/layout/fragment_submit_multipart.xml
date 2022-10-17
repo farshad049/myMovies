@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:fadeScrollbars="false"
         android:scrollbarSize="6dp"
+        android:layout_marginBottom="8dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout

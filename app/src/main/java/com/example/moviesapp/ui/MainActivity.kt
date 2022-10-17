@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +18,7 @@ import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ActivityMainBinding
 import com.example.moviesapp.util.Constants
 import com.example.moviesapp.util.Constants.LOCALE_CODE
+import com.example.moviesapp.util.Constants.THEME_CODE
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,16 +37,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val prefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_LOCALE_FILE, Context.MODE_PRIVATE)
-        val localeLang: String? = prefs.getString(LOCALE_CODE  , null)
-        val languageCode = if (localeLang?.isNotEmpty() == true) localeLang else "en"
-        setLocale(this , languageCode)
+        //shared preferences for language setting
+        val languagePrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_LOCALE_FILE, Context.MODE_PRIVATE)
+        val localeRecord: String? = languagePrefs.getString(LOCALE_CODE  , "en")
+        if(localeRecord?.isNotEmpty() == true) setLocale(this , localeRecord)
+
+
+        //shared preferences for theme setting
+        val themePrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_THEME_FILE, Context.MODE_PRIVATE)
+        val themeRecord: String? = themePrefs.getString(THEME_CODE  , "light")
+        if (themeRecord?.isNotEmpty() == true) setDayNightTheme(themeRecord)
+
+
 
         val splashScreen = installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
 
         //enable the nav controller
@@ -53,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         //enable the action bar
         appBarConfiguration= AppBarConfiguration(
-//            navController.graph ,
+            //navController.graph ,
             topLevelDestinationIds = setOf(
                 R.id.dashboardFragment,
                 R.id.movieList,
@@ -75,6 +83,12 @@ class MainActivity : AppCompatActivity() {
         // Setup bottom nav bar
         val navBar=findViewById<BottomNavigationView>(R.id.bottomNavigation)
         NavigationUI.setupWithNavController(navBar, navController)
+
+
+
+
+
+
 
 
 
@@ -112,6 +126,15 @@ class MainActivity : AppCompatActivity() {
         val config: Configuration = resources.configuration
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
+    }
+
+
+    private fun setDayNightTheme(themeRecord : String?){
+        when(themeRecord){
+            "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            "system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
 

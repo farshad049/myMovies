@@ -75,7 +75,7 @@ class LoginFragment: BaseFragment(R.layout.fragment_login) {
                         binding.etEditLoginEmail.text?.clear()
                         binding.etEditLoginPassword.text?.clear()
                         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
-                        Toast.makeText(requireContext(), "successfull",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "you are logged in",Toast.LENGTH_SHORT).show()
                     }else{
                         Toast.makeText(requireContext(), it.toString(),Toast.LENGTH_SHORT).show()
                     }

@@ -46,7 +46,10 @@
     <string name="movies_by_genre">Movies by Genre</string>
     <string name="upload_base_64">upload base64</string>
     <string name="upload_multipart">upload multipart</string>
-
+    <string name="theme">theme</string>
+    <string name="light">light</string>
+    <string name="dark">dark</string>
+    <string name="system">system</string>
 
 
 </resources>

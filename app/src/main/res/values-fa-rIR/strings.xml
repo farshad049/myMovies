@@ -47,4 +47,8 @@
     <string name="movies_by_genre">ژانر ها</string>
     <string name="upload_base_64">آپلود(base64)</string>
     <string name="upload_multipart">آپلود (multipart)</string>
+    <string name="theme">پوسته</string>
+    <string name="light">روشن</string>
+    <string name="dark">تیره</string>
+    <string name="system">سیستم</string>
 </resources>

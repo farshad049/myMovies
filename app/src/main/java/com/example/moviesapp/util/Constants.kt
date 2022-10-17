@@ -26,6 +26,10 @@ object Constants {
     const val PREFS_LOCALE_FILE = "prefs_locale_file"
     const val LOCALE_CODE = "locale_code"
 
+    //pref for day night theme
+    const val PREFS_THEME_FILE = "prefs_theme_file"
+    const val THEME_CODE = "theme_code"
+
 
 
 }
