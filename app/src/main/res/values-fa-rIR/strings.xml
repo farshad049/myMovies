@@ -22,7 +22,7 @@
     <string name="username">نام کاربری</string>
     <string name="forget_password">فراموشی کلمه عبور</string>
     <string name="don_t_have_an_account">حساب ندارید؟</string>
-    <string name="type_something_to_search">چیزی تایپ کنید...</string>
+    <string name="type_something_to_search">چیزی تایپ کنید…</string>
     <string name="language">زبان</string>
     <string name="english">انگلیسی</string>
     <string name="farsi">فارسی</string>
@@ -51,4 +51,5 @@
     <string name="light">روشن</string>
     <string name="dark">تیره</string>
     <string name="system">سیستم</string>
+    <string name="login_by_biometrics">وارد شدن با اثر انگشت</string>
 </resources>

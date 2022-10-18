@@ -21,7 +21,7 @@
     <string name="username">username</string>
     <string name="forget_password">forget password</string>
     <string name="don_t_have_an_account">don\'t have an account?</string>
-    <string name="type_something_to_search">Type something to search...</string>
+    <string name="type_something_to_search">Type something to search…</string>
     <string name="language">language</string>
     <string name="english">English</string>
     <string name="farsi">Farsi</string>
@@ -50,6 +50,7 @@
     <string name="light">light</string>
     <string name="dark">dark</string>
     <string name="system">system</string>
+    <string name="login_by_biometrics">login by biometrics</string>
 
 
 </resources>

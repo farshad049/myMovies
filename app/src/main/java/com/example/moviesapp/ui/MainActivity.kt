@@ -2,20 +2,31 @@ package com.example.moviesapp.ui
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ActivityMainBinding
+import com.example.moviesapp.ui.setting.SettingFragment
+import com.example.moviesapp.util.BiometricAuthentication
 import com.example.moviesapp.util.Constants
 import com.example.moviesapp.util.Constants.LOCALE_CODE
 import com.example.moviesapp.util.Constants.THEME_CODE
@@ -23,6 +34,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import java.util.concurrent.Executor
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -33,6 +46,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
 
+    @Inject
+    lateinit var biometricAuthentication: BiometricAuthentication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,11 +111,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
     }//FUN
 
     //enable back button on action bar
@@ -136,6 +146,19 @@ class MainActivity : AppCompatActivity() {
             else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
+
+
+    override fun onResume() {
+        //check if biometric authentication in enabled
+        val biometricPrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_AUTHENTICATION_FILE, Context.MODE_PRIVATE)
+        if (biometricPrefs.getBoolean(Constants.IS_AUTHENTICATION_ENABLED, true)){
+            biometricAuthentication.promptForActivity(this,this)
+        }
+        super.onResume()
+    }
+
+
+
 
 
 

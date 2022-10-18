@@ -23,7 +23,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -38,6 +39,7 @@ android {
     buildFeatures{
         viewBinding true
     }
+
 }
 
 dependencies {
@@ -120,8 +122,8 @@ dependencies {
     //swipe refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
-    //multiple languages
-    implementation 'com.zeugmasolutions.localehelper:locale-helper-android:1.5.1'
+    //biometrics
+    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha04"
 
 
 

@@ -95,7 +95,7 @@ class SubmitMovieBase64: BaseFragment(R.layout.fragment_submit_base64) {
                 Snackbar.make(mainActivity.findViewById(android.R.id.content),"please enter country name", Snackbar.LENGTH_LONG).show()
                 return
             }
-            year.isEmpty() -> {
+            year.isEmpty() && year.length < 4 -> {
                 binding.year.error = "* please enter year"
                 binding.etYear.addTextChangedListener { binding.etYear.error = null }
                 Snackbar.make(mainActivity.findViewById(android.R.id.content),"please enter year", Snackbar.LENGTH_LONG).show()

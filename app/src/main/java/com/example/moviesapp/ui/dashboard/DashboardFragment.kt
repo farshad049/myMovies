@@ -1,12 +1,18 @@
 package com.example.moviesapp.ui.dashboard
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
+import com.example.moviesapp.Authentication.TokenManager
 import com.example.moviesapp.ui.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
@@ -14,9 +20,14 @@ import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
 import com.example.moviesapp.databinding.FragmentDashboardBinding
 import com.example.moviesapp.epoxy.OnClickInterface
 import com.example.moviesapp.model.ui.UiMovieAndGenre
+import com.example.moviesapp.ui.setting.SettingFragment
+import com.example.moviesapp.util.BiometricAuthentication
+import com.example.moviesapp.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import java.util.concurrent.Executor
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterface {
@@ -28,6 +39,7 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentDashboardBinding.bind(view)
+
 
         val controller= DashboardEpoxyController( requireContext(),this)
 
@@ -82,14 +94,15 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
                 }
 
             }
-
-
-
-
-
-
-
         }
+
+
+
+
+
+
+
+
 
 
 
