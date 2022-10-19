@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -149,11 +150,14 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onResume() {
-        //check if biometric authentication in enabled
-        val biometricPrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_AUTHENTICATION_FILE, Context.MODE_PRIVATE)
-        if (biometricPrefs.getBoolean(Constants.IS_AUTHENTICATION_ENABLED, true)){
-            biometricAuthentication.promptForActivity(this,this)
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q){
+            //check if biometric authentication in enabled
+            val biometricPrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_AUTHENTICATION_FILE, Context.MODE_PRIVATE)
+            if (biometricPrefs.getBoolean(Constants.IS_AUTHENTICATION_ENABLED, true)){
+                biometricAuthentication.promptForActivity(this,this)
+            }
         }
+
         super.onResume()
     }
 

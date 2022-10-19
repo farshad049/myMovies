@@ -52,4 +52,8 @@
     <string name="dark">تیره</string>
     <string name="system">سیستم</string>
     <string name="login_by_biometrics">وارد شدن با اثر انگشت</string>
+    <string name="login_using_your_biometric_credential">وارد شدن با استفاده از اثر انگشت</string>
+    <string name="authentication_error">مشکل اعتبار سنجی</string>
+    <string name="authentication_succeeded">با موفقیت وارد شدید</string>
+
 </resources>

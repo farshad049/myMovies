@@ -51,6 +51,14 @@
     <string name="dark">dark</string>
     <string name="system">system</string>
     <string name="login_by_biometrics">login by biometrics</string>
+    <string name="login_using_your_biometric_credential">Log in using your biometric credential</string>
+    <string name="authentication_error">Authentication error</string>
+    <string name="authentication_succeeded">Authentication succeeded!</string>
+
+
+
+
+
 
 
 </resources>
