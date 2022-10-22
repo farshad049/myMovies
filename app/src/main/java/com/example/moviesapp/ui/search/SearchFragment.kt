@@ -37,15 +37,6 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
         _binding=FragmentSearchBinding.bind(view)
 
 
-        binding.edSearch.addTextChangedListener{
-            if (binding.edSearch.text.toString().trim().isEmpty()){
-                binding.tvPleaseType.isVisible=true
-                binding.epoxyRecyclerView.isVisible=false
-            }else{
-                binding.tvPleaseType.isVisible=false
-                binding.epoxyRecyclerView.isVisible=true
-            }
-        }
 
 
         binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
@@ -60,26 +51,23 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
             //run search function after 0.5 second pause which is almost after user stop typing the text
             handler.postDelayed(searchRunnable,500L)
 
-            if (it!!.isEmpty()){
-                binding.tvPleaseType.isVisible=true
-                binding.epoxyRecyclerView.isVisible=false
-            }
+
         }
 
         lifecycleScope.launch{
             viewModel.searchFlow.collectLatest {data->
-              //  controller.localException = null
+                controller.localException = null
                 controller.submitData(data)
             }
         }
 
-//        viewModel.localExceptionEventLiveData.observe(viewLifecycleOwner){
-//            //if getContent is not null then set the localException State from live data and set it to epoxy display
-//            it.getContent()?.let { localException->
-//                //handle displaying local exception
-//                controller.localException=localException
-//            }
-//        }
+        viewModel.localExceptionEventLiveData.observe(viewLifecycleOwner){
+            //if getContent is not null then set the localException State from live data and set it to epoxy display
+            it.getContent()?.let { localException->
+                //handle displaying local exception
+                controller.localException=localException
+            }
+        }
 
 
 

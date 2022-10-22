@@ -12,23 +12,23 @@ class SearchDataSource (
     private val apiClient: ApiClient,
     private val movieMapper: MovieMapper,
     private val userSearch:String,
-   // private val localExceptionCallBack: (LocalException)->Unit
+    private val localExceptionCallBack: (LocalException)->Unit
 )  :PagingSource<Int,DomainMovieModel>() {
 
-//    sealed class LocalException(val title:String, val description:String=""):Exception(){
-//        object EmptySearch :LocalException(title = "Start Typing To Search")
-//        object NoResult:LocalException(title = "whoops", description = "looks like your search didn't return any result")
-//    }
+    sealed class LocalException(val title:String, val description:String=""):Exception(){
+        object EmptySearch :LocalException(title = "Start Typing To Search")
+        object NoResult:LocalException(title = "whoops", description = "looks like your search didn't return any result")
+    }
 
 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainMovieModel> {
 
-//        if (userSearch.isEmpty()) {
-//            val exception = LocalException.EmptySearch
-//            localExceptionCallBack(exception)
-//            return LoadResult.Error(exception)
-//        }
+        if (userSearch.isEmpty()) {
+            val exception = LocalException.EmptySearch
+            localExceptionCallBack(exception)
+            return LoadResult.Error(exception)
+        }
 
 
 
@@ -40,11 +40,11 @@ class SearchDataSource (
 
 
 
-//        if (request.bodyNullable?.data?.isEmpty() == true) {
-//            val exception = LocalException.NoResult
-//            localExceptionCallBack(exception)
-//            return LoadResult.Error(exception)
-//        }
+        if (request.bodyNullable?.metadata?.total_count == 0) {
+            val exception = LocalException.NoResult
+            localExceptionCallBack(exception)
+            return LoadResult.Error(exception)
+        }
 
 
 
@@ -58,7 +58,12 @@ class SearchDataSource (
             //we map it because the parent function has to return Character
             data = request.bodyNullable?.data?.map { movieMapper.buildFrom(it) } ?: emptyList(),
             prevKey = previewPage,
-            nextKey = request.bodyNullable?.metadata?.current_page?.toInt()?.plus(1)
+            nextKey = if (request.bodyNullable?.metadata?.current_page?.toInt()!! < request.bodyNullable?.metadata?.total_count!!){
+                request.bodyNullable?.metadata?.current_page?.toInt()?.plus(1)
+            }else{
+                null
+            }
+
         )
     }
 

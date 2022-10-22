@@ -58,21 +58,8 @@
         app:itemSpacing="8dp"
         tools:listitem="@layout/model_movie_list_item"
         android:paddingBottom="12dp"
-        android:visibility="invisible"
-        tools:visibility="visible"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvPleaseType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/type_something_to_search"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

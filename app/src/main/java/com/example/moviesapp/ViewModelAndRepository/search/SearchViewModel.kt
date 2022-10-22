@@ -27,7 +27,7 @@ class SearchViewModel @Inject constructor(
         get() {
             if (field == null || field?.invalid == true){
                 field = SearchDataSource(apiClient,movieMapper,userSearch = currentUserSearch)
-               // { _localExceptionEventLiveData.postValue(Event(it)) }
+                { _localExceptionEventLiveData.postValue(Event(it)) }
             }
             return field
         }
@@ -41,8 +41,8 @@ class SearchViewModel @Inject constructor(
     ) { pagingSource!! }.flow.cachedIn(viewModelScope)
 
 
-//    private val _localExceptionEventLiveData = MutableLiveData<Event<SearchDataSource.LocalException>>()
-//    val localExceptionEventLiveData: LiveData<Event<SearchDataSource.LocalException>> = _localExceptionEventLiveData
+    private val _localExceptionEventLiveData = MutableLiveData<Event<SearchDataSource.LocalException>>()
+    val localExceptionEventLiveData: LiveData<Event<SearchDataSource.LocalException>> = _localExceptionEventLiveData
 
 
 
