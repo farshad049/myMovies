@@ -51,11 +51,6 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
         dashboardViewModel.getAllGenres()
 
 
-        binding.rootSearchClick.setOnClickListener {
-            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToSearchFragment())
-        }
-
-
 
 //        dashboardViewModel.topAndGenresLiveData.distinctUntilChanged().observe(viewLifecycleOwner){(top,genre)->
 //           controller.setData(top,genre)

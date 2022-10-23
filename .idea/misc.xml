@@ -16,16 +16,23 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/menu/menu_drawer_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable-v24/drawable_language_tab_selector.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/button_background.xml" value="0.18" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_add_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_favorite_24.xml" value="0.169" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_filter_list_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_fingerprint_24.xml" value="0.145" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_format_list_bulleted_24.xml" value="0.169" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_home_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_image_24.xml" value="0.18" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_local_movies_24.xml" value="0.18" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_local_movies_24_black.xml" value="0.18" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_menu_24.xml" value="0.169" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_settings_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/linier_background.xml" value="0.169" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout-v31/model_toolbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/activity_main.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/drawer_header.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragmenr_search.xml" value="0.365625" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_dashboard.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_favorite.xml" value="0.3" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_filter.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_genre_list.xml" value="0.365625" />
@@ -34,7 +41,7 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movie_list_by_genre.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_movies_detail.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_register.xml" value="0.25" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_search.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_setting.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_submit.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_submit_base64.xml" value="0.36666666666666664" />
@@ -58,6 +65,8 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_product_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_similar_movie_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_title.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_tollbar.xml" value="0.365625" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_toolbar.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/menu/menu_bottom_app.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/menu/menu_drawer_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/farshad/AndroidStudioProjects/myMovies/app/src/main/res/drawable-v24/black_gradient.xml" value="0.1645" />

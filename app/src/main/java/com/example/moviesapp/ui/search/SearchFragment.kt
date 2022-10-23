@@ -1,23 +1,25 @@
 package com.example.moviesapp.ui.search
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
+import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.moviesapp.ui.BaseFragment
 import com.example.moviesapp.NavGraphDirections
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.search.SearchViewModel
 import com.example.moviesapp.databinding.FragmentSearchBinding
+import com.example.moviesapp.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class SearchFragment: BaseFragment(R.layout.fragment_search) {
@@ -35,7 +37,6 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding=FragmentSearchBinding.bind(view)
-
 
 
 
@@ -81,8 +82,22 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
     private fun onMovieClick(movieId: Int) {
         val directions=NavGraphDirections.actionGlobalToMovieDetailFragment(movieId)
         findNavController().navigate(directions)
-
     }
+
+
+    override fun onResume() {
+        mainActivity.hideToolbar(true)
+        super.onResume()
+    }
+
+    override fun onStop() {
+        mainActivity.hideToolbar(false)
+        super.onStop()
+    }
+
+
+
+
 
 
 

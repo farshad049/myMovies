@@ -39,7 +39,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivSearch"
                 android:layout_marginHorizontal="4dp"
-                tools:hint="please Enter"
+                tools:hint="@string/type_to_search"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

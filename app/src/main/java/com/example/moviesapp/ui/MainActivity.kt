@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
@@ -65,8 +67,8 @@ class MainActivity : AppCompatActivity() {
         if (themeRecord?.isNotEmpty() == true) setDayNightTheme(themeRecord)
 
 
-
         val splashScreen = installSplashScreen()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         //set up fragment title in toolbar
-        setupActionBarWithNavController(navController,appBarConfiguration)
+        //setupActionBarWithNavController(navController,appBarConfiguration)
 
 
         //enable navigation drawer
@@ -105,6 +107,15 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+        binding.included.btnDrawerLayout.setOnClickListener {
+           binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        binding.included.edToolbarSearchBox.setOnClickListener {
+            navController.navigateUp()
+            navController.navigate(R.id.searchFragment)
+        }
 
 
 
@@ -159,6 +170,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         super.onResume()
+    }
+
+    //use this to show or hide toolbar in fragments
+    fun hideToolbar(isHide : Boolean){
+        if (isHide) binding.toolbar.visibility = View.GONE else binding.toolbar.visibility = View.VISIBLE
     }
 
 
