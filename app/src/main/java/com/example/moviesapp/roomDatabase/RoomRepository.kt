@@ -33,8 +33,8 @@ class RoomRepository @Inject constructor(
         movieSearchHistoryDao.insert(movie)
     }
 
-    suspend fun deleteMovieSearchHistory(movie : SearchHistoryEntity){
-        movieSearchHistoryDao.delete(movie)
+    suspend fun deleteAllMovieSearchHistory(){
+        movieSearchHistoryDao.deleteAll()
     }
 
     suspend fun deleteMovieSearchById(movieId : Int){

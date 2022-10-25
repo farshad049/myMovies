@@ -65,8 +65,8 @@ class RoomViewModel @Inject constructor(
     private val _deleteSearchHistoryMutableLiveData = MutableLiveData<Boolean>()
     val deleteSearchHistoryLiveData : LiveData<Boolean> = _deleteSearchHistoryMutableLiveData
 
-    private val _deleteSearchHistoryByIDMutableLiveData = MutableLiveData<Boolean>()
-    val deleteSearchHistoryByIdLiveData : LiveData<Boolean> = _deleteSearchHistoryByIDMutableLiveData
+    private val _deleteAllSearchHistoryByIDMutableLiveData = MutableLiveData<Boolean>()
+    val deleteAllSearchHistoryByIdLiveData : LiveData<Boolean> = _deleteAllSearchHistoryByIDMutableLiveData
 
 
     fun insertSearchHistory(movie : SearchHistoryEntity){
@@ -76,9 +76,9 @@ class RoomViewModel @Inject constructor(
         }
     }
 
-    fun deleteSearchHistory(movie : SearchHistoryEntity){
+    fun deleteAllSearchHistory(){
         viewModelScope.launch {
-            repository.deleteMovieSearchHistory(movie)
+            repository.deleteAllMovieSearchHistory()
             _deleteSearchHistoryMutableLiveData.postValue(true)
         }
     }
@@ -86,7 +86,7 @@ class RoomViewModel @Inject constructor(
     fun deleteSearchHistoryByID(movieId:Int){
         viewModelScope.launch {
             repository.deleteMovieSearchById(movieId)
-            _deleteSearchHistoryByIDMutableLiveData.postValue(true)
+            _deleteAllSearchHistoryByIDMutableLiveData.postValue(true)
         }
     }
 

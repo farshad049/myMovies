@@ -16,7 +16,7 @@ class MovieDetailEpoxyController(
 
     override fun buildModels(data1: DomainMovieModel?,data2: List<DomainMovieModel?>) {
 
-        if (data1 == DomainMovieModel() || data2.isEmpty()){
+        if (data1 == null || data2.isEmpty()){
             LoadingEpoxyModel().id("loading").addTo(this)
             return
         }
@@ -24,7 +24,7 @@ class MovieDetailEpoxyController(
 
 
 
-        val list1=data1!!.images.map {
+        val list1=data1.images.map {
             ImageEpoxyModel(it).id("it")
         }
 

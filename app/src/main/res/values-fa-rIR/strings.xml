@@ -55,5 +55,7 @@
     <string name="login_using_your_biometric_credential">وارد شدن با استفاده از اثر انگشت</string>
     <string name="authentication_error">مشکل اعتبار سنجی</string>
     <string name="authentication_succeeded">با موفقیت وارد شدید</string>
+    <string name="type_to_search">چیزی تایپ کنید...</string>
+    <string name="delete_all">پاک کردن همه</string>
 
 </resources>

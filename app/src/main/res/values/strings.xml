@@ -55,6 +55,7 @@
     <string name="authentication_error">Authentication error</string>
     <string name="authentication_succeeded">Authentication succeeded!</string>
     <string name="type_to_search">type to search...</string>
+    <string name="delete_all">delete all</string>
 
 
 </resources>

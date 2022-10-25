@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -36,11 +37,11 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
     private val viewModel: SearchViewModel by viewModels()
     private val roomViewModel : RoomViewModel by viewModels()
     private val controller = SearchEpoxyController(::onMovieClick)
-    private val searchHistoryController = SearchHistoryEpoxyController(::onSearchHistoryClick , ::onCloseClick)
+    private val searchHistoryController = SearchHistoryEpoxyController(::onSearchHistoryClick , ::onCloseClick , ::onDeleteAllClick)
 
-    private var currentText= ""
-    private val handler= Handler(Looper.getMainLooper())
-    private val searchRunnable= Runnable {
+    private var currentText = ""
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable {
        viewModel.submitQuery(currentText)
     }
 
@@ -136,6 +137,10 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
     private fun onCloseClick(movieId : Int){
         roomViewModel.deleteSearchHistoryByID(movieId)
 
+    }
+
+    private fun onDeleteAllClick(){
+        roomViewModel.deleteAllSearchHistory()
     }
 
 

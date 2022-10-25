@@ -50,7 +50,7 @@ class MovieListFragment: Fragment() {
 
 
 
-        binding.rootFilterClick.setOnClickListener {
+        binding.btnFilter.setOnClickListener {
             findNavController().navigate(MovieListFragmentDirections.actionMovieListToFilterFragment())
         }
 

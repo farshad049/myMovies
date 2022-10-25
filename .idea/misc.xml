@@ -19,6 +19,7 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_add_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_arrow_forward_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_close_24.xml" value="0.169" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_delete_sweep_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_favorite_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_filter_list_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_fingerprint_24.xml" value="0.145" />
@@ -51,6 +52,7 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_submit_multipart.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_user_info.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/login_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_delete_all.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_empty_favorite_list.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_exeption_error.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_favorite_movie.xml" value="0.25" />
