@@ -1,6 +1,6 @@
 package com.example.moviesapp.model.ui
 
 data class FilterByGenreAndImdbRate(
-    val filteredByGenreList : List<UiGenreFilter>,
-    val filteredByImdbList : List<UiGenreFilter>
+    val filteredByGenreList : List<UiFilter>,
+    val filteredByImdbList : List<UiFilter>
 )

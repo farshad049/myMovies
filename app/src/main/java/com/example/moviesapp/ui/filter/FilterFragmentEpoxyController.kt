@@ -1,15 +1,18 @@
 package com.example.moviesapp.ui.filter
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.TypedEpoxyController
 import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
+import com.example.moviesapp.epoxy.CarouselFilterEpoxyModel
 import com.example.moviesapp.epoxy.FilterEpoxyModel
 import com.example.moviesapp.epoxy.HeaderEpoxyModel
 import com.example.moviesapp.model.ui.FilterByGenreAndImdbRate
 import kotlinx.coroutines.launch
 
 class FilterFragmentEpoxyController(
-    private val viewModel: FilterViewModel
+    private val viewModel: FilterViewModel ,
 ): TypedEpoxyController<FilterByGenreAndImdbRate>() {
 
     override fun buildModels(data: FilterByGenreAndImdbRate) {
@@ -26,6 +29,8 @@ class FilterFragmentEpoxyController(
         data.filteredByImdbList.forEach {
             FilterEpoxyModel(it, ::onImdbFilterClick).id(it.filterDisplayName).addTo(this)
         }
+
+
 
     }
 
@@ -44,7 +49,6 @@ class FilterFragmentEpoxyController(
                 )
 
                 viewModel._filterByGenreInfo1LiveData.value = newFilter
-
         }
     }
 

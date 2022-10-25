@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
-import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.example.moviesapp.databinding.FragmentFilterBinding
 import com.example.moviesapp.model.ui.FilterByGenreAndImdbRate
-import com.example.moviesapp.model.ui.UiGenreFilter
+import com.example.moviesapp.model.ui.UiFilter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -48,17 +46,16 @@ class FilterFragment:Fragment() {
         ) { setOfGenresFilter, setOfImdbFilter ->
 
             val genreData = setOfGenresFilter.genres.map { genres ->
-                UiGenreFilter(
+                UiFilter(
                     filterDisplayName = genres,
                     isSelected = setOfGenresFilter.selectedGenres.contains(genres)
                 )
             }
 
             val imdbData = setOfImdbFilter.imdbRate.map { imdbRate ->
-                UiGenreFilter(
+                UiFilter(
                     filterDisplayName = imdbRate,
                     isSelected = setOfImdbFilter.selectedImdbRate.contains(imdbRate)
-
                 )
             }
 

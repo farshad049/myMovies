@@ -2,10 +2,10 @@ package com.example.moviesapp.epoxy
 
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ModelFilterBinding
-import com.example.moviesapp.model.ui.UiGenreFilter
+import com.example.moviesapp.model.ui.UiFilter
 
 data class FilterEpoxyModel(
-    val uiFilter: UiGenreFilter,
+    val uiFilter: UiFilter,
     val onFilterClick:(String) -> Unit
     )
     :ViewBindingKotlinModel<ModelFilterBinding>(R.layout.model_filter){

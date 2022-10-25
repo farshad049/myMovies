@@ -24,11 +24,12 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieListFragment: Fragment() {
-    private val viewModel: MovieViewModel by viewModels()
-    private val filterViewModel: FilterViewModel by activityViewModels()
-    private var _binding: FragmentMovieListBinding? = null
+    private val viewModel : MovieViewModel by viewModels()
+    private val filterViewModel : FilterViewModel by activityViewModels()
+    private var _binding : FragmentMovieListBinding? = null
     private val binding get() = _binding!!
-    private val controller= MovieListEpoxyController( ::movieOnClick)
+    private val controller = MovieListEpoxyController( ::movieOnClick)
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +46,11 @@ class MovieListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+       val filterCarouselController = FilterCarouselEpoxyController(filterViewModel)
 
         binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
+
+        binding.filterCarouselEpoxyRecyclerView.setController(filterCarouselController)
 
 
 
@@ -57,20 +61,9 @@ class MovieListFragment: Fragment() {
 
 
 
-
+        //set data for movie list epoxy controller
         lifecycleScope.launchWhenStarted{
             viewModel.movieListFlow.collectLatest {data->
-
-//                val finalData= data.filter {toBeFilter->
-//                    filter.country.all { toBeFilter.country.contains(it) }
-//                            && filter.genres.all { toBeFilter.genres.contains(it) }
-//                }
-//
-//                controller.submitData(finalData)
-
-
-
-
 
                 combine(
                     filterViewModel.filterByGenreInfo1LiveData ,
@@ -87,12 +80,22 @@ class MovieListFragment: Fragment() {
                 }
 
 
-
-
-
-
-
             }
+        }
+
+
+
+
+
+        //set data for carousel filter
+        combine(
+            filterViewModel.filterByGenreInfo1LiveData ,
+            filterViewModel.filterByImdbRateInfo1LiveData
+        ){genreSelectedFilters , imdbRateSelectedFilters ->
+            genreSelectedFilters.selectedGenres +
+                    imdbRateSelectedFilters.selectedImdbRate
+        }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){
+            filterCarouselController.setData(it)
         }
 
 
@@ -118,6 +121,7 @@ class MovieListFragment: Fragment() {
         findNavController().navigate(directions)
 
     }
+
 
 
 
