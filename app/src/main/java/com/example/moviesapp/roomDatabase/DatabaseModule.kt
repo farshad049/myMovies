@@ -2,6 +2,8 @@ package com.example.moviesapp.roomDatabase
 
 import android.content.Context
 import androidx.room.Room
+import com.example.moviesapp.roomDatabase.Dao.FavoriteMovieDao
+import com.example.moviesapp.roomDatabase.Dao.MovieSearchHistoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,8 +32,14 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesDao (database: MovieDatabase) : MovieDao{
-        return database.movieDao()
+    fun providesFavoriteMovieDao (database: MovieDatabase) : FavoriteMovieDao {
+        return database.favoriteMovieDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesMovieSearchHistoryDao (database: MovieDatabase) : MovieSearchHistoryDao {
+        return database.movieSearchHistoryDao()
     }
 
 }

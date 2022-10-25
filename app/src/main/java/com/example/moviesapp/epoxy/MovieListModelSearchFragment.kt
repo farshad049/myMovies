@@ -7,10 +7,8 @@ import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ModelMovieListItemBinding
 import com.example.moviesapp.model.domain.DomainMovieModel
 
-data class MovieListModel(
-    val item: DomainMovieModel,
-    val click: (Int) -> Unit
-) : ViewBindingKotlinModel<ModelMovieListItemBinding>(R.layout.model_movie_list_item){
+data class MovieListModelSearchFragment(val item: DomainMovieModel, val click: (Int,String) -> Unit)
+    : ViewBindingKotlinModel<ModelMovieListItemBinding>(R.layout.model_movie_list_item){
     override fun ModelMovieListItemBinding.bind() {
         progressImage.isVisible=true
         ivMovieCard.load(item.poster){
@@ -24,6 +22,6 @@ data class MovieListModel(
         tvYear.text=item.year
         tvGenres.text=item.genres.toString()
 
-        root.setOnClickListener{click(item.id)}
+        root.setOnClickListener{click(item.id , item.title)}
     }
 }

@@ -5,14 +5,13 @@ import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.example.moviesapp.R
 import com.example.moviesapp.ViewModelAndRepository.search.SearchDataSource
 import com.example.moviesapp.databinding.ModelExeptionErrorBinding
-import com.example.moviesapp.databinding.ModelMovieListItemBinding
 import com.example.moviesapp.epoxy.LoadingEpoxyModel
-import com.example.moviesapp.epoxy.MovieListModel
+import com.example.moviesapp.epoxy.MovieListModelSearchFragment
 import com.example.moviesapp.epoxy.ViewBindingKotlinModel
 import com.example.moviesapp.model.domain.DomainMovieModel
 
 class SearchEpoxyController(
-    private val onMovieClick:(Int)-> Unit
+    private val onMovieClick:(Int , String)-> Unit
 ):PagingDataEpoxyController<DomainMovieModel>() {
 
     var localException:SearchDataSource.LocalException?=null
@@ -27,9 +26,11 @@ class SearchEpoxyController(
 
 
     override fun buildItemModel(currentPosition: Int, item: DomainMovieModel?): EpoxyModel<*> {
-        return MovieListModel(item!!,onMovieClick)
+        return MovieListModelSearchFragment(item!!,onMovieClick)
             .id("search${item.id}")
     }
+
+
 
     override fun addModels(models: List<EpoxyModel<*>>) {
 

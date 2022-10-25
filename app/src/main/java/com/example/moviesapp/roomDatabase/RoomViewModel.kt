@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviesapp.model.domain.DomainMovieModel
+import com.example.moviesapp.roomDatabase.Entity.FavoriteMovieEntity
+import com.example.moviesapp.roomDatabase.Entity.SearchHistoryEntity
+import com.example.moviesapp.roomDatabase.Entity.SearchHistoryEntityWithoutId
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,11 +18,8 @@ class RoomViewModel @Inject constructor(
     private val repository: RoomRepository
 ) : ViewModel() {
 
-    private val _movieListMutableLiveData = MutableLiveData<List<MovieEntity>>()
-    val movieListLiveData : LiveData<List<MovieEntity>> = _movieListMutableLiveData
-
-    private val _favoriteList = MutableLiveData<MutableSet<DomainMovieModel>>()
-    val favoriteList : LiveData<MutableSet<DomainMovieModel>> = _favoriteList
+    private val _movieListMutableLiveData = MutableLiveData<List<FavoriteMovieEntity>>()
+    val movieListLiveData : LiveData<List<FavoriteMovieEntity>> = _movieListMutableLiveData
 
     private val _insertMovieMutableLiveData = MutableLiveData<Boolean>()
     val insertMovieLiveData : LiveData<Boolean> = _insertMovieMutableLiveData
@@ -29,33 +28,77 @@ class RoomViewModel @Inject constructor(
     val deleteMovieLiveData : LiveData<Boolean> = _deleteMovieMutableLiveData
 
 
-     fun insertMovie(movie : MovieEntity){
+     fun insertFavoriteMovie(movie : FavoriteMovieEntity){
         viewModelScope.launch {
-            repository.insertMovie(movie)
+            repository.insertFavoriteMovie(movie)
             _insertMovieMutableLiveData.postValue(true)
         }
     }
 
-    fun deleteMovie(movie : MovieEntity){
+    fun deleteFavoriteMovie(movie : FavoriteMovieEntity){
         viewModelScope.launch {
-            repository.deleteMovie(movie)
+            repository.deleteFavoriteMovie(movie)
             _deleteMovieMutableLiveData.postValue(true)
         }
     }
 
-    fun getMovieList(){
+    fun getFavoriteMovieList(){
         viewModelScope.launch {
-            repository.getAllMovies().collectLatest {
+            repository.getAllFavoriteMovies().collectLatest {
                 _movieListMutableLiveData.postValue(it)
             }
         }
     }
 
-    fun addToFavoriteList(movie : MutableSet<DomainMovieModel>){
+
+
+
+
+
+
+    private val _searchHistoryListMutableLiveData = MutableLiveData<List<SearchHistoryEntityWithoutId>>()
+    val searchHistoryListLiveData : LiveData<List<SearchHistoryEntityWithoutId>> = _searchHistoryListMutableLiveData
+
+    private val _insertSearchHistoryMutableLiveData = MutableLiveData<Boolean>()
+    val insertSearchHistoryLiveData : LiveData<Boolean> = _insertSearchHistoryMutableLiveData
+
+    private val _deleteSearchHistoryMutableLiveData = MutableLiveData<Boolean>()
+    val deleteSearchHistoryLiveData : LiveData<Boolean> = _deleteSearchHistoryMutableLiveData
+
+    private val _deleteSearchHistoryByIDMutableLiveData = MutableLiveData<Boolean>()
+    val deleteSearchHistoryByIdLiveData : LiveData<Boolean> = _deleteSearchHistoryByIDMutableLiveData
+
+
+    fun insertSearchHistory(movie : SearchHistoryEntity){
         viewModelScope.launch {
-            _favoriteList.postValue(movie)
+            repository.insertMovieSearchHistory(movie)
+            _insertSearchHistoryMutableLiveData.postValue(true)
         }
     }
+
+    fun deleteSearchHistory(movie : SearchHistoryEntity){
+        viewModelScope.launch {
+            repository.deleteMovieSearchHistory(movie)
+            _deleteSearchHistoryMutableLiveData.postValue(true)
+        }
+    }
+
+    fun deleteSearchHistoryByID(movieId:Int){
+        viewModelScope.launch {
+            repository.deleteMovieSearchById(movieId)
+            _deleteSearchHistoryByIDMutableLiveData.postValue(true)
+        }
+    }
+
+    fun getSearchHistoryList(){
+        viewModelScope.launch {
+            repository.getAllMovieSearchHistory().collectLatest {
+                _searchHistoryListMutableLiveData.postValue(it)
+            }
+        }
+    }
+
+
 
 
 }

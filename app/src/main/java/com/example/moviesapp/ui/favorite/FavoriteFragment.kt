@@ -50,7 +50,7 @@ class FavoriteFragment:Fragment() {
 
         binding.epoxyRecyclerView.setController(controller)
 
-        roomViewModel.getMovieList()
+        roomViewModel.getFavoriteMovieList()
 
         roomViewModel.movieListLiveData.observe(viewLifecycleOwner){movieList ->
             controller.setData(movieList)

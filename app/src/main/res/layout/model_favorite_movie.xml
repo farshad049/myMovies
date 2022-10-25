@@ -19,9 +19,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivArrow"
             tools:text="@string/movie_title"
-            android:textColor="?colorOnBackground"
+            android:textColor="?colorOnSurface"
             android:textSize="20sp"
-            android:padding="4dp"
+            android:padding="12dp"
             android:maxLines="2"
             app:layout_constraintBottom_toBottomOf="parent"
             />

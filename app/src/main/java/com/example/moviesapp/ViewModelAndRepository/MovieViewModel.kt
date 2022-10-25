@@ -21,8 +21,8 @@ class MovieViewModel @Inject constructor(
     private val movieDataSource: MovieDataSource,
 ) : ViewModel() {
 
-    private val _movieByIdLiveData= MutableLiveData<DomainMovieModel>()
-    val movieByIdLiveData: LiveData<DomainMovieModel> =_movieByIdLiveData
+    private val _movieByIdLiveData= MutableLiveData<DomainMovieModel?>()
+    val movieByIdLiveData: LiveData<DomainMovieModel?> =_movieByIdLiveData
 
     private val _movieByGenreLiveData= MutableLiveData<List<DomainMovieModel?>>()
     val movieByGenreLiveData: LiveData<List<DomainMovieModel?>> = _movieByGenreLiveData

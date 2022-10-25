@@ -18,7 +18,7 @@ import com.example.moviesapp.databinding.FragmentMoviesDetailBinding
 import com.example.moviesapp.model.ui.UiMovieDetailModel
 import com.example.moviesapp.network.ApiClient
 import com.example.moviesapp.network.MovieService
-import com.example.moviesapp.roomDatabase.MovieEntity
+import com.example.moviesapp.roomDatabase.Entity.FavoriteMovieEntity
 import com.example.moviesapp.roomDatabase.RoomViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
@@ -46,7 +46,7 @@ class MoviesDetailFragment: BaseFragment(R.layout.fragment_movies_detail) {
         showProgressBar()
 
         viewModel.getMovieById(safeArg.movieId)
-        roomViewModel.getMovieList()
+        roomViewModel.getFavoriteMovieList()
 
 
         combine(
@@ -62,7 +62,8 @@ class MoviesDetailFragment: BaseFragment(R.layout.fragment_movies_detail) {
                 null
             }
         }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){uiModel ->
-            dismissProgressBar()
+            if (uiModel != null) dismissProgressBar()
+
 
             binding.progressOnPoster.isVisible=true
             binding.ivMovie.load(uiModel?.movie?.poster){
@@ -104,15 +105,15 @@ class MoviesDetailFragment: BaseFragment(R.layout.fragment_movies_detail) {
             binding.favoriteImage.setOnClickListener {
                 if (uiModel != null) {
                     if (uiModel.isFavorite){
-                        roomViewModel.deleteMovie(
-                            MovieEntity(
+                        roomViewModel.deleteFavoriteMovie(
+                            FavoriteMovieEntity(
                                 id = uiModel.movie.id ,
                                 title = uiModel.movie.title
                             )
                         )
                     }else{
-                        roomViewModel.insertMovie(
-                            MovieEntity(
+                        roomViewModel.insertFavoriteMovie(
+                            FavoriteMovieEntity(
                                 id = uiModel.movie.id,
                                 title = uiModel.movie.title
                             )

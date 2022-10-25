@@ -6,7 +6,7 @@
             <group android:checkableBehavior="single">
 
                 <item android:id="@+id/favoriteFragment"
-                    android:title="All characters"
+                    android:title="Favorite Movies"
                     android:icon="@drawable/ic_round_favorite_menu"
                     />
 
