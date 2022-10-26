@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviesapp.model.network.RegisterUserModel
 import com.example.moviesapp.model.network.UserAuthModel
 import com.example.moviesapp.model.network.UserRegisteredModel
+import com.example.moviesapp.model.ui.LoginResponseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
@@ -20,8 +21,8 @@ class UserViewModel @Inject constructor(
     private val _registerUserLiveData= MutableLiveData<UserRegisteredModel?>()
     val registerUserLiveData: LiveData<UserRegisteredModel?> = _registerUserLiveData
 
-    private val _loginUserLiveData= MutableLiveData<UserAuthModel?>()
-    val loginUserLiveData: LiveData<UserAuthModel?> = _loginUserLiveData
+    private val _loginUserLiveData= MutableLiveData<LoginResponseModel?>()
+    val loginUserLiveData: LiveData<LoginResponseModel?> = _loginUserLiveData
 
     private val _userInfoLiveData= MutableLiveData<UserRegisteredModel?>()
     val userInfoLiveData: LiveData<UserRegisteredModel?> = _userInfoLiveData

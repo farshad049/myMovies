@@ -57,5 +57,7 @@
     <string name="authentication_succeeded">با موفقیت وارد شدید</string>
     <string name="type_to_search">چیزی تایپ کنید...</string>
     <string name="delete_all">پاک کردن همه</string>
+    <string name="credentials_were_incorrect">اطلاعات کاربری اشتباه است</string>
+    <string name="registration_failed">ثبت نام با خطا روبرو شد</string>
 
 </resources>

@@ -56,6 +56,8 @@
     <string name="authentication_succeeded">Authentication succeeded!</string>
     <string name="type_to_search">type to search...</string>
     <string name="delete_all">delete all</string>
+    <string name="credentials_were_incorrect">The user credentials were incorrect</string>
+    <string name="registration_failed">Registration Failed</string>
 
 
 </resources>

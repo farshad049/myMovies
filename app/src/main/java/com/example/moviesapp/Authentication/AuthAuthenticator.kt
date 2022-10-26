@@ -34,9 +34,9 @@ class AuthAuthenticator @Inject constructor( ) : Authenticator {
 
             if (!newAccessToken.isSuccessful){
                 tokenManager.clearSharedPref()
-                val intent= Intent(context, MainActivity::class.java)
-                intent.flags = FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(intent)
+              //  val intent= Intent(context, MainActivity::class.java)
+              //  intent.flags = FLAG_ACTIVITY_NEW_TASK
+             //   context.startActivity(intent)
             }
 
             tokenManager.saveToken(newAccessToken.body()) // save new access_token for next called

@@ -13,6 +13,7 @@ import com.example.moviesapp.ViewModelAndRepository.user.UserViewModel
 import com.example.moviesapp.R
 import com.example.moviesapp.databinding.FragmentLoginBinding
 import com.example.moviesapp.model.network.UserAuthModel
+import com.example.moviesapp.model.ui.LoginResponseModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.RequestBody
@@ -69,15 +70,18 @@ class LoginFragment: BaseFragment(R.layout.fragment_login) {
                 viewModel.loginUser(userNameBody,passwordBody,grantTypeBody)
 
                 viewModel.loginUserLiveData.observe(viewLifecycleOwner){
-                    if (it is UserAuthModel){
-                        tokenManager.saveToken(it)
-                        Log.i("response",it.toString())
-                        binding.etEditLoginEmail.text?.clear()
-                        binding.etEditLoginPassword.text?.clear()
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
-                        Toast.makeText(requireContext(), "you are logged in",Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(requireContext(), it.toString(),Toast.LENGTH_SHORT).show()
+                    when(it){
+                        is LoginResponseModel.Success -> {
+                            tokenManager.saveToken(it.data)
+                            binding.etEditLoginEmail.text?.clear()
+                            binding.etEditLoginPassword.text?.clear()
+                            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
+                            Toast.makeText(requireContext(), "you are logged in",Toast.LENGTH_SHORT).show()
+                        }
+                        is LoginResponseModel.Error -> {
+                            Toast.makeText(requireContext(), it.error,Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {}
                     }
 
                 }

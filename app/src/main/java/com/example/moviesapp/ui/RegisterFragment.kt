@@ -3,6 +3,7 @@ package com.example.moviesapp.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -87,6 +88,9 @@ class RegisterFragment: BaseFragment(R.layout.fragment_register) {
                         binding.etPassword.text?.clear()
                         binding.etEmail.text?.clear()
                         findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+                    }else{
+                        Toast.makeText(requireContext(), requireContext().getString(R.string.credentials_were_incorrect),
+                            Toast.LENGTH_SHORT).show()
                     }
                 }
 
