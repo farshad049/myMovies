@@ -12,21 +12,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:background="?colorPrimary"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoInternetConnection"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
+            android:text="@string/no_internet_connection"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            tools:visibility="visible"
+            android:visibility="gone"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?colorPrimary"
             android:theme="@style/customToolbarStyle"
             android:visibility="visible"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNoInternetConnection">
+
             <include
                 android:id="@+id/included"
-                layout="@layout/model_toolbar"
-                />
+                layout="@layout/model_toolbar" />
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.fragment.app.FragmentContainerView
@@ -40,7 +51,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:navGraph="@navigation/nav_graph" />
-
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -59,8 +69,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="false"
-        app:menu="@menu/menu_drawer_layout"
         app:headerLayout="@layout/drawer_header"
-        />
+        app:menu="@menu/menu_drawer_layout" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

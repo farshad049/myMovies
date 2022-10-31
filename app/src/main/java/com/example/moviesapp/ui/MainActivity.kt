@@ -24,6 +24,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -33,11 +34,13 @@ import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
 import com.example.moviesapp.databinding.ActivityMainBinding
 import com.example.moviesapp.ui.setting.SettingFragment
 import com.example.moviesapp.util.BiometricAuthentication
+import com.example.moviesapp.util.CheckInternetConnection
 import com.example.moviesapp.util.Constants
 import com.example.moviesapp.util.Constants.LOCALE_CODE
 import com.example.moviesapp.util.Constants.THEME_CODE
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import java.util.concurrent.Executor
@@ -48,6 +51,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel : DashboardViewModel by viewModels()
+    private lateinit var connectionLiveData: CheckInternetConnection
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -119,14 +123,24 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
+        //set the button on toolbar to open the drawer
         binding.included.btnDrawerLayout.setOnClickListener {
            binding.drawerLayout.openDrawer(GravityCompat.START)
         }
-
+        //set edit text on toolbar to navigate to search fragment
         binding.included.edToolbarSearchBox.setOnClickListener {
             navController.navigateUp()
             navController.navigate(R.id.searchFragment)
+        }
+
+
+
+        //check internet connection
+        connectionLiveData = CheckInternetConnection(this)
+        connectionLiveData.observe(this) { isNetworkAvailable ->
+            isNetworkAvailable?.let {
+                binding.tvNoInternetConnection.isVisible = !it
+            }
         }
 
 

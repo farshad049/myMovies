@@ -50,7 +50,6 @@
                 app:layout_constraintTop_toTopOf="@id/ivMovieCard" />
 
 
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
@@ -58,8 +57,8 @@
                 android:layout_marginHorizontal="6dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textStyle="bold"
                 android:textColor="?colorOnBackground"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivMovieCard"
                 app:layout_constraintTop_toTopOf="@id/ivMovieCard"
