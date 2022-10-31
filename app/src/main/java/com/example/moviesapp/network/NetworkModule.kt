@@ -42,7 +42,7 @@ object NetworkModule {
             .connectTimeout(duration)
             .readTimeout(duration)
             .writeTimeout(duration)
-            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
+            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BASIC) })
 
             .addInterceptor(
             ChuckerInterceptor.Builder(MoviesApplication.context)

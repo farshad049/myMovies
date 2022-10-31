@@ -46,11 +46,8 @@ class MovieListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
        val filterCarouselController = FilterCarouselEpoxyController(filterViewModel)
-
-        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
-
-        binding.filterCarouselEpoxyRecyclerView.setController(filterCarouselController)
 
 
 
@@ -66,7 +63,7 @@ class MovieListFragment: Fragment() {
             viewModel.movieListFlow.collectLatest {data->
 
                 combine(
-                    filterViewModel.filterByGenreInfo1LiveData ,
+                    filterViewModel.filterByGenreInfoLiveData ,
                     filterViewModel.filterByImdbRateInfo1LiveData
                 ){genreSelectedFilters , imdbRateSelectedFilters ->
 
@@ -83,13 +80,16 @@ class MovieListFragment: Fragment() {
             }
         }
 
+        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
+
+
 
 
 
 
         //set data for carousel filter
         combine(
-            filterViewModel.filterByGenreInfo1LiveData ,
+            filterViewModel.filterByGenreInfoLiveData ,
             filterViewModel.filterByImdbRateInfo1LiveData
         ){genreSelectedFilters , imdbRateSelectedFilters ->
             genreSelectedFilters.selectedGenres +
@@ -97,6 +97,8 @@ class MovieListFragment: Fragment() {
         }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){
             filterCarouselController.setData(it)
         }
+
+        binding.filterCarouselEpoxyRecyclerView.setController(filterCarouselController)
 
 
 

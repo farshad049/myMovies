@@ -6,6 +6,9 @@ import com.example.moviesapp.ViewModelAndRepository.MovieRepository
 import com.example.moviesapp.model.domain.DomainMovieModel
 import com.example.moviesapp.model.network.GenresModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,14 +20,19 @@ class DashboardViewModel @Inject constructor(
 
     private val _firstPageMovieLiveData= MutableLiveData<List<DomainMovieModel?>>()
     val firstPageMovieLiveData: LiveData<List<DomainMovieModel?>> = _firstPageMovieLiveData
+    private val _firstPageMovieIsDone = MutableStateFlow(true)
+    val firstPageMovieIsDone = _firstPageMovieIsDone.asStateFlow()
 
     private val _allGenresMovieLiveData= MutableLiveData<List<GenresModel?>>()
     val allGenresMovieLiveData: LiveData<List<GenresModel?>> = _allGenresMovieLiveData
+    private val _allGenresMovieIsDone = MutableStateFlow(true)
+    val allGenresMovieIsDone = _allGenresMovieIsDone.asStateFlow()
 
     fun getFirstPageMovie(){
         viewModelScope.launch {
             val response= repository.getFirstPageMovie()
             _firstPageMovieLiveData.postValue(response)
+            if (response.isNotEmpty()) _firstPageMovieIsDone.value = false
         }
     }
 
@@ -32,6 +40,7 @@ class DashboardViewModel @Inject constructor(
         viewModelScope.launch {
             val response= repository.getAllGenres()
             _allGenresMovieLiveData.postValue(response)
+            if (response.isNotEmpty()) _allGenresMovieIsDone.value = false
         }
     }
 

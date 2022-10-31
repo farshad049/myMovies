@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
@@ -33,7 +34,7 @@ import javax.inject.Inject
 class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterface {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
-    private val dashboardViewModel: DashboardViewModel by viewModels()
+    private val dashboardViewModel: DashboardViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,14 +42,7 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
         _binding= FragmentDashboardBinding.bind(view)
 
 
-        val controller= DashboardEpoxyController( requireContext(),this)
-
-
-        binding.epoxyRecyclerView.setController(controller)
-
-
-        dashboardViewModel.getFirstPageMovie()
-        dashboardViewModel.getAllGenres()
+        val controller = DashboardEpoxyController( requireContext(),this)
 
 
 
@@ -56,6 +50,8 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
 //           controller.setData(top,genre)
 //        }
 
+
+        //data is fetching in main activity so we don't need to fetch it here again, we can use activityViewModels
          combine(
             dashboardViewModel.firstPageMovieLiveData.asFlow() ,
             dashboardViewModel.allGenresMovieLiveData.asFlow()
@@ -69,9 +65,20 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
             controller.setData(it.movie , it.genre)
         }
 
+        binding.epoxyRecyclerView.setController(controller)
 
+
+
+
+
+
+
+
+        //on swipe to refresh
         binding.swipeToRefresh.setOnRefreshListener {
-            binding.epoxyRecyclerView.setController(controller)
+
+            dashboardViewModel.getFirstPageMovie()
+            dashboardViewModel.getAllGenres()
 
             combine(
                 dashboardViewModel.firstPageMovieLiveData.asFlow() ,
@@ -87,8 +94,8 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
                 if (it.movie.isNotEmpty() && it.genre.isNotEmpty()){
                     binding.swipeToRefresh.isRefreshing = false
                 }
-
             }
+            binding.epoxyRecyclerView.setController(controller)
         }
 
 

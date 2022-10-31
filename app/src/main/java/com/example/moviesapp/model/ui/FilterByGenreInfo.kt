@@ -1,6 +1,6 @@
 package com.example.moviesapp.model.ui
 
-data class FilterByGenreInfo1 (
+data class FilterByGenreInfo (
         val genres: Set<String> = setOf(),
         var selectedGenres: Set<String> = emptySet()
 )

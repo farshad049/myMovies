@@ -33,11 +33,6 @@ class MovieViewModel @Inject constructor(
     private val _pushMovieMultipartLiveData= MutableLiveData<UploadMovieModelStringPoster?>()
     val pushMovieMultipartLiveData: LiveData<UploadMovieModelStringPoster?> = _pushMovieMultipartLiveData
 
-//    private val _favoriteMovieMutableLiveData = MutableLiveData<Set<Int>>()
-//    val favoriteMovieMutableLiveData : LiveData<Set<Int>> = _favoriteMovieMutableLiveData
-
-
-
 
 
 
@@ -81,8 +76,8 @@ class MovieViewModel @Inject constructor(
 
 
     val movieListFlow = Pager(PagingConfig(
-            pageSize = 20,
-            prefetchDistance = 40,
+            pageSize = 10,
+            prefetchDistance = 20,
             enablePlaceholders = false
         )
     ) { movieDataSource }.flow.cachedIn(viewModelScope)

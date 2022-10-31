@@ -14,6 +14,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
@@ -23,10 +24,12 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.moviesapp.R
+import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
 import com.example.moviesapp.databinding.ActivityMainBinding
 import com.example.moviesapp.ui.setting.SettingFragment
 import com.example.moviesapp.util.BiometricAuthentication
@@ -44,6 +47,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val viewModel : DashboardViewModel by viewModels()
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -61,13 +65,21 @@ class MainActivity : AppCompatActivity() {
         if(localeRecord?.isNotEmpty() == true) setLocale(this , localeRecord)
 
 
-        //shared preferences for theme setting
+        //shared preferences for dark or light setting
         val themePrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_THEME_FILE, Context.MODE_PRIVATE)
         val themeRecord: String? = themePrefs.getString(THEME_CODE  , "light")
         if (themeRecord?.isNotEmpty() == true) setDayNightTheme(themeRecord)
 
+        //it should run outside installSplashScreen()
+        viewModel.getFirstPageMovie()
+        viewModel.getAllGenres()
 
-        val splashScreen = installSplashScreen()
+        installSplashScreen().apply {
+            setKeepOnScreenCondition{
+                //will stay on splash screen as long as firstPageMovieIsDone or allGenresMovieIsDone is true
+                viewModel.firstPageMovieIsDone.value  && viewModel.allGenresMovieIsDone.value
+            }
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

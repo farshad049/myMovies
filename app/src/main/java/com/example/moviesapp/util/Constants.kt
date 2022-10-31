@@ -1,12 +1,5 @@
 package com.example.moviesapp.util
 
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.example.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
-import com.example.moviesapp.ViewModelAndRepository.filter.FilterViewModel
-import com.example.moviesapp.model.ui.FilterByGenreInfo1
-import com.example.moviesapp.model.ui.FilterByImdbInfo1
-
 object Constants {
 
     const val BASE_URL = "https://moviesapi.ir/"
@@ -33,6 +26,10 @@ object Constants {
     //pref for biometric authentication
     const val PREFS_AUTHENTICATION_FILE = "prefs_authentication_file"
     const val IS_AUTHENTICATION_ENABLED = "is_authentication_enable"
+
+    //for filter fragment
+    const val GENRE = "Genres"
+    const val IMDBRATE  = "Imdb Rate"
 
 
 

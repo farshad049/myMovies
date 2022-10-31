@@ -19,14 +19,6 @@
         <item name="colorOnSurface">@color/purple_700</item>
     </style>
 
-    <style name="Theme.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/purple_700</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_round_local_movies_24</item>
-        <item name="windowSplashScreenAnimationDuration">1000</item>
-         <item name="postSplashScreenTheme">@style/Theme.MoviesApp</item>
-    </style>
-
-
     <style name="customToolbarStyle">
         <item name="android:textColorPrimary">#FFFFFF</item>
         <item name="android:colorControlNormal">#FFFFFF</item>

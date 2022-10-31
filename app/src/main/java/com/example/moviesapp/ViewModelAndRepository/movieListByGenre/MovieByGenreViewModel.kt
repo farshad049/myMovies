@@ -31,8 +31,8 @@ class MovieByGenreViewModel @Inject constructor(
 
     val movieByGenreFlow = Pager(
         PagingConfig(
-            pageSize = 20,
-            prefetchDistance = 40,
+            pageSize = 10,
+            prefetchDistance = 20,
             enablePlaceholders = false
         )
     ) { pagingSource!! }.flow.cachedIn(viewModelScope)

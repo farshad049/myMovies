@@ -77,7 +77,7 @@ class SearchDataSource (
         var nextPage : Int? = null
 
         if (request.bodyNullable != null){
-            val totalPage = request.bodyNullable!!.metadata.total_count
+            val totalPage = request.bodyNullable!!.metadata.page_count
             val currentPage = request.bodyNullable!!.metadata.current_page.toInt()
             if (currentPage < totalPage){
                 nextPage = currentPage.plus(1)

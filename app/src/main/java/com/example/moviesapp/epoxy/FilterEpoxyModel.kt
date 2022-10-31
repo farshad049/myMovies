@@ -15,7 +15,6 @@ data class FilterEpoxyModel(
         root.setOnClickListener { onFilterClick(uiFilter.filterDisplayName) }
         //checkbox.isClickable=false
         checkbox.isChecked = uiFilter.isSelected
-
     }
 
 }

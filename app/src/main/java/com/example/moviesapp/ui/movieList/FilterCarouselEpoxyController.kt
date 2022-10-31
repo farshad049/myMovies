@@ -32,8 +32,8 @@ class FilterCarouselEpoxyController(
         when{
 
 
-            viewModel.filterByGenreInfo1LiveData.value.genres.contains(selectedFilter) -> {
-                val currentSelectedFilter = viewModel.filterByGenreInfo1LiveData.value
+            viewModel.filterByGenreInfoLiveData.value.genres.contains(selectedFilter) -> {
+                val currentSelectedFilter = viewModel.filterByGenreInfoLiveData.value
                 val newFilter =  currentSelectedFilter.copy(
                     selectedGenres = if(currentSelectedFilter.selectedGenres.contains(selectedFilter)){
                         currentSelectedFilter.selectedGenres.filter { it != selectedFilter }.toSet()
@@ -41,7 +41,7 @@ class FilterCarouselEpoxyController(
                         currentSelectedFilter.selectedGenres
                     }
                 )
-                viewModel._filterByGenreInfo1LiveData.value = newFilter
+                viewModel._filterByGenreInfoLiveData.value = newFilter
             }
 
 

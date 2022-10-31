@@ -16,6 +16,7 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/MoviesApp/app/src/main/res/menu/menu_drawer_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable-v24/drawable_language_tab_selector.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/button_background.xml" value="0.18" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_outline_keyboard_arrow_down_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_add_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_arrow_forward_24.xml" value="0.169" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/drawable/ic_round_close_24.xml" value="0.169" />
@@ -56,8 +57,9 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_delete_all.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_empty_favorite_list.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_exeption_error.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_expandable_list.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_favorite_movie.xml" value="0.25" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_filter.xml" value="0.365625" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_filter.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_genre_icon.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_header_title.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_image_carusel.xml" value="0.36666666666666664" />
