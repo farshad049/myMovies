@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.moviesapp.ui.dashboard.DashboardFragment"
+        android:name="com.farshad.moviesapp.ui.dashboard.DashboardFragment"
         android:label=""
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/movieListByGenre"
-        android:name="com.example.moviesapp.ui.movieListByGenre.MovieListByGenre"
+        android:name="com.farshad.moviesapp.ui.movieListByGenre.MovieListByGenre"
         android:label=""
         tools:layout="@layout/fragment_movie_list_by_genre">
         <argument
@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/movieList"
-        android:name="com.example.moviesapp.ui.movieList.MovieListFragment"
+        android:name="com.farshad.moviesapp.ui.movieList.MovieListFragment"
         android:label=""
         tools:layout="@layout/fragment_movie_list">
         <action
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/moviesDetailFragment"
-        android:name="com.example.moviesapp.ui.movieDetail.MoviesDetailFragment"
+        android:name="com.farshad.moviesapp.ui.movieDetail.MoviesDetailFragment"
         android:label=""
         tools:layout="@layout/fragment_movies_detail">
         <deepLink app:uri="https://moviesapi.ir/api/v1/movies/{movieId}"/>
@@ -66,13 +66,13 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.moviesapp.ui.search.SearchFragment"
+        android:name="com.farshad.moviesapp.ui.search.SearchFragment"
         android:label=""
         tools:layout="@layout/fragment_search"/>
 
     <fragment
         android:id="@+id/submit"
-        android:name="com.example.moviesapp.ui.submitMovie.Submit"
+        android:name="com.farshad.moviesapp.ui.submitMovie.Submit"
         android:label=""
         tools:layout="@layout/fragment_submit"
         >
@@ -85,20 +85,20 @@
 
     <fragment
         android:id="@+id/submitMovieBase64"
-        android:name="com.example.moviesapp.ui.submitMovie.SubmitMovieBase64"
+        android:name="com.farshad.moviesapp.ui.submitMovie.SubmitMovieBase64"
         android:label=""
         tools:layout="@layout/fragment_submit_base64"/>
 
     <fragment
         android:id="@+id/submitMovieMultipart"
-        android:name="com.example.moviesapp.ui.submitMovie.SubmitMovieMultipart"
+        android:name="com.farshad.moviesapp.ui.submitMovie.SubmitMovieMultipart"
         android:label=""
         tools:layout="@layout/fragment_submit_multipart"/>
 
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.moviesapp.ui.RegisterFragment"
+        android:name="com.farshad.moviesapp.ui.RegisterFragment"
         android:label=""
         tools:layout="@layout/fragment_register">
         <action
@@ -123,7 +123,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.moviesapp.ui.LoginFragment"
+        android:name="com.farshad.moviesapp.ui.LoginFragment"
         android:label=""
         tools:layout="@layout/fragment_login">
         <action
@@ -140,7 +140,7 @@
 
     <fragment
         android:id="@+id/userInfoFragment"
-        android:name="com.example.moviesapp.ui.UserInfoFragment"
+        android:name="com.farshad.moviesapp.ui.UserInfoFragment"
         android:label=""
         tools:layout="@layout/fragment_user_info"
         />
@@ -148,7 +148,7 @@
 
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.example.moviesapp.ui.filter.FilterFragment"
+        android:name="com.farshad.moviesapp.ui.filter.FilterFragment"
         android:label=""
         tools:layout="@layout/fragment_filter">
         <action
@@ -159,7 +159,7 @@
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.moviesapp.ui.favorite.FavoriteFragment"
+        android:name="com.farshad.moviesapp.ui.favorite.FavoriteFragment"
         android:label=""
         tools:layout="@layout/fragment_favorite">
         <action
@@ -169,7 +169,7 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.moviesapp.ui.setting.SettingFragment"
+        android:name="com.farshad.moviesapp.ui.setting.SettingFragment"
         android:label=""
         tools:layout="@layout/fragment_setting"/>
 

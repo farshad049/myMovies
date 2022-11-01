@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+    <style name="Theme.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/purple_700</item>
         <item name="statusBarBackground">@color/purple_700</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_round_local_movies_24</item>
