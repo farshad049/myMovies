@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         val themeRecord: String? = themePrefs.getString(THEME_CODE  , "light")
         if (themeRecord?.isNotEmpty() == true) setDayNightTheme(themeRecord)
 
-        //it should run outside installSplashScreen()
+        //this should run outside installSplashScreen() for fetching data
         viewModel.getFirstPageMovie()
         viewModel.getAllGenres()
 
@@ -93,6 +93,8 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
+
+
         //enable the action bar
         appBarConfiguration= AppBarConfiguration(
             //navController.graph ,
@@ -104,6 +106,7 @@ class MainActivity : AppCompatActivity() {
             ),
             drawerLayout = binding.drawerLayout
         )
+
 
         //set up fragment title in toolbar
         //setupActionBarWithNavController(navController,appBarConfiguration)
@@ -135,11 +138,17 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
         //check internet connection
         connectionLiveData = CheckInternetConnection(this)
         connectionLiveData.observe(this) { isNetworkAvailable ->
             isNetworkAvailable?.let {
                 binding.tvNoInternetConnection.isVisible = !it
+
+                if (!it) Toast.makeText(this,getString(R.string.no_internet_connection),Toast.LENGTH_LONG).show()
+
+
             }
         }
 
@@ -190,7 +199,7 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q){
             //check if biometric authentication in enabled
             val biometricPrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_AUTHENTICATION_FILE, Context.MODE_PRIVATE)
-            if (biometricPrefs.getBoolean(Constants.IS_AUTHENTICATION_ENABLED, true)){
+            if (biometricPrefs.getBoolean(Constants.IS_AUTHENTICATION_ENABLED, false)){
                 biometricAuthentication.promptForActivity(this,this)
             }
         }

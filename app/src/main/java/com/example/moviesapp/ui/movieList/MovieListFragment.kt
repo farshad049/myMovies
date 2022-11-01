@@ -107,6 +107,23 @@ class MovieListFragment: Fragment() {
 
 
 
+        binding.swipeToRefresh.setOnRefreshListener {
+            viewModel.movieListFlow
+
+            binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
+
+            binding.filterCarouselEpoxyRecyclerView.setController(filterCarouselController)
+
+            binding.swipeToRefresh.isRefreshing = false
+        }
+
+
+
+
+
+
+
+
 
 
 

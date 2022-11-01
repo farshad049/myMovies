@@ -30,19 +30,32 @@ class MovieListByGenre: BaseFragment(R.layout.fragment_movie_list_by_genre) {
         val controller=MovieListByGenreController(::onMovieClick,safeArg.genreName)
 
 
-        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
-
         //if the value is not what has been defaulted in nav_graph, then run this code
         if (safeArg.genreId != -1){
             viewModel.submitQuery(safeArg.genreId)
         }
 
 
-
         lifecycleScope.launchWhenStarted{
             viewModel.movieByGenreFlow.collectLatest {data->
                 controller.submitData(data)
             }
+        }
+
+        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
+
+
+
+
+
+
+        binding.swipeToRefresh.setOnRefreshListener{
+            if (safeArg.genreId != -1){
+                viewModel.submitQuery(safeArg.genreId)
+            }
+            viewModel.movieByGenreFlow
+            binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
+            binding.swipeToRefresh.isRefreshing = false
         }
 
 

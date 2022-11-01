@@ -130,7 +130,7 @@ class SettingFragment: BaseFragment(R.layout.fragment_setting) {
 
 
         //set swFingerPrint is check status base on shared preference
-        binding.swFingerPrint.isChecked = biometricPrefs.getBoolean(IS_AUTHENTICATION_ENABLED , true)
+        binding.swFingerPrint.isChecked = biometricPrefs.getBoolean(IS_AUTHENTICATION_ENABLED , false)
         //check if device supports the biometric functionality
         checkDeviceHasBiometrics()
 

@@ -80,22 +80,8 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
             dashboardViewModel.getFirstPageMovie()
             dashboardViewModel.getAllGenres()
 
-            combine(
-                dashboardViewModel.firstPageMovieLiveData.asFlow() ,
-                dashboardViewModel.allGenresMovieLiveData.asFlow()
-            ){listOfMovie , listOfGenre ->
-                UiMovieAndGenre(
-                    movie = listOfMovie ,
-                    genre = listOfGenre
-                )
-
-            }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){
-                controller.setData(it.movie , it.genre)
-                if (it.movie.isNotEmpty() && it.genre.isNotEmpty()){
-                    binding.swipeToRefresh.isRefreshing = false
-                }
-            }
             binding.epoxyRecyclerView.setController(controller)
+            binding.swipeToRefresh.isRefreshing = false
         }
 
 
