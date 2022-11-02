@@ -1,14 +1,15 @@
 package com.farshad.moviesapp.network
 
+import okhttp3.ResponseBody
 import retrofit2.Response
 
 
 //this is for checking if network request was failure or successful
 data class SimpleResponse<T>(
     val status: Status,
-    //nullable because response can be failed, and Response is the retrofit response
+
     val data: Response<T>?,
-    //nullable because we could have no exception error
+
     val exception: Exception?
 ) {
 
@@ -22,7 +23,7 @@ data class SimpleResponse<T>(
 
     val isSuccessful: Boolean
         get() = !failed && this.data?.isSuccessful == true
-    //T is a temporary value
+
     val body: T
         get() = this.data!!.body()!!
 
@@ -36,7 +37,7 @@ data class SimpleResponse<T>(
 
 
     companion object {
-        //because T is temporary we have to pass it to function
+
         fun <T> success(data: Response<T>): SimpleResponse<T> {
             return SimpleResponse(
                 status = Status.Success,

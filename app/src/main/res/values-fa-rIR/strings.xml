@@ -60,5 +60,6 @@
     <string name="credentials_were_incorrect">اطلاعات کاربری اشتباه است</string>
     <string name="registration_failed">ثبت نام با خطا روبرو شد</string>
     <string name="no_internet_connection">عدم دسترسی به اینترنت !</string>
+    <string name="some_thing_went_wrong">خطایی رخ داده است !</string>
 
 </resources>

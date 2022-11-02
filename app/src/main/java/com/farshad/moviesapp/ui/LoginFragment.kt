@@ -1,21 +1,32 @@
 package com.farshad.moviesapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.R
+import com.farshad.moviesapp.ViewModelAndRepository.user.UserRepository
 import com.farshad.moviesapp.ViewModelAndRepository.user.UserViewModel
 import com.farshad.moviesapp.databinding.FragmentLoginBinding
-import com.farshad.moviesapp.model.ui.LoginResponseModel
+import com.farshad.moviesapp.model.network.LoginResponseModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.internal.notify
+import okhttp3.internal.notifyAll
+import org.json.JSONObject
 import javax.inject.Inject
 
 
@@ -27,11 +38,13 @@ class LoginFragment: BaseFragment(R.layout.fragment_login) {
 
     @Inject lateinit var tokenManager: TokenManager
 
+//    @Inject lateinit var repository:UserRepository
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater , container , false)
         return binding.root
     }
@@ -64,22 +77,27 @@ class LoginFragment: BaseFragment(R.layout.fragment_login) {
                 val grantTypeBody: RequestBody = "password".toRequestBody()
 
 
-
                 viewModel.loginUser(userNameBody,passwordBody,grantTypeBody)
 
-                viewModel.loginUserLiveData.observe(viewLifecycleOwner){
-                    when(it){
-                        is LoginResponseModel.Success -> {
-                            tokenManager.saveToken(it.data)
-                            binding.etEditLoginEmail.text?.clear()
-                            binding.etEditLoginPassword.text?.clear()
-                            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
-                            Toast.makeText(requireContext(), "you are logged in",Toast.LENGTH_SHORT).show()
+
+                viewModel.loginUserLiveData.distinctUntilChanged().observe(viewLifecycleOwner){response->
+
+                    when(response){
+                        is LoginResponseModel.Error ->{
+//                            Toast.makeText(requireContext(), response.error,Toast.LENGTH_SHORT).show()
+                            Log.e("error","error")
                         }
-                        is LoginResponseModel.Error -> {
-                            Toast.makeText(requireContext(), it.error,Toast.LENGTH_SHORT).show()
+                        is LoginResponseModel.Success ->{
+//                            tokenManager.saveToken(response.data)
+//                            binding.etEditLoginEmail.text?.clear()
+//                            binding.etEditLoginPassword.text?.clear()
+//                            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
+//                            Toast.makeText(requireContext(), "you are logged in",Toast.LENGTH_SHORT).show()
+                            Log.e("success","success")
                         }
-                        else -> {}
+                        else ->{
+                            Toast.makeText(requireContext(), "nothing",Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                 }

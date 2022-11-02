@@ -221,7 +221,7 @@ class MoviesDetailFragment: BaseFragment(R.layout.fragment_movies_detail) {
         for (element in list) {
             sb.append(element).append(", ")
         }
-        return sb.toString().substring(0, sb.length-2)
+        return sb.toString()
     }
 
 

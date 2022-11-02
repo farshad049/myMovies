@@ -124,7 +124,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.farshad.moviesapp.ui.LoginFragment"
-        android:label=""
+        android:label="login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_userInfoFragment"

@@ -13,7 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 
-class AuthAuthenticator @Inject constructor( ) : Authenticator {
+class AuthAuthenticator @Inject constructor() : Authenticator {
 
     @Inject lateinit var tokenManager: TokenManager
 
@@ -33,9 +33,9 @@ class AuthAuthenticator @Inject constructor( ) : Authenticator {
               //  val intent= Intent(context, MainActivity::class.java)
               //  intent.flags = FLAG_ACTIVITY_NEW_TASK
              //   context.startActivity(intent)
+            }else{
+                tokenManager.saveToken(newAccessToken.body()) // save new access_token for next call
             }
-
-            tokenManager.saveToken(newAccessToken.body()) // save new access_token for next called
 
 
             newAccessToken.body()?.let {

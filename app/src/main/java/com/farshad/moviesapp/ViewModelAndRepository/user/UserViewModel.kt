@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.farshad.moviesapp.model.network.RegisterUserModel
-import com.farshad.moviesapp.model.network.UserAuthModel
-import com.farshad.moviesapp.model.network.UserRegisteredModel
-import com.farshad.moviesapp.model.ui.LoginResponseModel
+import com.farshad.moviesapp.model.network.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import javax.inject.Inject
@@ -18,14 +17,15 @@ class UserViewModel @Inject constructor(
     private val repository: UserRepository
 ):ViewModel() {
 
-    private val _registerUserLiveData= MutableLiveData<UserRegisteredModel?>()
-    val registerUserLiveData: LiveData<UserRegisteredModel?> = _registerUserLiveData
+    private val _registerUserLiveData = MutableLiveData<RegisterResponseModel?>()
+    val registerUserLiveData: LiveData<RegisterResponseModel?> = _registerUserLiveData
 
-    private val _loginUserLiveData= MutableLiveData<LoginResponseModel?>()
-    val loginUserLiveData: LiveData<LoginResponseModel?> = _loginUserLiveData
+    private val _loginUserLiveData = MutableLiveData<LoginResponseModel>()
+    val loginUserLiveData: LiveData<LoginResponseModel> = _loginUserLiveData
 
-    private val _userInfoLiveData= MutableLiveData<UserRegisteredModel?>()
+    private val _userInfoLiveData = MutableLiveData<UserRegisteredModel?>()
     val userInfoLiveData: LiveData<UserRegisteredModel?> = _userInfoLiveData
+
 
     fun registerUser(user: RegisterUserModel){
         viewModelScope.launch {
@@ -47,4 +47,11 @@ class UserViewModel @Inject constructor(
             _userInfoLiveData.postValue(response)
         }
     }
+
+
+
+
+
+
+
 }
