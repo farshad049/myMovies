@@ -48,18 +48,21 @@ class FilterFragment:Fragment() {
 
             val genreData = setOfGenresFilter.genres.map { genres ->
                 UiFilter(
-                    filterDisplayName = genres,
-                    isSelected = setOfGenresFilter.selectedGenres.contains(genres) ,
-                    isExpand = setOfExpandedItems.setOfExpandIds.contains(GENRE)
+                    isExpand = setOfExpandedItems.setOfExpandIds.contains(GENRE) ,
+                    filterInfo = UiFilter.FilterInfo(
+                        filterDisplayName = genres,
+                        isSelected = setOfGenresFilter.selectedGenres.contains(genres)
+                    )
                 )
             }
 
             val imdbData = setOfImdbFilter.imdbRate.map { imdbRate ->
                 UiFilter(
-                    filterDisplayName = imdbRate,
-                    isSelected = setOfImdbFilter.selectedImdbRate.contains(imdbRate) ,
-                    isExpand = setOfExpandedItems.setOfExpandIds.contains(IMDBRATE)
-
+                    isExpand = setOfExpandedItems.setOfExpandIds.contains(IMDBRATE) ,
+                    filterInfo = UiFilter.FilterInfo(
+                        filterDisplayName = imdbRate,
+                        isSelected = setOfImdbFilter.selectedImdbRate.contains(imdbRate)
+                    )
                 )
             }
 

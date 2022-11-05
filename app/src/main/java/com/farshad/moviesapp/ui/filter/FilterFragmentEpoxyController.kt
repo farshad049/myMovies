@@ -17,22 +17,21 @@ class FilterFragmentEpoxyController(
     override fun buildModels(data: FilterByGenreAndImdbRate) {
 
 
-        HeaderExpandableEpoxyModel(GENRE, ::onExpandableHeaderClick).id("filter_base_on_genres").addTo(this)
-
+        HeaderExpandableEpoxyModel(GENRE, ::onExpandableHeaderClick , data.filteredByGenreList[1].isExpand).id("filter_base_on_genres").addTo(this)
 
         data.filteredByGenreList.forEach {
             if (it.isExpand){
-                FilterEpoxyModel(it, ::onGenreFilterClick  ).id(it.filterDisplayName).addTo(this)
+                FilterEpoxyModel(it, ::onGenreFilterClick  ).id(it.filterInfo.filterDisplayName).addTo(this)
             }
         }
 
 
-        HeaderExpandableEpoxyModel(IMDBRATE, ::onExpandableHeaderClick).id("filter_base_on_Imdb_rate").addTo(this)
+        HeaderExpandableEpoxyModel(IMDBRATE, ::onExpandableHeaderClick , data.filteredByImdbList[1].isExpand).id("filter_base_on_Imdb_rate").addTo(this)
 
 
         data.filteredByImdbList.forEach {
             if (it.isExpand){
-                FilterEpoxyModel(it, ::onImdbFilterClick).id(it.filterDisplayName).addTo(this)
+                FilterEpoxyModel(it, ::onImdbFilterClick).id(it.filterInfo.filterDisplayName).addTo(this)
             }
         }
 

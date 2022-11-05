@@ -11,10 +11,10 @@ data class FilterEpoxyModel(
     :ViewBindingKotlinModel<ModelFilterBinding>(R.layout.model_filter){
     override fun ModelFilterBinding.bind() {
 
-        tvFilterName.text=uiFilter.filterDisplayName
-        root.setOnClickListener { onFilterClick(uiFilter.filterDisplayName) }
+        tvFilterName.text=uiFilter.filterInfo.filterDisplayName
+        root.setOnClickListener { onFilterClick(uiFilter.filterInfo.filterDisplayName) }
         //checkbox.isClickable=false
-        checkbox.isChecked = uiFilter.isSelected
+        checkbox.isChecked = uiFilter.filterInfo.isSelected
     }
 
 }

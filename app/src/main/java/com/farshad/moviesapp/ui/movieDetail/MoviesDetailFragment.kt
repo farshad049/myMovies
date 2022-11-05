@@ -1,5 +1,6 @@
 package com.farshad.moviesapp.ui.movieDetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
@@ -122,7 +123,6 @@ class MoviesDetailFragment: BaseFragment(R.layout.fragment_movies_detail) {
             }
 
 
-
         }
 
 
@@ -158,6 +158,19 @@ class MoviesDetailFragment: BaseFragment(R.layout.fragment_movies_detail) {
             }
 
 
+        }
+
+
+
+
+        binding.btnShare.setOnClickListener {
+            val dataToShare = "https://moviesapi.ir/api/v1/movies/${safeArg.movieId}"
+            val intent= Intent()
+            intent.action=Intent.ACTION_SEND
+            intent.type="text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Hey Check out this Great app:")
+            intent.putExtra(Intent.EXTRA_TEXT, dataToShare)
+            startActivity(Intent.createChooser(intent,"Share To:"))
         }
 
 

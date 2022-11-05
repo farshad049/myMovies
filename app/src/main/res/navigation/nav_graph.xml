@@ -55,7 +55,8 @@
         android:name="com.farshad.moviesapp.ui.movieDetail.MoviesDetailFragment"
         android:label=""
         tools:layout="@layout/fragment_movies_detail">
-        <deepLink app:uri="https://moviesapi.ir/api/v1/movies/{movieId}"/>
+        <deepLink app:uri="https://moviesapi.ir/api/v1/movies/{movieId}"
+            android:autoVerify="true"/>
         <argument
             android:name="movieId"
             android:defaultValue="-1"

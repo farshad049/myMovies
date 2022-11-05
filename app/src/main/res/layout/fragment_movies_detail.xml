@@ -27,6 +27,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="movie name" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnShare"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="@+id/tvMovieName"
+            app:layout_constraintBottom_toBottomOf="@+id/tvMovieName"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_round_share_24"
+            android:layout_marginEnd="20dp"
+            />
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivMovie"
             android:layout_width="200dp"

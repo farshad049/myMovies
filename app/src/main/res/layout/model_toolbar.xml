@@ -38,6 +38,8 @@
             android:drawableStart="@drawable/ic_round_search_24"
             android:textColor="?colorOnSurface"
             android:focusable="false"
+            android:drawablePadding="4dp"
+            android:paddingHorizontal="6dp"
             />
     </com.google.android.material.card.MaterialCardView>
 
