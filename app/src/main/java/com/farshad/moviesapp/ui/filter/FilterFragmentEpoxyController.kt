@@ -80,7 +80,7 @@ class FilterFragmentEpoxyController(
 
     private fun onImdbFilterClick(selectedFilter : String){
         viewModel.viewModelScope.launch {
-            val currentSelectedFilter = viewModel.filterByImdbRateInfo1LiveData.value
+            val currentSelectedFilter = viewModel.filterByImdbRateInfoLiveData.value
 
             val newFilter =  currentSelectedFilter.copy(
                 selectedImdbRate = if(currentSelectedFilter.selectedImdbRate.contains(selectedFilter)){

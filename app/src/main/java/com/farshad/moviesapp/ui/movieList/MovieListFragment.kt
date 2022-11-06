@@ -50,7 +50,6 @@ class MovieListFragment: Fragment() {
        val filterCarouselController = FilterCarouselEpoxyController(filterViewModel)
 
 
-
         binding.btnFilter.setOnClickListener {
             findNavController().navigate(MovieListFragmentDirections.actionMovieListToFilterFragment())
         }
@@ -64,7 +63,7 @@ class MovieListFragment: Fragment() {
 
                 combine(
                     filterViewModel.filterByGenreInfoLiveData ,
-                    filterViewModel.filterByImdbRateInfo1LiveData
+                    filterViewModel.filterByImdbRateInfoLiveData
                 ){genreSelectedFilters , imdbRateSelectedFilters ->
 
                     data.filter { toBeFilter->
@@ -90,7 +89,7 @@ class MovieListFragment: Fragment() {
         //set data for carousel filter
         combine(
             filterViewModel.filterByGenreInfoLiveData ,
-            filterViewModel.filterByImdbRateInfo1LiveData
+            filterViewModel.filterByImdbRateInfoLiveData
         ){genreSelectedFilters , imdbRateSelectedFilters ->
             genreSelectedFilters.selectedGenres +
                     imdbRateSelectedFilters.selectedImdbRate
@@ -108,10 +107,16 @@ class MovieListFragment: Fragment() {
 
 
         binding.swipeToRefresh.setOnRefreshListener {
-            viewModel.movieListFlow
+
+            viewModel.movieDataSource?.invalidate()
+
+            lifecycleScope.launch {
+                viewModel.movieListFlow.collectLatest { data->
+                    controller.submitData(data)
+                }
+            }
 
             binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
-
             binding.filterCarouselEpoxyRecyclerView.setController(filterCarouselController)
 
             binding.swipeToRefresh.isRefreshing = false

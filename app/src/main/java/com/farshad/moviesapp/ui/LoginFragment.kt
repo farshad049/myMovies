@@ -38,7 +38,6 @@ class LoginFragment: BaseFragment(R.layout.fragment_login) {
 
     @Inject lateinit var tokenManager: TokenManager
 
-//    @Inject lateinit var repository:UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +50,26 @@ class LoginFragment: BaseFragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.loginUserLiveData.distinctUntilChanged().observe(viewLifecycleOwner){response->
+
+            when(response){
+                is LoginResponseModel.Error ->{
+                    Toast.makeText(requireContext(), response.error,Toast.LENGTH_SHORT).show()
+                }
+                is LoginResponseModel.Success ->{
+                    binding.etEditLoginEmail.text?.clear()
+                    binding.etEditLoginPassword.text?.clear()
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
+                    Toast.makeText(requireContext(), "you are logged in",Toast.LENGTH_SHORT).show()
+                }
+                else ->{}
+            }
+
+        }
+
+
+
 
         binding.btnLogin.setOnClickListener {
             validateLogin()
@@ -76,31 +95,7 @@ class LoginFragment: BaseFragment(R.layout.fragment_login) {
                 val passwordBody: RequestBody = password.toRequestBody()
                 val grantTypeBody: RequestBody = "password".toRequestBody()
 
-
                 viewModel.loginUser(userNameBody,passwordBody,grantTypeBody)
-
-
-                viewModel.loginUserLiveData.distinctUntilChanged().observe(viewLifecycleOwner){response->
-
-                    when(response){
-                        is LoginResponseModel.Error ->{
-//                            Toast.makeText(requireContext(), response.error,Toast.LENGTH_SHORT).show()
-                            Log.e("error","error")
-                        }
-                        is LoginResponseModel.Success ->{
-//                            tokenManager.saveToken(response.data)
-//                            binding.etEditLoginEmail.text?.clear()
-//                            binding.etEditLoginPassword.text?.clear()
-//                            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
-//                            Toast.makeText(requireContext(), "you are logged in",Toast.LENGTH_SHORT).show()
-                            Log.e("success","success")
-                        }
-                        else ->{
-                            Toast.makeText(requireContext(), "nothing",Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                }
 
             }
         }

@@ -1,7 +1,10 @@
 package com.farshad.moviesapp.ui
 
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -10,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.ViewModelAndRepository.user.UserViewModel
+import com.farshad.moviesapp.databinding.FragmentLoginBinding
 import com.farshad.moviesapp.databinding.FragmentRegisterBinding
 import com.farshad.moviesapp.model.network.RegisterResponseModel
 import com.farshad.moviesapp.model.network.RegisterUserModel
@@ -27,17 +31,48 @@ class RegisterFragment: BaseFragment(R.layout.fragment_register) {
     @Inject
     lateinit var tokenManager: TokenManager
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRegisterBinding.inflate(inflater , container , false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding=FragmentRegisterBinding.bind(view)
+
+
 
         if (tokenManager.getIsLoggedIn()==true){
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToUserInfoFragment())
         }
 
+
+        viewModel.registerUserLiveData.distinctUntilChanged().observe(viewLifecycleOwner){registeredUser->
+            when(registeredUser){
+                is RegisterResponseModel.Success -> {
+                    binding.etUserName.text?.clear()
+                    binding.etPassword.text?.clear()
+                    binding.etEmail.text?.clear()
+                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+                }
+                is RegisterResponseModel.Error -> {
+                    Toast.makeText(requireContext(), registeredUser.error,Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+
+        }
+
+
+
         binding.tvLogin.setOnClickListener {
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
+
+
 
         binding.BtnRegister.setOnClickListener {
             validateFields()
@@ -83,24 +118,6 @@ class RegisterFragment: BaseFragment(R.layout.fragment_register) {
 
                 viewModel.registerUser(user)
 
-                viewModel.registerUserLiveData.distinctUntilChanged().observe(viewLifecycleOwner){registeredUser->
-
-                    when(registeredUser){
-                        is RegisterResponseModel.Success -> {
-                            binding.etUserName.text?.clear()
-                            binding.etPassword.text?.clear()
-                            binding.etEmail.text?.clear()
-                            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
-                        }
-                        is RegisterResponseModel.Error -> {
-                            Toast.makeText(requireContext(), registeredUser.error,Toast.LENGTH_SHORT).show()
-                        }
-                        else -> {
-                            Toast.makeText(requireContext(), requireContext().getString(R.string.some_thing_went_wrong),Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                }
 
             }
         }

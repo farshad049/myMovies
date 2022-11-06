@@ -23,7 +23,7 @@ class SearchViewModel @Inject constructor(
 
     private var currentUserSearch:String=""
     //every time pagingSource be called, this block of code will be run because every time user may type a new string to be searched
-    private var pagingSource: SearchDataSource? =null
+    private var pagingSource: SearchDataSource? = null
         get() {
             if (field == null || field?.invalid == true){
                 field = SearchDataSource(apiClient,movieMapper,userSearch = currentUserSearch)

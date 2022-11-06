@@ -35,7 +35,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         )
     )
 
-    val filterByImdbRateInfo1LiveData : StateFlow<FilterByImdbInfo> = _filterByImdbRateInfo1LiveData
+    val filterByImdbRateInfoLiveData : StateFlow<FilterByImdbInfo> = _filterByImdbRateInfo1LiveData
 
 
     val _expandItemsMutableLiveData = MutableStateFlow(

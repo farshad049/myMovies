@@ -42,7 +42,7 @@ class FilterFragment:Fragment() {
 
         combine(
             viewModel.filterByGenreInfoLiveData ,
-            viewModel.filterByImdbRateInfo1LiveData ,
+            viewModel.filterByImdbRateInfoLiveData ,
             viewModel.expandItemsMutableLiveData
         ) { setOfGenresFilter, setOfImdbFilter , setOfExpandedItems ->
 

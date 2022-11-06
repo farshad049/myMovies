@@ -45,8 +45,8 @@ class FilterCarouselEpoxyController(
             }
 
 
-            viewModel.filterByImdbRateInfo1LiveData.value.imdbRate.contains(selectedFilter) -> {
-                val currentSelectedFilter = viewModel.filterByImdbRateInfo1LiveData.value
+            viewModel.filterByImdbRateInfoLiveData.value.imdbRate.contains(selectedFilter) -> {
+                val currentSelectedFilter = viewModel.filterByImdbRateInfoLiveData.value
 
                 val newFilter =  currentSelectedFilter.copy(
                     selectedImdbRate = if(currentSelectedFilter.selectedImdbRate.contains(selectedFilter)){
