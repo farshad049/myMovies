@@ -45,7 +45,7 @@ class RegisterFragment: BaseFragment(R.layout.fragment_register) {
 
 
 
-        if (tokenManager.getIsLoggedIn()==true){
+        if (tokenManager.getIsLoggedIn()){
             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToUserInfoFragment())
         }
 

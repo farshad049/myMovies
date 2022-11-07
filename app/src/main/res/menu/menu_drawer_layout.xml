@@ -5,18 +5,42 @@
         <menu>
             <group android:checkableBehavior="single">
 
-                <item android:id="@+id/favoriteFragment"
-                    android:title="Favorite Movies"
+                <item
+                    android:id="@+id/favoriteFragment"
+                    android:title="@string/favorite_movies"
                     android:icon="@drawable/ic_round_favorite_menu"
                     />
 
-                <item android:id="@+id/settingFragment"
-                    android:title="setting"
+                <item
+                    android:id="@+id/settingFragment"
+                    android:title="@string/setting"
                     android:icon="@drawable/ic_round_settings_24"
                     />
 
             </group>
         </menu>
     </item>
+
+
+    <item android:title="@string/user_information">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/registerFragment"
+                    android:title="@string/login_register"
+                    android:icon="@drawable/ic_round_login_24"
+                    />
+
+                <item
+                    android:id="@+id/userInfoFragment"
+                    android:title="@string/profile"
+                    android:icon="@drawable/ic_round_person_add_24"
+                    />
+            </group>
+
+        </menu>
+    </item>
+
 
 </menu>

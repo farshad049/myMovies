@@ -54,13 +54,18 @@
     <string name="login_using_your_biometric_credential">Log in using your biometric credential</string>
     <string name="authentication_error">Authentication error</string>
     <string name="authentication_succeeded">Authentication succeeded!</string>
-    <string name="type_to_search">type to search...</string>
+    <string name="type_to_search">type to search…</string>
     <string name="delete_all">delete all</string>
     <string name="credentials_were_incorrect">The user credentials were incorrect</string>
     <string name="registration_failed">Registration Failed</string>
     <string name="no_internet_connection">No Internet Connection !</string>
     <string name="some_thing_went_wrong">some thing went wrong !</string>
-
+    <string name="profile">profile</string>
+    <string name="login_register">Login/Register</string>
+    <string name="setting">setting</string>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="user_information">user information</string>
+    <string name="movies_app">Top Movies</string>
 
 
 </resources>

@@ -30,7 +30,7 @@ class FavoriteFragment:Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoriteBinding.inflate(inflater , container , false)
         return binding.root
     }
@@ -53,7 +53,7 @@ class FavoriteFragment:Fragment() {
         }
 
 
-        if (tokenManager.getIsLoggedIn()==true){
+        if (tokenManager.getIsLoggedIn()){
             binding.epoxyRecyclerView.isVisible = true
             binding.tvYouAreNotLoggeIn.isVisible = false
             binding.btnLoginInFavorite.isVisible = false

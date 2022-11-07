@@ -1,5 +1,6 @@
 package com.farshad.moviesapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -60,7 +61,8 @@ class LoginFragment: BaseFragment(R.layout.fragment_login) {
                 is LoginResponseModel.Success ->{
                     binding.etEditLoginEmail.text?.clear()
                     binding.etEditLoginPassword.text?.clear()
-                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
+                    startActivity(Intent(requireContext(),MainActivity::class.java))
+                    //findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserInfoFragment())
                     Toast.makeText(requireContext(), "you are logged in",Toast.LENGTH_SHORT).show()
                 }
                 else ->{}

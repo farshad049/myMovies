@@ -55,11 +55,17 @@
     <string name="login_using_your_biometric_credential">وارد شدن با استفاده از اثر انگشت</string>
     <string name="authentication_error">مشکل اعتبار سنجی</string>
     <string name="authentication_succeeded">با موفقیت وارد شدید</string>
-    <string name="type_to_search">چیزی تایپ کنید...</string>
+    <string name="type_to_search">چیزی تایپ کنید…</string>
     <string name="delete_all">پاک کردن همه</string>
     <string name="credentials_were_incorrect">اطلاعات کاربری اشتباه است</string>
     <string name="registration_failed">ثبت نام با خطا روبرو شد</string>
     <string name="no_internet_connection">عدم دسترسی به اینترنت !</string>
     <string name="some_thing_went_wrong">خطایی رخ داده است !</string>
+    <string name="profile">مشخصات کاربر</string>
+    <string name="login_register">وارد شدن/ثبت نام</string>
+    <string name="setting">تنظیمات</string>
+    <string name="favorite_movies">علاقه مندی ها</string>
+    <string name="user_information">اطلاعات کاربری</string>
+    <string name="movies_app">فیلم های برتر</string>
 
 </resources>

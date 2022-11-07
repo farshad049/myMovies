@@ -41,7 +41,7 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout-v31/model_toolbar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/aaa.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/activity_main.xml" value="0.27037037037037037" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/drawer_header.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/drawer_header.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragmenr_search.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_dashboard.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_favorite.xml" value="0.3" />
@@ -61,6 +61,7 @@
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_submit_multipart.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/fragment_user_info.xml" value="0.365625" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/login_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_btn_logout.xml" value="0.27037037037037037" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_carusel_filter.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_delete_all.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/myMovies/app/src/main/res/layout/model_empty_favorite_list.xml" value="0.365625" />

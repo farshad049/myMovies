@@ -1,7 +1,10 @@
 package com.farshad.moviesapp.ui
 
+
+
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -10,6 +13,7 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -23,8 +27,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
+import com.farshad.moviesapp.ViewModelAndRepository.user.UserViewModel
 import com.farshad.moviesapp.databinding.ActivityMainBinding
 import com.farshad.moviesapp.util.BiometricAuthentication
 import com.farshad.moviesapp.util.CheckInternetConnection
@@ -42,11 +48,14 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel : DashboardViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
     private lateinit var connectionLiveData: CheckInternetConnection
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    @Inject
+    lateinit var tokenManager: TokenManager
 
     @Inject
     lateinit var biometricAuthentication: BiometricAuthentication
@@ -121,10 +130,17 @@ class MainActivity : AppCompatActivity() {
         binding.included.btnDrawerLayout.setOnClickListener {
            binding.drawerLayout.openDrawer(GravityCompat.START)
         }
+
         //set edit text on toolbar to navigate to search fragment
         binding.included.edToolbarSearchBox.setOnClickListener {
             navController.navigateUp()
             navController.navigate(R.id.searchFragment)
+        }
+
+        //log out button on drawer layout
+        binding.btnLogOutDrawerLayout.setOnClickListener {
+            tokenManager.clearSharedPref()
+            startActivity(Intent(this,MainActivity::class.java))
         }
 
 
@@ -139,9 +155,40 @@ class MainActivity : AppCompatActivity() {
 
                 if (!it) Toast.makeText(this,getString(R.string.no_internet_connection),Toast.LENGTH_LONG).show()
 
-
             }
         }
+
+
+
+        //show favorite movie tab or register tab on bottom navigation
+        //show or hide user info in drawer
+        //show or hide log out button on drawer layout
+        //show or hide user name in drawer header
+        val userNameInDrawerHeader = binding.navView.getHeaderView(0).findViewById<TextView>(R.id.tvUserNameDrawerLayout)
+
+        if (tokenManager.getIsLoggedIn()){
+            binding.bottomNavigation.menu.findItem(R.id.registerFragment).isVisible = false
+            binding.bottomNavigation.menu.findItem(R.id.favoriteFragment).isVisible = true
+            binding.navView.menu.findItem(R.id.userInfoFragment).isVisible = true
+            binding.btnLogOutDrawerLayout.isVisible = true
+
+
+            userViewModel.getUserInfo()
+            userViewModel.userInfoLiveData.observe(this){
+                userNameInDrawerHeader.text = "welcome ${it?.name}"
+            }
+            userNameInDrawerHeader.isVisible = true
+
+        }else{
+            binding.bottomNavigation.menu.findItem(R.id.registerFragment).isVisible = true
+            binding.bottomNavigation.menu.findItem(R.id.favoriteFragment).isVisible = false
+            binding.navView.menu.findItem(R.id.userInfoFragment).isVisible = false
+            binding.btnLogOutDrawerLayout.isVisible = false
+            userNameInDrawerHeader.isVisible = false
+        }
+
+
+
 
 
 
@@ -197,6 +244,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onResume()
     }
+
 
     //use this to show or hide toolbar in fragments
     fun hideToolbar(isHide : Boolean){

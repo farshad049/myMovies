@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import com.farshad.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.farshad.moviesapp.databinding.FragmentFilterBinding
-import com.farshad.moviesapp.model.ui.FilterByGenreAndImdbRate
+import com.farshad.moviesapp.model.ui.DataForMovieListEpoxy
 import com.farshad.moviesapp.model.ui.UiFilter
 import com.farshad.moviesapp.util.Constants.GENRE
 import com.farshad.moviesapp.util.Constants.IMDBRATE
@@ -46,27 +46,29 @@ class FilterFragment:Fragment() {
             viewModel.expandItemsMutableLiveData
         ) { setOfGenresFilter, setOfImdbFilter , setOfExpandedItems ->
 
-            val genreData = setOfGenresFilter.genres.map { genres ->
-                UiFilter(
-                    isExpand = setOfExpandedItems.setOfExpandIds.contains(GENRE) ,
-                    filterInfo = UiFilter.FilterInfo(
-                        filterDisplayName = genres,
-                        isSelected = setOfGenresFilter.selectedGenres.contains(genres)
-                    )
-                )
-            }
+            val genreData = DataForMovieListEpoxy.IsExpandAndList(
+                                isExpand = setOfExpandedItems.setOfExpandIds.contains(GENRE) ,
+                                filterList = setOfGenresFilter.genres.map { genres ->
+                                    UiFilter(
+                                            filterDisplayName = genres,
+                                            isSelected = setOfGenresFilter.selectedGenres.contains(genres)
+                                        )
+                                }
+                            )
 
-            val imdbData = setOfImdbFilter.imdbRate.map { imdbRate ->
-                UiFilter(
-                    isExpand = setOfExpandedItems.setOfExpandIds.contains(IMDBRATE) ,
-                    filterInfo = UiFilter.FilterInfo(
-                        filterDisplayName = imdbRate,
-                        isSelected = setOfImdbFilter.selectedImdbRate.contains(imdbRate)
-                    )
-                )
-            }
 
-            return@combine FilterByGenreAndImdbRate(genreData , imdbData)
+            val imdbData = DataForMovieListEpoxy.IsExpandAndList(
+                                isExpand = setOfExpandedItems.setOfExpandIds.contains(IMDBRATE) ,
+                                filterList = setOfImdbFilter.imdbRate.map { imdbRate ->
+                                    UiFilter(
+                                        filterDisplayName = imdbRate,
+                                        isSelected = setOfImdbFilter.selectedImdbRate.contains(imdbRate)
+                                    )
+                                }
+                            )
+
+
+            return@combine DataForMovieListEpoxy(genreData , imdbData)
 
         }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){data->
             controller.setData(data)

@@ -5,35 +5,38 @@ import com.airbnb.epoxy.TypedEpoxyController
 import com.farshad.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.farshad.moviesapp.epoxy.FilterEpoxyModel
 import com.farshad.moviesapp.epoxy.HeaderExpandableEpoxyModel
-import com.farshad.moviesapp.model.ui.FilterByGenreAndImdbRate
+import com.farshad.moviesapp.model.ui.DataForMovieListEpoxy
 import com.farshad.moviesapp.util.Constants.GENRE
 import com.farshad.moviesapp.util.Constants.IMDBRATE
 import kotlinx.coroutines.launch
 
 class FilterFragmentEpoxyController(
     private val viewModel: FilterViewModel ,
-): TypedEpoxyController<FilterByGenreAndImdbRate>() {
+): TypedEpoxyController<DataForMovieListEpoxy>() {
 
-    override fun buildModels(data: FilterByGenreAndImdbRate) {
+    override fun buildModels(data: DataForMovieListEpoxy) {
 
 
-        HeaderExpandableEpoxyModel(GENRE, ::onExpandableHeaderClick , data.filteredByGenreList[1].isExpand).id("filter_base_on_genres").addTo(this)
+        HeaderExpandableEpoxyModel(GENRE, ::onExpandableHeaderClick , data.filteredByGenreList.isExpand).id("filter_base_on_genres").addTo(this)
 
-        data.filteredByGenreList.forEach {
-            if (it.isExpand){
-                FilterEpoxyModel(it, ::onGenreFilterClick  ).id(it.filterInfo.filterDisplayName).addTo(this)
+
+            if (data.filteredByGenreList.isExpand){
+                data.filteredByGenreList.filterList.forEach {
+                    FilterEpoxyModel(it, ::onGenreFilterClick  ).id(it.filterDisplayName).addTo(this)
+                }
+            }
+
+
+
+        HeaderExpandableEpoxyModel(IMDBRATE, ::onExpandableHeaderClick , data.filteredByImdbList.isExpand).id("filter_base_on_Imdb_rate").addTo(this)
+
+
+        if (data.filteredByImdbList.isExpand){
+            data.filteredByImdbList.filterList.forEach {
+                FilterEpoxyModel(it, ::onImdbFilterClick).id(it.filterDisplayName).addTo(this)
             }
         }
 
-
-        HeaderExpandableEpoxyModel(IMDBRATE, ::onExpandableHeaderClick , data.filteredByImdbList[1].isExpand).id("filter_base_on_Imdb_rate").addTo(this)
-
-
-        data.filteredByImdbList.forEach {
-            if (it.isExpand){
-                FilterEpoxyModel(it, ::onImdbFilterClick).id(it.filterInfo.filterDisplayName).addTo(this)
-            }
-        }
 
 
 

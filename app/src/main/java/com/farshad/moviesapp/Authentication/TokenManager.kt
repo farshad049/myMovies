@@ -32,7 +32,7 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
         return prefs.getString(USER_REFRESH_TOKEN, null)
     }
 
-    fun getIsLoggedIn():Boolean?{
+    fun getIsLoggedIn(): Boolean {
         return prefs.getBoolean(IS_LOGGED_IN,false)
     }
 
