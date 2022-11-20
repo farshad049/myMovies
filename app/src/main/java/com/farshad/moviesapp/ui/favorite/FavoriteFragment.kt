@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.databinding.FragmentFavoriteBinding
-import com.farshad.moviesapp.roomDatabase.RoomViewModel
+import com.farshad.moviesapp.epoxy.EmptyFavoriteMovieListEpoxyModel
+import com.farshad.moviesapp.epoxy.FavoriteMovieEpoxyModel
+import com.farshad.moviesapp.epoxy.HeaderEpoxyModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,8 +23,7 @@ import javax.inject.Inject
 class FavoriteFragment:Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-    private val roomViewModel : RoomViewModel by viewModels()
-    private val controller = FavoriteFragmentEpoxyController(::onMovieClick)
+    private val roomViewModel : FavoriteFragmentViewModel by viewModels()
 
     @Inject
     lateinit var tokenManager: TokenManager
@@ -44,20 +47,35 @@ class FavoriteFragment:Fragment() {
             findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToRegisterFragment())
         }
 
-        binding.epoxyRecyclerView.setController(controller)
 
-        roomViewModel.getFavoriteMovieList()
-
-        roomViewModel.favoriteMovieListMutableLiveData.observe(viewLifecycleOwner){movieList ->
-            controller.setData(movieList)
-        }
-
-
-        if (tokenManager.getIsLoggedIn()){
+        if (tokenManager.isLoggedIn()){
             binding.epoxyRecyclerView.isVisible = true
             binding.tvYouAreNotLoggeIn.isVisible = false
             binding.btnLoginInFavorite.isVisible = false
         }
+
+
+
+
+        roomViewModel.favoriteMovieListMutableLiveData.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){data ->
+            binding.epoxyRecyclerView.withModels {
+                if (data.isNullOrEmpty()){
+                    EmptyFavoriteMovieListEpoxyModel().id("empty").addTo(this)
+                    return@withModels
+                }
+
+                HeaderEpoxyModel("Favorite Movies").id("favorite_movies").addTo(this)
+
+                data.forEach {
+                    FavoriteMovieEpoxyModel(it , ::onMovieClick).id(it.id).addTo(this)
+                }
+            }
+        }
+
+
+
+
+
 
 
 

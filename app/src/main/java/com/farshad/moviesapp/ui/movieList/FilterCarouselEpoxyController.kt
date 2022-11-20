@@ -2,7 +2,7 @@ package com.farshad.moviesapp.ui.movieList
 
 import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.TypedEpoxyController
-import com.farshad.moviesapp.ViewModelAndRepository.filter.FilterViewModel
+import com.farshad.moviesapp.ui.filter.FilterViewModel
 import com.farshad.moviesapp.epoxy.CarouselFilterEpoxyModel
 
 class FilterCarouselEpoxyController(

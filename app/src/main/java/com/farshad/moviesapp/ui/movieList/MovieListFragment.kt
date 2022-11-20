@@ -13,18 +13,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.filter
 import com.farshad.moviesapp.NavGraphDirections
-import com.farshad.moviesapp.ViewModelAndRepository.MovieViewModel
-import com.farshad.moviesapp.ViewModelAndRepository.filter.FilterViewModel
+import com.farshad.moviesapp.ui.filter.FilterViewModel
 import com.farshad.moviesapp.databinding.FragmentMovieListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieListFragment: Fragment() {
-    private val viewModel : MovieViewModel by viewModels()
+    private val movieListViewModel : MovieListViewModel by viewModels()
     private val filterViewModel : FilterViewModel by activityViewModels()
     private var _binding : FragmentMovieListBinding? = null
     private val binding get() = _binding!!
@@ -35,12 +33,10 @@ class MovieListFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMovieListBinding.inflate(inflater , container , false)
         return binding.root
     }
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,28 +52,23 @@ class MovieListFragment: Fragment() {
 
 
 
+        filterViewModel.combinedFilterDataForMovieList.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){ filters->
 
-        //set data for movie list epoxy controller
-        lifecycleScope.launchWhenStarted{
-            viewModel.movieListFlow.collectLatest {data->
-
-                combine(
-                    filterViewModel.filterByGenreInfoLiveData ,
-                    filterViewModel.filterByImdbRateInfoLiveData
-                ){genreSelectedFilters , imdbRateSelectedFilters ->
-
-                    data.filter { toBeFilter->
-                        genreSelectedFilters.selectedGenres.all { toBeFilter.genres.contains(it) } &&
-                                imdbRateSelectedFilters.selectedImdbRate.all { toBeFilter.imdb_rating.toDouble() > it.toDouble() }
+            lifecycleScope.launch {
+                movieListViewModel.movieListFlow.collectLatest { data ->
+                   val dataForEpoxy = data.filter { toBeFilter->
+                        filters.genreSetOfSelectedFilters.all { toBeFilter.genres.contains(it) }
+                                &&
+                                filters.imdbSetOfSelectedFilters.all { toBeFilter.imdb_rating.toDouble() > it.toDouble() }
                     }
-
-                }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){dataForEpoxy->
-                    lifecycleScope.launch { controller.submitData(dataForEpoxy)}
+                    controller.submitData(dataForEpoxy)
                 }
 
-
             }
-        }
+
+       }
+
+
 
         binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
 
@@ -86,18 +77,13 @@ class MovieListFragment: Fragment() {
 
 
 
-        //set data for carousel filter
-        combine(
-            filterViewModel.filterByGenreInfoLiveData ,
-            filterViewModel.filterByImdbRateInfoLiveData
-        ){genreSelectedFilters , imdbRateSelectedFilters ->
-            genreSelectedFilters.selectedGenres +
-                    imdbRateSelectedFilters.selectedImdbRate
-        }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){
-            filterCarouselController.setData(it)
-        }
 
+        //set data for carousel filter
+        filterViewModel.combinedDataForCarouselFilterMovieList.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){ data->
+            filterCarouselController.setData(data)
+        }
         binding.filterCarouselEpoxyRecyclerView.setController(filterCarouselController)
+
 
 
 
@@ -108,16 +94,8 @@ class MovieListFragment: Fragment() {
 
         binding.swipeToRefresh.setOnRefreshListener {
 
-            viewModel.movieDataSource?.invalidate()
-
-            lifecycleScope.launch {
-                viewModel.movieListFlow.collectLatest { data->
-                    controller.submitData(data)
-                }
-            }
-
-            binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
-            binding.filterCarouselEpoxyRecyclerView.setController(filterCarouselController)
+            movieListViewModel.movieDataSource?.invalidate()
+            movieListViewModel.movieListFlow
 
             binding.swipeToRefresh.isRefreshing = false
         }
@@ -145,6 +123,7 @@ class MovieListFragment: Fragment() {
         findNavController().navigate(directions)
 
     }
+
 
 
 

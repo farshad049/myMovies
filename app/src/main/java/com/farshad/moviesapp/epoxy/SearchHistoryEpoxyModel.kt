@@ -2,7 +2,7 @@ package com.farshad.moviesapp.epoxy
 
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.ModelSearchHistoryBinding
-import com.farshad.moviesapp.roomDatabase.Entity.SearchHistoryEntityWithoutId
+import com.farshad.moviesapp.data.db.Entity.SearchHistoryEntityWithoutId
 
 
 data class SearchHistoryEpoxyModel(

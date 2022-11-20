@@ -1,19 +1,29 @@
 package com.farshad.moviesapp.ui.submitMovie
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import com.farshad.moviesapp.ui.BaseFragment
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.FragmentSubmitBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class Submit: BaseFragment(R.layout.fragment_submit) {
+class Submit: Fragment() {
     private var _binding: FragmentSubmitBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSubmitBinding.inflate(inflater , container , false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding=FragmentSubmitBinding.bind(view)
 
         val adapter=ViewPagerAdapter(childFragmentManager,lifecycle)
 

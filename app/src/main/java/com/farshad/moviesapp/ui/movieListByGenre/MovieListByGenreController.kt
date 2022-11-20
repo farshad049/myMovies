@@ -5,7 +5,7 @@ import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.farshad.moviesapp.epoxy.HeaderEpoxyModel
 import com.farshad.moviesapp.epoxy.LoadingEpoxyModel
 import com.farshad.moviesapp.epoxy.MovieListModel
-import com.farshad.moviesapp.model.domain.DomainMovieModel
+import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 
 class MovieListByGenreController (
     private val onMovieClick:(Int)-> Unit,

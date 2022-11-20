@@ -5,7 +5,7 @@ import androidx.core.view.isVisible
 import coil.load
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.ModelMovieListItemBinding
-import com.farshad.moviesapp.model.domain.DomainMovieModel
+import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 
 data class MovieListModelSearchFragment(val item: DomainMovieModel, val click: (Int,String) -> Unit)
     : ViewBindingKotlinModel<ModelMovieListItemBinding>(R.layout.model_movie_list_item){

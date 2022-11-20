@@ -2,7 +2,7 @@ package com.farshad.moviesapp.epoxy
 
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.ModelFavoriteMovieBinding
-import com.farshad.moviesapp.roomDatabase.Entity.FavoriteMovieEntity
+import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
 
 class FavoriteMovieEpoxyModel(
     val movie : FavoriteMovieEntity,

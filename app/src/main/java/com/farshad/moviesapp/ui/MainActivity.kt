@@ -29,9 +29,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.R
-import com.farshad.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
-import com.farshad.moviesapp.ViewModelAndRepository.user.UserViewModel
+import com.farshad.moviesapp.ui.dashboard.DashboardViewModel
 import com.farshad.moviesapp.databinding.ActivityMainBinding
+import com.farshad.moviesapp.ui.userInfo.UserInfoViewModel
 import com.farshad.moviesapp.util.BiometricAuthentication
 import com.farshad.moviesapp.util.CheckInternetConnection
 import com.farshad.moviesapp.util.Constants
@@ -47,8 +47,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel : DashboardViewModel by viewModels()
-    private val userViewModel: UserViewModel by viewModels()
+    private val dashboardViewModel : DashboardViewModel by viewModels()
+    private val userInfoViewModel: UserInfoViewModel by viewModels()
     private lateinit var connectionLiveData: CheckInternetConnection
 
     private lateinit var navController: NavController
@@ -74,14 +74,10 @@ class MainActivity : AppCompatActivity() {
         val themeRecord: String? = themePrefs.getString(THEME_CODE  , "light")
         if (themeRecord?.isNotEmpty() == true) setDayNightTheme(themeRecord)
 
-        //this should run outside installSplashScreen() for fetching data
-        viewModel.getFirstPageMovie()
-        viewModel.getAllGenres()
-
         installSplashScreen().apply {
             setKeepOnScreenCondition{
                 //will stay on splash screen as long as firstPageMovieIsDone or allGenresMovieIsDone is true
-                viewModel.firstPageMovieIsDone.value  && viewModel.allGenresMovieIsDone.value
+                dashboardViewModel.firstPageMovieIsDone.value  && dashboardViewModel.allGenresMovieIsDone.value
             }
         }
 
@@ -166,15 +162,15 @@ class MainActivity : AppCompatActivity() {
         //show or hide user name in drawer header
         val userNameInDrawerHeader = binding.navView.getHeaderView(0).findViewById<TextView>(R.id.tvUserNameDrawerLayout)
 
-        if (tokenManager.getIsLoggedIn()){
+        if (tokenManager.isLoggedIn()){
             binding.bottomNavigation.menu.findItem(R.id.registerFragment).isVisible = false
             binding.bottomNavigation.menu.findItem(R.id.favoriteFragment).isVisible = true
+            binding.navView.menu.findItem(R.id.registerFragment).isVisible = false
             binding.navView.menu.findItem(R.id.userInfoFragment).isVisible = true
             binding.btnLogOutDrawerLayout.isVisible = true
 
 
-            userViewModel.getUserInfo()
-            userViewModel.userInfoLiveData.observe(this){
+            userInfoViewModel.userInfoLiveData.observe(this){
                 userNameInDrawerHeader.text = "welcome ${it?.name}"
             }
             userNameInDrawerHeader.isVisible = true
@@ -182,6 +178,7 @@ class MainActivity : AppCompatActivity() {
         }else{
             binding.bottomNavigation.menu.findItem(R.id.registerFragment).isVisible = true
             binding.bottomNavigation.menu.findItem(R.id.favoriteFragment).isVisible = false
+            binding.navView.menu.findItem(R.id.registerFragment).isVisible = true
             binding.navView.menu.findItem(R.id.userInfoFragment).isVisible = false
             binding.btnLogOutDrawerLayout.isVisible = false
             userNameInDrawerHeader.isVisible = false

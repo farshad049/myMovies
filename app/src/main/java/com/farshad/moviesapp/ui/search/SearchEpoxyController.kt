@@ -3,18 +3,17 @@ package com.farshad.moviesapp.ui.search
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.farshad.moviesapp.R
-import com.farshad.moviesapp.ViewModelAndRepository.search.SearchDataSource
 import com.farshad.moviesapp.databinding.ModelExeptionErrorBinding
 import com.farshad.moviesapp.epoxy.LoadingEpoxyModel
 import com.farshad.moviesapp.epoxy.MovieListModelSearchFragment
 import com.farshad.moviesapp.epoxy.ViewBindingKotlinModel
-import com.farshad.moviesapp.model.domain.DomainMovieModel
+import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 
 class SearchEpoxyController(
     private val onMovieClick:(Int , String)-> Unit
 ):PagingDataEpoxyController<DomainMovieModel>() {
 
-    var localException:SearchDataSource.LocalException?=null
+    var localException: SearchDataSource.LocalException?=null
         set(value) {
             field=value
             if (localException !=null){
@@ -55,7 +54,7 @@ class SearchEpoxyController(
 
 
 
-    data class LocalExceptionErrorEpoxyModel(val localException:SearchDataSource.LocalException)
+    data class LocalExceptionErrorEpoxyModel(val localException: SearchDataSource.LocalException)
         :ViewBindingKotlinModel<ModelExeptionErrorBinding>(R.layout.model_exeption_error){
         override fun ModelExeptionErrorBinding.bind() {
             tvErrorTitle.text=localException.title

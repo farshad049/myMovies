@@ -3,7 +3,7 @@ package com.farshad.moviesapp.ui.search
 import com.airbnb.epoxy.TypedEpoxyController
 import com.farshad.moviesapp.epoxy.DeleteAllEpoxyModel
 import com.farshad.moviesapp.epoxy.SearchHistoryEpoxyModel
-import com.farshad.moviesapp.roomDatabase.Entity.SearchHistoryEntityWithoutId
+import com.farshad.moviesapp.data.db.Entity.SearchHistoryEntityWithoutId
 
 class SearchHistoryEpoxyController(
     private val onTitleClick : (Int) -> Unit,

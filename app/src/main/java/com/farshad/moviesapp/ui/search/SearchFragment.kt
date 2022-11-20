@@ -3,30 +3,30 @@ package com.farshad.moviesapp.ui.search
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.NavGraphDirections
-import com.farshad.moviesapp.R
-import com.farshad.moviesapp.ViewModelAndRepository.search.SearchViewModel
 import com.farshad.moviesapp.databinding.FragmentSearchBinding
-import com.farshad.moviesapp.roomDatabase.Entity.SearchHistoryEntity
-import com.farshad.moviesapp.roomDatabase.RoomViewModel
-import com.farshad.moviesapp.ui.BaseFragment
+import com.farshad.moviesapp.data.db.Entity.SearchHistoryEntity
+import com.farshad.moviesapp.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class SearchFragment: BaseFragment(R.layout.fragment_search) {
+class SearchFragment: Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SearchViewModel by viewModels()
-    private val roomViewModel : RoomViewModel by viewModels()
+    private val searchHistoryViewModel : SearchHistoryViewModel by viewModels()
     private val controller = SearchEpoxyController(::onMovieClick)
     private val searchHistoryController = SearchHistoryEpoxyController(::onSearchHistoryClick , ::onCloseClick , ::onDeleteAllClick)
 
@@ -36,9 +36,17 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
        viewModel.submitQuery(currentText)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSearchBinding.inflate(inflater , container , false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding=FragmentSearchBinding.bind(view)
 
 
         binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
@@ -80,9 +88,9 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
 
 
 
-        roomViewModel.getSearchHistoryList()
+        searchHistoryViewModel.getSearchHistoryList()
 
-        roomViewModel.searchHistoryListLiveData.observe(viewLifecycleOwner){searchHistoryList->
+        searchHistoryViewModel.searchHistoryListLiveData.observe(viewLifecycleOwner){ searchHistoryList->
             searchHistoryController.setData(searchHistoryList)
         }
 
@@ -111,7 +119,7 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
         val directions=NavGraphDirections.actionGlobalToMovieDetailFragment(movieId)
         findNavController().navigate(directions)
         //insert searched movie to history list
-        roomViewModel.insertSearchHistory(
+        searchHistoryViewModel.insertSearchHistory(
             SearchHistoryEntity(
                 movieId = movieId,
                 movieTitle = movieTitle
@@ -126,25 +134,25 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
     }
 
     private fun onCloseClick(movieId : Int){
-        roomViewModel.deleteSearchHistoryByID(movieId)
+        searchHistoryViewModel.deleteSearchHistoryByID(movieId)
 
     }
 
     private fun onDeleteAllClick(){
-        roomViewModel.deleteAllSearchHistory()
+        searchHistoryViewModel.deleteAllSearchHistory()
     }
 
 
 
     //hide main activity toolbar when get into this fragment
     override fun onResume() {
-        mainActivity.hideToolbar(true)
+        (activity as MainActivity).hideToolbar(true)
         super.onResume()
     }
 
     //make main activity toolbar visible when leaving this fragment
     override fun onStop() {
-        mainActivity.hideToolbar(false)
+        (activity as MainActivity).hideToolbar(false)
         super.onStop()
     }
 

@@ -2,19 +2,18 @@ package com.farshad.moviesapp.ui.filter
 
 import androidx.lifecycle.viewModelScope
 import com.airbnb.epoxy.TypedEpoxyController
-import com.farshad.moviesapp.ViewModelAndRepository.filter.FilterViewModel
 import com.farshad.moviesapp.epoxy.FilterEpoxyModel
 import com.farshad.moviesapp.epoxy.HeaderExpandableEpoxyModel
-import com.farshad.moviesapp.model.ui.DataForMovieListEpoxy
+import com.farshad.moviesapp.data.model.ui.DataForFilterFragmentEpoxy
 import com.farshad.moviesapp.util.Constants.GENRE
 import com.farshad.moviesapp.util.Constants.IMDBRATE
 import kotlinx.coroutines.launch
 
 class FilterFragmentEpoxyController(
-    private val viewModel: FilterViewModel ,
-): TypedEpoxyController<DataForMovieListEpoxy>() {
+    private val viewModel: FilterViewModel,
+): TypedEpoxyController<DataForFilterFragmentEpoxy>() {
 
-    override fun buildModels(data: DataForMovieListEpoxy) {
+    override fun buildModels(data: DataForFilterFragmentEpoxy) {
 
 
         HeaderExpandableEpoxyModel(GENRE, ::onExpandableHeaderClick , data.filteredByGenreList.isExpand).id("filter_base_on_genres").addTo(this)

@@ -1,36 +1,37 @@
 package com.farshad.moviesapp.ui.dashboard
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.NavGraphDirections
-import com.farshad.moviesapp.R
-import com.farshad.moviesapp.ViewModelAndRepository.dashboard.DashboardViewModel
 import com.farshad.moviesapp.databinding.FragmentDashboardBinding
-import com.farshad.moviesapp.epoxy.OnClickInterface
-import com.farshad.moviesapp.model.ui.UiMovieAndGenre
-import com.farshad.moviesapp.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 @AndroidEntryPoint
-class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterface {
+class DashboardFragment: Fragment(), OnClickInterface {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
     private val dashboardViewModel: DashboardViewModel by activityViewModels()
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentDashboardBinding.inflate(inflater , container , false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding= FragmentDashboardBinding.bind(view)
 
 
         val controller = DashboardEpoxyController( requireContext(),this)
-
 
 
 //        dashboardViewModel.topAndGenresLiveData.distinctUntilChanged().observe(viewLifecycleOwner){(top,genre)->
@@ -38,25 +39,12 @@ class DashboardFragment: BaseFragment(R.layout.fragment_dashboard),OnClickInterf
 //        }
 
 
-        //data is fetching in main activity so we don't need to fetch it here again, we can use activityViewModels
-         combine(
-            dashboardViewModel.firstPageMovieLiveData.asFlow() ,
-            dashboardViewModel.allGenresMovieLiveData.asFlow()
-        ){listOfMovie , listOfGenre ->
-                UiMovieAndGenre(
-                    movie = listOfMovie ,
-                    genre = listOfGenre
-                )
 
-        }.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){
+        dashboardViewModel.combinedData.asLiveData().observe(viewLifecycleOwner){
             controller.setData(it.movie , it.genre)
         }
 
         binding.epoxyRecyclerView.setController(controller)
-
-
-
-
 
 
 

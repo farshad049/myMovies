@@ -2,7 +2,7 @@ package com.farshad.moviesapp.Authentication
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.farshad.moviesapp.model.network.UserAuthModel
+import com.farshad.moviesapp.data.model.network.UserAuthModel
 import com.farshad.moviesapp.util.Constants.IS_LOGGED_IN
 import com.farshad.moviesapp.util.Constants.PREFS_TOKEN_FILE
 import com.farshad.moviesapp.util.Constants.USER_REFRESH_TOKEN
@@ -32,7 +32,7 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
         return prefs.getString(USER_REFRESH_TOKEN, null)
     }
 
-    fun getIsLoggedIn(): Boolean {
+    fun isLoggedIn(): Boolean {
         return prefs.getBoolean(IS_LOGGED_IN,false)
     }
 

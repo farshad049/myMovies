@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.fragment.app.Fragment
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.FragmentSettingBinding
-import com.farshad.moviesapp.ui.BaseFragment
 import com.farshad.moviesapp.ui.MainActivity
 import com.farshad.moviesapp.util.BiometricAuthentication
 import com.farshad.moviesapp.util.Constants
@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingFragment: BaseFragment(R.layout.fragment_setting) {
+class SettingFragment: Fragment() {
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
 
@@ -46,12 +46,8 @@ class SettingFragment: BaseFragment(R.layout.fragment_setting) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val biometricPrefs: SharedPreferences = mainActivity.getSharedPreferences(Constants.PREFS_AUTHENTICATION_FILE, Context.MODE_PRIVATE)
 
-
-
-
-        val languagePrefs: SharedPreferences = mainActivity.getSharedPreferences(Constants.PREFS_LOCALE_FILE, Context.MODE_PRIVATE)
+        val languagePrefs: SharedPreferences = (activity as MainActivity).getSharedPreferences(Constants.PREFS_LOCALE_FILE, Context.MODE_PRIVATE)
 
         val selectedLangBtn =
             when(languagePrefs.getString(LOCALE_CODE  , null)){
@@ -88,7 +84,7 @@ class SettingFragment: BaseFragment(R.layout.fragment_setting) {
 
 
 
-        val themePrefs: SharedPreferences = mainActivity.getSharedPreferences(Constants.PREFS_THEME_FILE, Context.MODE_PRIVATE)
+        val themePrefs: SharedPreferences = (activity as MainActivity).getSharedPreferences(Constants.PREFS_THEME_FILE, Context.MODE_PRIVATE)
 
         val selectedThemeBtn =
             when(themePrefs.getString(THEME_CODE  , null)){
@@ -122,7 +118,7 @@ class SettingFragment: BaseFragment(R.layout.fragment_setting) {
 
 
 
-
+        val biometricPrefs: SharedPreferences = (activity as MainActivity).getSharedPreferences(Constants.PREFS_AUTHENTICATION_FILE, Context.MODE_PRIVATE)
 
         //set swFingerPrint is check status base on shared preference
         binding.swFingerPrint.isChecked = biometricPrefs.getBoolean(IS_AUTHENTICATION_ENABLED , false)

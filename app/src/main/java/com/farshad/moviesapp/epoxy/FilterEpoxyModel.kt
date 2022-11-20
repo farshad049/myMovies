@@ -2,7 +2,7 @@ package com.farshad.moviesapp.epoxy
 
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.ModelFilterBinding
-import com.farshad.moviesapp.model.ui.UiFilter
+import com.farshad.moviesapp.data.model.ui.UiFilter
 
 data class FilterEpoxyModel(
     val uiFilter: UiFilter,

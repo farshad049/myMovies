@@ -12,21 +12,21 @@ import com.farshad.moviesapp.databinding.ModelGenreIconBinding
 import com.farshad.moviesapp.databinding.ModelImageItemBinding
 import com.farshad.moviesapp.databinding.ModelMovieThumbnailBinding
 import com.farshad.moviesapp.epoxy.*
-import com.farshad.moviesapp.model.domain.DomainMovieModel
-import com.farshad.moviesapp.model.network.GenresModel
+import com.farshad.moviesapp.data.model.domain.DomainMovieModel
+import com.farshad.moviesapp.data.model.network.GenresModel
 
 
 
 class DashboardEpoxyController(
     private val context : Context ,
-    private val onItemClick:OnClickInterface
+    private val onItemClick: OnClickInterface
 ): Typed2EpoxyController<List<DomainMovieModel?>,List<GenresModel?>>() {
 
 
     override fun buildModels(data1: List<DomainMovieModel?>,data2: List<GenresModel?>) {
 
         if (data1.isEmpty() || data2.isEmpty()){
-            LoadingEpoxyModel().id("loading4").addTo(this)
+            LoadingEpoxyModel().id("loadingDashboard").addTo(this)
             return
         }
 
@@ -84,7 +84,7 @@ class DashboardEpoxyController(
     }
 
 
-    data class RandomImageModel(val imageUrl:String,val id:Int,val onclick:OnClickInterface)
+    data class RandomImageModel(val imageUrl:String,val id:Int,val onclick: OnClickInterface)
         : ViewBindingKotlinModel<ModelImageItemBinding>(R.layout.model_image_item){
         override fun ModelImageItemBinding.bind(){
             progressImage.isVisible=true
@@ -99,7 +99,7 @@ class DashboardEpoxyController(
     }
 
 
-    data class MovieModel(val item: DomainMovieModel?, val onclick:OnClickInterface)
+    data class MovieModel(val item: DomainMovieModel?, val onclick: OnClickInterface)
         : ViewBindingKotlinModel<ModelMovieThumbnailBinding>(R.layout.model_movie_thumbnail){
         override fun ModelMovieThumbnailBinding.bind(){
             progressImage.isVisible=true
@@ -116,7 +116,7 @@ class DashboardEpoxyController(
 
 
 
-    data class GenreIconModel(val genre:GenresModel,val onclick:OnClickInterface)
+    data class GenreIconModel(val genre:GenresModel,val onclick: OnClickInterface)
         : ViewBindingKotlinModel<ModelGenreIconBinding>(R.layout.model_genre_icon){
         override fun ModelGenreIconBinding.bind(){
 

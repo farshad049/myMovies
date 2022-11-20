@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/movieListByGenre"
-        android:name="com.farshad.moviesapp.ui.movieListByGenre.MovieListByGenre"
+        android:name="com.farshad.moviesapp.ui.movieListByGenre.MovieListByGenreFragment"
         android:label=""
         tools:layout="@layout/fragment_movie_list_by_genre">
         <argument
@@ -99,7 +99,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.farshad.moviesapp.ui.RegisterFragment"
+        android:name="com.farshad.moviesapp.ui.register.RegisterFragment"
         android:label=""
         tools:layout="@layout/fragment_register">
         <action
@@ -124,7 +124,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.farshad.moviesapp.ui.LoginFragment"
+        android:name="com.farshad.moviesapp.ui.login.LoginFragment"
         android:label="login"
         tools:layout="@layout/fragment_login">
         <action
@@ -141,7 +141,7 @@
 
     <fragment
         android:id="@+id/userInfoFragment"
-        android:name="com.farshad.moviesapp.ui.UserInfoFragment"
+        android:name="com.farshad.moviesapp.ui.userInfo.UserInfoFragment"
         android:label=""
         tools:layout="@layout/fragment_user_info"
         />
