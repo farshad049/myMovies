@@ -11,8 +11,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class TokenManager @Inject constructor(@ApplicationContext context: Context) {
-    private var prefs: SharedPreferences =
-        context.getSharedPreferences(PREFS_TOKEN_FILE, Context.MODE_PRIVATE)
+
+    private var prefs: SharedPreferences = context.getSharedPreferences(PREFS_TOKEN_FILE, Context.MODE_PRIVATE)
 
     fun saveToken(token: UserAuthModel?) {
         val editor = prefs.edit()
@@ -39,6 +39,5 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
     fun clearSharedPref(){
         val editor = prefs.edit()
         editor.clear().apply()
-
     }
 }

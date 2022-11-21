@@ -5,7 +5,6 @@ package com.farshad.moviesapp.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
@@ -29,14 +28,10 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.R
-import com.farshad.moviesapp.ui.dashboard.DashboardViewModel
 import com.farshad.moviesapp.databinding.ActivityMainBinding
+import com.farshad.moviesapp.ui.dashboard.DashboardViewModel
 import com.farshad.moviesapp.ui.userInfo.UserInfoViewModel
-import com.farshad.moviesapp.util.BiometricAuthentication
-import com.farshad.moviesapp.util.CheckInternetConnection
-import com.farshad.moviesapp.util.Constants
-import com.farshad.moviesapp.util.Constants.LOCALE_CODE
-import com.farshad.moviesapp.util.Constants.THEME_CODE
+import com.farshad.moviesapp.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,19 +55,25 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var biometricAuthentication: BiometricAuthentication
 
+    @Inject
+    lateinit var localeManager: LocaleManager
+
+    @Inject
+    lateinit var themeManager: ThemeManager
+
+    @Inject
+    lateinit var biometricManager: BiometricPrefManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //shared preferences for language setting
-        val languagePrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_LOCALE_FILE, MODE_PRIVATE)
-        val localeRecord: String? = languagePrefs.getString(LOCALE_CODE  , "en")
-        if(localeRecord?.isNotEmpty() == true) setLocale(this , localeRecord)
+        //set locale
+        if (localeManager.getLocale() != null) setLocale(this, localeManager.getLocale()!!)
 
 
-        //shared preferences for dark or light setting
-        val themePrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_THEME_FILE, MODE_PRIVATE)
-        val themeRecord: String? = themePrefs.getString(THEME_CODE  , "light")
-        if (themeRecord?.isNotEmpty() == true) setDayNightTheme(themeRecord)
+        //set theme
+        if (themeManager.getTheme() != null) setDayNightTheme(themeManager.getTheme())
+
 
         installSplashScreen().apply {
             setKeepOnScreenCondition{
@@ -81,8 +82,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
 
         //enable the nav controller
@@ -233,12 +238,10 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q){
             //check if biometric authentication in enabled
-            val biometricPrefs: SharedPreferences = this.getSharedPreferences(Constants.PREFS_AUTHENTICATION_FILE, Context.MODE_PRIVATE)
-            if (biometricPrefs.getBoolean(Constants.IS_AUTHENTICATION_ENABLED, false)){
+            if (biometricManager.isBiometricLoginEnabled()){
                 biometricAuthentication.promptForActivity(this,this)
             }
         }
-
         super.onResume()
     }
 

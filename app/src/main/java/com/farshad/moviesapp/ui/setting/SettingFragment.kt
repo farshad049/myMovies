@@ -1,8 +1,6 @@
 package com.farshad.moviesapp.ui.setting
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -14,14 +12,14 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.FragmentSettingBinding
 import com.farshad.moviesapp.ui.MainActivity
 import com.farshad.moviesapp.util.BiometricAuthentication
-import com.farshad.moviesapp.util.Constants
-import com.farshad.moviesapp.util.Constants.IS_AUTHENTICATION_ENABLED
-import com.farshad.moviesapp.util.Constants.LOCALE_CODE
-import com.farshad.moviesapp.util.Constants.THEME_CODE
+import com.farshad.moviesapp.util.BiometricPrefManager
+import com.farshad.moviesapp.util.LocaleManager
+import com.farshad.moviesapp.util.ThemeManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -32,6 +30,15 @@ class SettingFragment: Fragment() {
 
     @Inject
     lateinit var biometricAuthentication: BiometricAuthentication
+
+    @Inject
+    lateinit var localeManager: LocaleManager
+
+    @Inject
+    lateinit var themeManager: ThemeManager
+
+    @Inject
+    lateinit var biometricManager: BiometricPrefManager
 
 
     override fun onCreateView(
@@ -47,10 +54,9 @@ class SettingFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val languagePrefs: SharedPreferences = (activity as MainActivity).getSharedPreferences(Constants.PREFS_LOCALE_FILE, Context.MODE_PRIVATE)
 
         val selectedLangBtn =
-            when(languagePrefs.getString(LOCALE_CODE  , null)){
+            when(localeManager.getLocale()){
             "en" -> R.id.radioButtonEnglish
             "fa" -> R.id.radioButtonFarsi
             else -> R.id.radioButtonEnglish
@@ -59,21 +65,15 @@ class SettingFragment: Fragment() {
         binding.radioGroupLanguage.check(selectedLangBtn)
 
         binding.radioButtonFarsi.setOnClickListener {
-            languagePrefs.edit().clear().apply()
-            languagePrefs.edit().putString(LOCALE_CODE,"fa").apply()
-
-            val intent = Intent(requireActivity(), MainActivity::class.java )
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            localeManager.clearSharedPref()
+            localeManager.saveLocale("fa")
+            (activity as MainActivity).recreate()
         }
 
         binding.radioButtonEnglish.setOnClickListener {
-            languagePrefs.edit().clear().apply()
-            languagePrefs.edit().putString(LOCALE_CODE,"en").apply()
-
-            val intent = Intent(requireActivity(), MainActivity::class.java )
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            localeManager.clearSharedPref()
+            localeManager.saveLocale("en")
+            (activity as MainActivity).recreate()
         }
 
 
@@ -84,10 +84,10 @@ class SettingFragment: Fragment() {
 
 
 
-        val themePrefs: SharedPreferences = (activity as MainActivity).getSharedPreferences(Constants.PREFS_THEME_FILE, Context.MODE_PRIVATE)
+
 
         val selectedThemeBtn =
-            when(themePrefs.getString(THEME_CODE  , null)){
+            when(themeManager.getTheme()){
                 "dark" -> R.id.radioButtonDark
                 "system" -> R.id.radioButtonSystem
                 else -> R.id.radioButtonLight
@@ -96,20 +96,20 @@ class SettingFragment: Fragment() {
         binding.radioGroupTheme.check(selectedThemeBtn)
 
         binding.radioButtonDark.setOnClickListener {
-            themePrefs.edit().clear().apply()
-            themePrefs.edit().putString(THEME_CODE , "dark").apply()
+            themeManager.clearSharedPref()
+            themeManager.saveTheme("dark")
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         binding.radioButtonSystem.setOnClickListener {
-            themePrefs.edit().clear().apply()
-            themePrefs.edit().putString(THEME_CODE , "system").apply()
+            themeManager.clearSharedPref()
+            themeManager.saveTheme("system")
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
 
         binding.radioButtonLight.setOnClickListener {
-            themePrefs.edit().clear().apply()
-            themePrefs.edit().putString(THEME_CODE , null).apply()
+            themeManager.clearSharedPref()
+            themeManager.saveTheme(null)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
@@ -118,19 +118,19 @@ class SettingFragment: Fragment() {
 
 
 
-        val biometricPrefs: SharedPreferences = (activity as MainActivity).getSharedPreferences(Constants.PREFS_AUTHENTICATION_FILE, Context.MODE_PRIVATE)
+
 
         //set swFingerPrint is check status base on shared preference
-        binding.swFingerPrint.isChecked = biometricPrefs.getBoolean(IS_AUTHENTICATION_ENABLED , false)
+        binding.swFingerPrint.isChecked = biometricManager.isBiometricLoginEnabled()
         //check if device supports the biometric functionality
         checkDeviceHasBiometrics()
 
         binding.swFingerPrint.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
                 biometricAuthentication.promptForFragment(requireContext(),this)
-                biometricPrefs.edit().putBoolean(IS_AUTHENTICATION_ENABLED , true).apply()
+                biometricManager.saveBiometricStatus(true)
             }else{
-                biometricPrefs.edit().putBoolean(IS_AUTHENTICATION_ENABLED , false).apply()
+                biometricManager.saveBiometricStatus(false)
             }
         }
 

@@ -47,14 +47,14 @@ object NetworkModule {
             .writeTimeout(duration)
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BASIC) })
 
-            .addInterceptor(
-            ChuckerInterceptor.Builder(context)
-                .collector(ChuckerCollector(context))
-                .maxContentLength(250000L)
-                .redactHeaders(emptySet())
-                .alwaysReadResponseBody(false)
-                .build()
-        )
+//            .addInterceptor(
+//            ChuckerInterceptor.Builder(context)
+//                .collector(ChuckerCollector(context))
+//                .maxContentLength(250000L)
+//                .redactHeaders(emptySet())
+//                .alwaysReadResponseBody(false)
+//                .build()
+//        )
 
             .addInterceptor(interceptor)
             .authenticator(authAuthenticator)
