@@ -1,7 +1,7 @@
 package com.farshad.moviesapp.ui.filter
 
 import androidx.lifecycle.ViewModel
-import com.farshad.moviesapp.data.model.ui.*
+import com.farshad.moviesapp.ui.filter.model.*
 import com.farshad.moviesapp.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

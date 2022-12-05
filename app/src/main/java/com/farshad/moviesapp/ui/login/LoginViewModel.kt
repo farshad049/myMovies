@@ -2,13 +2,12 @@ package com.farshad.moviesapp.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.farshad.moviesapp.data.model.ui.LoginUserModel
+import com.farshad.moviesapp.ui.login.model.LoginResponseModel
+import com.farshad.moviesapp.ui.login.model.LoginUserModel
 import com.farshad.moviesapp.data.model.ui.TextFieldStatusModel
 import com.farshad.moviesapp.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,7 +26,7 @@ class LoginViewModel @Inject constructor(
 
 
 
-    private fun loginUser(email: String, password: String){
+     fun loginUser(email: String, password: String){
         viewModelScope.launch {
             val response=repository.loginUser(email,password)
             _loginUserLiveData.send(response)
@@ -39,11 +38,12 @@ class LoginViewModel @Inject constructor(
     fun validate(
         userName : String,
         password : String,
-    ){
-        val title = userName.trim()
-        val imdbId = password.trim()
-
+    )=
         viewModelScope.launch {
+
+            val title = userName.trim()
+            val imdbId = password.trim()
+
             when{
                 title.isEmpty() -> {
                     _validationMutableLiveData.send(
@@ -76,7 +76,7 @@ class LoginViewModel @Inject constructor(
         }
 
 
-    }
+
 
 
 

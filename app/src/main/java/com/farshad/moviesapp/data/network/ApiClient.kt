@@ -1,7 +1,7 @@
 package com.farshad.moviesapp.data.network
 
 import com.farshad.moviesapp.data.model.network.*
-import com.farshad.moviesapp.data.model.ui.UploadMovieModel
+import com.farshad.moviesapp.ui.submitMovie.model.UploadMovieModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -50,7 +50,7 @@ class ApiClient (private val movieService:MovieService){
         return safeApiCall { movieService.pushMoviesMulti(poster,title,imdb_id,country,year) }
     }
 
-    suspend fun registerUser( user:RegisterUserModel): SimpleResponse<UserRegisteredModel>{
+    suspend fun registerUser( user:RegisterPostBody): SimpleResponse<UserRegisteredModel>{
         return  safeApiCall { movieService.registerUser(user) }
     }
 

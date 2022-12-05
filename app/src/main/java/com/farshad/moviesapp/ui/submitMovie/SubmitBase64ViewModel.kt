@@ -2,11 +2,10 @@ package com.farshad.moviesapp.ui.submitMovie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.farshad.moviesapp.data.model.ui.SubmitFieldValidationModel
-import com.farshad.moviesapp.data.model.ui.SubmitResponseModel
-import com.farshad.moviesapp.data.model.ui.TextFieldStatusModel
-import com.farshad.moviesapp.data.model.ui.UploadMovieModel
 import com.farshad.moviesapp.data.repository.SubmitMovieRepository
+import com.farshad.moviesapp.ui.submitMovie.model.SubmitFieldValidationModel
+import com.farshad.moviesapp.ui.submitMovie.model.SubmitResponseModel
+import com.farshad.moviesapp.ui.submitMovie.model.UploadMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,14 +20,13 @@ class SubmitBase64ViewModel @Inject constructor(
 ) : ViewModel() {
 
     //works like event
-    private val eventChannel = Channel<SubmitResponseModel>()
-    val submitFlow = eventChannel.receiveAsFlow()
-
-//    private val _submitMovieBase64LiveData= MutableLiveData<UploadMovieModel?>()
-//    val pushMovieBase64LiveData: LiveData<UploadMovieModel?> = _submitMovieBase64LiveData
+    private val _submitMovieBase64 = Channel<SubmitResponseModel>()
+    val submitMovieBase64 = _submitMovieBase64.receiveAsFlow()
 
 
-    private val _validationMutableLiveData= MutableStateFlow<SubmitFieldValidationModel>(SubmitFieldValidationModel())
+    private val _validationMutableLiveData= MutableStateFlow<SubmitFieldValidationModel>(
+        SubmitFieldValidationModel()
+    )
     val validationLiveData: StateFlow<SubmitFieldValidationModel> = _validationMutableLiveData
 
 
@@ -37,11 +35,9 @@ class SubmitBase64ViewModel @Inject constructor(
     fun pushMovieBase64(movie: UploadMovieModel){
         viewModelScope.launch {
             val response=repository.pushMovieBase64(movie)
-            //_submitMovieBase64LiveData.postValue(response)
-            eventChannel.send(response)
+            _submitMovieBase64.send(response)
         }
     }
-
 
 
 
@@ -62,35 +58,33 @@ class SubmitBase64ViewModel @Inject constructor(
         when{
             titleB.isEmpty() -> {
                 _validationMutableLiveData.value=
-                    SubmitFieldValidationModel(
-                        title = TextFieldStatusModel.Error("* please enter a valid title")
-                    )
+                    SubmitFieldValidationModel(title = "* please enter a valid title" )
+                return
             }
             imdbIdB.isEmpty() -> {
                 _validationMutableLiveData.value=
-                    SubmitFieldValidationModel(
-                        imdbId = TextFieldStatusModel.Error("* please enter a valid IMDB ID")
-                    )
+                    SubmitFieldValidationModel(imdbId = "* please enter a valid IMDB ID")
+                return
             }
             countryB.isEmpty() -> {
                 _validationMutableLiveData.value =
-                    SubmitFieldValidationModel(
-                        country = TextFieldStatusModel.Error("* please enter a valid country name")
-                    )
+                    SubmitFieldValidationModel(country = "* please enter a valid country name")
+                return
             }
             yearB.isEmpty() && year.length < 4 -> {
-                _validationMutableLiveData.value=
-                    SubmitFieldValidationModel(
-                        year = TextFieldStatusModel.Error("* please enter a valid year")
-                    )
+                _validationMutableLiveData.value =
+                    SubmitFieldValidationModel(year = "* please enter a valid year")
+                return
+
             }else ->{
                 _validationMutableLiveData.value = SubmitFieldValidationModel(
-                    title = TextFieldStatusModel.Success(),
-                    imdbId = TextFieldStatusModel.Success(),
-                    country = TextFieldStatusModel.Success(),
-                    year  = TextFieldStatusModel.Success(),
-                    poster  = TextFieldStatusModel.Success()
+                    title = null,
+                    imdbId = null,
+                    country = null,
+                    year  = null,
+                    poster  = null,
                 )
+
               pushMovieBase64(
                   UploadMovieModel(
                       title = titleB,

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.facebook.shimmer.ShimmerFrameLayout
+    android:id="@+id/shimmerLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        >
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardProduct"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:background="?colorSurface"
+            android:elevation="8dp"
+            app:cardCornerRadius="16dp"
+            android:layout_marginHorizontal="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivMovieCard"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
+                    android:background="@drawable/background_rounded_12"
+                    android:alpha="0.5"
+                    />
+
+
+                <View
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_marginHorizontal="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivMovieCard"
+                    app:layout_constraintTop_toTopOf="@id/ivMovieCard"
+                    android:background="@drawable/background_rounded_12"
+                    android:alpha="0.5"/>
+
+                <View
+                    android:id="@+id/subject1"
+                    android:layout_width="50dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    android:background="@drawable/background_rounded_12"
+                    android:alpha="0.5"/>
+
+                <View
+                    android:id="@+id/description1"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/subject1"
+                    app:layout_constraintTop_toTopOf="@id/subject1"
+                    app:layout_constraintEnd_toEndOf="@+id/title"
+                    android:background="@drawable/background_rounded_12"
+                    android:alpha="0.5"/>
+
+                <View
+                    android:id="@+id/subject2"
+                    android:layout_width="50dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/subject1"
+                    android:background="@drawable/background_rounded_12"
+                    android:alpha="0.5"/>
+
+                <View
+                    android:id="@+id/description2"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/subject2"
+                    app:layout_constraintTop_toTopOf="@id/subject2"
+                    app:layout_constraintEnd_toEndOf="@+id/title"
+                    android:background="@drawable/background_rounded_12"
+                    android:alpha="0.5"/>
+
+                <View
+                    android:id="@+id/subject3"
+                    android:layout_width="50dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/subject2"
+                    android:background="@drawable/background_rounded_12"
+                    android:alpha="0.5"/>
+
+                <View
+                    android:id="@+id/description3"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/subject3"
+                    app:layout_constraintTop_toTopOf="@id/subject3"
+                    app:layout_constraintEnd_toEndOf="@+id/title"
+                    android:background="@drawable/background_rounded_12"
+                    android:alpha="0.5"/>
+
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

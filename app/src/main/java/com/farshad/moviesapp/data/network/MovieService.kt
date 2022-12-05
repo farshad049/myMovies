@@ -1,7 +1,7 @@
 package com.farshad.moviesapp.data.network
 
 import com.farshad.moviesapp.data.model.network.*
-import com.farshad.moviesapp.data.model.ui.UploadMovieModel
+import com.farshad.moviesapp.ui.submitMovie.model.UploadMovieModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -45,7 +45,7 @@ interface MovieService {
 
 
     @POST("api/v1/register/")
-    suspend fun registerUser (@Body user: RegisterUserModel): Response<UserRegisteredModel>
+    suspend fun registerUser (@Body user: RegisterPostBody): Response<UserRegisteredModel>
 
 
     @Multipart

@@ -7,6 +7,7 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="login">Login</string>
     <string name="you_are_not_logged_in">You Are Not Logged In</string>
+    <string name="you_are_logged_in">You Are Logged In</string>
     <string name="please_login">Please Login</string>
     <string name="top_rated_movies">Top Rated Movies</string>
     <string name="nothing_found">Nothing Found !</string>
@@ -66,6 +67,8 @@
     <string name="favorite_movies">Favorite Movies</string>
     <string name="user_information">user information</string>
     <string name="movies_app">Top Movies</string>
+    <string name="enter_a_username">Enter a valid you username</string>
+    <string name="enter_your_password">Enter your password</string>
 
 
 </resources>

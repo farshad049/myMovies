@@ -64,19 +64,21 @@
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/historyEpoxyRecyclerView"
+        android:background="?background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="12dp"
         android:paddingBottom="12dp"
         android:visibility="invisible"
-        app:itemSpacing="0dp"
+        app:itemSpacing="2dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardView"
         tools:listitem="@layout/model_search_history"
+        tools:itemCount="5"
         tools:visibility="visible" />
 
 

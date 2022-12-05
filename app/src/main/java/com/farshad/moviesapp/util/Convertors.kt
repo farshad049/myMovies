@@ -12,8 +12,9 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
+import javax.inject.Inject
 
-open class Convertors {
+class Convertors @Inject constructor() {
 
 
     fun convertBitmapTOBase64(bitmap: Bitmap):String{

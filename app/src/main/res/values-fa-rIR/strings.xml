@@ -8,6 +8,7 @@
     <string name="already_have_an_account">حساب دارید ؟</string>
     <string name="login">وارد شوید</string>
     <string name="you_are_not_logged_in">وارد نشده اید</string>
+    <string name="you_are_logged_in">وارد شدید</string>
     <string name="please_login">لطفا وارد شوید</string>
     <string name="top_rated_movies">فیلم های برتر</string>
     <string name="nothing_found">چیزی پیدا نشد !</string>
@@ -67,5 +68,7 @@
     <string name="favorite_movies">علاقه مندی ها</string>
     <string name="user_information">اطلاعات کاربری</string>
     <string name="movies_app">فیلم های برتر</string>
+    <string name="enter_a_username">نام کاربری را به صورت صحیح وارد کنید</string>
+    <string name="enter_your_password">کلمه عبور را وارد کنید</string>
 
 </resources>

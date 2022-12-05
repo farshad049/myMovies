@@ -12,17 +12,15 @@ import android.view.ViewGroup
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.farshad.moviesapp.data.model.ui.SubmitResponseModel
-import com.farshad.moviesapp.data.model.ui.TextFieldStatusModel
 import com.farshad.moviesapp.databinding.FragmentSubmitBase64Binding
 import com.farshad.moviesapp.ui.MainActivity
+import com.farshad.moviesapp.ui.submitMovie.model.SubmitResponseModel
 import com.farshad.moviesapp.util.Convertors
 import com.farshad.moviesapp.util.GetPermission
 import com.farshad.moviesapp.util.LoadingDialog
@@ -30,6 +28,7 @@ import com.farshad.moviesapp.util.ShowNotification
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -38,8 +37,14 @@ class SubmitMovieBase64: Fragment(){
     private var _binding: FragmentSubmitBase64Binding? = null
     private val binding get() = _binding!!
     private var currentImageUri: Uri? = null
-    private var path:String=""
+    private var path : String=""
     private val submitBase64ViewModel: SubmitBase64ViewModel by viewModels()
+
+    @Inject
+    lateinit var  convertors : Convertors
+
+    @Inject
+    lateinit var getPermission :GetPermission
 
 
     override fun onCreateView(
@@ -56,10 +61,12 @@ class SubmitMovieBase64: Fragment(){
 
 
         lifecycleScope.launchWhenStarted {
-            submitBase64ViewModel.submitFlow.collectLatest { uploadedMovie->
-                when (uploadedMovie){
+            submitBase64ViewModel.submitMovieBase64.collectLatest { uploadedMovie->
+                LoadingDialog.displayLoadingWithText(requireContext(),null,true)
 
+                when (uploadedMovie){
                     is SubmitResponseModel.Success -> {
+                        LoadingDialog.hideLoading()
                         findNavController().navigate(SubmitDirections.actionSubmitToMoviesDetailFragment(uploadedMovie.data.id))
                         ShowNotification(activity as MainActivity, requireContext())
                             .showNotification(
@@ -70,6 +77,7 @@ class SubmitMovieBase64: Fragment(){
                     }
 
                     is SubmitResponseModel.Error ->{
+                        LoadingDialog.hideLoading()
                         Toast.makeText(requireContext(), uploadedMovie.message,Toast.LENGTH_SHORT).show()
                     }
 
@@ -82,15 +90,8 @@ class SubmitMovieBase64: Fragment(){
 
 
 
-        binding.etTitle.addTextChangedListener { binding.title.error = null }
-        binding.etImdbId.addTextChangedListener { binding.imdbId.error = null }
-        binding.etCountry.addTextChangedListener { binding.country.error = null }
-        binding.etYear.addTextChangedListener { binding.year.error = null }
-
-
 
         binding.BtnSubmit.setOnClickListener {
-            LoadingDialog.displayLoadingWithText(requireContext(),null,true)
             submitBase64ViewModel.validate(
                     title= binding.etTitle.text.toString(),
                     imdb_id = binding.etImdbId.text.toString(),
@@ -103,28 +104,13 @@ class SubmitMovieBase64: Fragment(){
 
         //handle empty field errors
         submitBase64ViewModel.validationLiveData.asLiveData().observe(viewLifecycleOwner){ validationLiveData->
-            LoadingDialog.hideLoading()
-            when{
-                validationLiveData.title is TextFieldStatusModel.Error ->{
-                    binding.title.error = (validationLiveData.title).error
-                    binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
-                }
-                validationLiveData.imdbId is TextFieldStatusModel.Error ->{
-                    binding.imdbId.error = (validationLiveData.imdbId).error
-                    binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
 
-                }
-                validationLiveData.country is TextFieldStatusModel.Error ->{
-                    binding.country.error = (validationLiveData.country).error
-                    binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
+            binding.title.error = validationLiveData.title
+            binding.imdbId.error = validationLiveData.imdbId
+            binding.country.error = validationLiveData.country
+            binding.year.error = validationLiveData.year
 
-                }
-                validationLiveData.year is TextFieldStatusModel.Error ->{
-                    binding.year.error = (validationLiveData.year).error
-                    binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
-                }
-
-            }
+            binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
         }
 
 
@@ -135,7 +121,7 @@ class SubmitMovieBase64: Fragment(){
 
 
         binding.ivPoster.setOnClickListener {
-            GetPermission().getPermission(
+            getPermission.getPermission(
                 activity as MainActivity,
                 requireContext() ,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -168,8 +154,8 @@ class SubmitMovieBase64: Fragment(){
                 lifecycleScope.launch {
                     currentImageUri = data?.data
                     binding.ivPoster.load(data?.data)
-                    val bitmap = Convertors().convertUriToBitmap(requireContext() , data?.data!!)
-                    path = Convertors().convertBitmapTOBase64(bitmap)
+                    val bitmap = convertors.convertUriToBitmap(requireContext() , data?.data!!)
+                    path = convertors.convertBitmapTOBase64(bitmap)
                     LoadingDialog.hideLoading()
                 }
             }  else {

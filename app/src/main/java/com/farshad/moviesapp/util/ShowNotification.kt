@@ -15,8 +15,9 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.ui.MainActivity
+import javax.inject.Inject
 
-open class ShowNotification(val activity : Activity,val context : Context ) {
+class ShowNotification @Inject constructor(val activity : Activity,val context : Context ) {
 
      fun showNotification(title: String ,channelDescription: String , navigationActionName: String , movieId : Int = 0 ){
         //I can use it if i want to sent the notification to main activity

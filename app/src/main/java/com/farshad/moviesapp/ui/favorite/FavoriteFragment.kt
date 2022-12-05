@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.databinding.FragmentFavoriteBinding
-import com.farshad.moviesapp.epoxy.EmptyFavoriteMovieListEpoxyModel
-import com.farshad.moviesapp.epoxy.FavoriteMovieEpoxyModel
+import com.farshad.moviesapp.ui.favorite.epoxy.EmptyFavoriteMovieListEpoxyModel
+import com.farshad.moviesapp.ui.favorite.epoxy.FavoriteMovieEpoxyModel
 import com.farshad.moviesapp.epoxy.HeaderEpoxyModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

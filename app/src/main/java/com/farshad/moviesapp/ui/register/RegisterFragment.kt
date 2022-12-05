@@ -12,11 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.databinding.FragmentRegisterBinding
-import com.farshad.moviesapp.data.model.network.RegisterResponseModel
-import com.farshad.moviesapp.data.model.ui.TextFieldStatusModel
-import com.farshad.moviesapp.ui.MainActivity
+import com.farshad.moviesapp.ui.register.model.RegisterResponseModel
 import com.farshad.moviesapp.util.LoadingDialog
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -55,9 +52,8 @@ class RegisterFragment: Fragment() {
 
 
 
-
+        //handle the register response
         lifecycleScope.launchWhenStarted {
-
             viewModel.registerUserLiveData.collectLatest{registeredUser->
                 LoadingDialog.hideLoading()
                 when(registeredUser){
@@ -73,7 +69,6 @@ class RegisterFragment: Fragment() {
                     else -> {}
                 }
             }
-
         }
 
 
@@ -91,18 +86,11 @@ class RegisterFragment: Fragment() {
         viewModel.validationLiveData.asLiveData().observe(viewLifecycleOwner){ validationLiveData->
             LoadingDialog.hideLoading()
 
-            when{
-                validationLiveData.userName is TextFieldStatusModel.Error ->{
-                    Snackbar.make((activity as MainActivity).findViewById(android.R.id.content),validationLiveData.userName.error!!, Snackbar.LENGTH_LONG).show()
-                }
-                validationLiveData.email is TextFieldStatusModel.Error ->{
-                    Snackbar.make((activity as MainActivity).findViewById(android.R.id.content),validationLiveData.email.error!!, Snackbar.LENGTH_LONG).show()
-                }
-                validationLiveData.password is TextFieldStatusModel.Error ->{
-                    Snackbar.make((activity as MainActivity).findViewById(android.R.id.content),validationLiveData.password.error!!, Snackbar.LENGTH_LONG).show()
-                }
-            }
+            binding.email.error = validationLiveData.email
+            binding.userName.error = validationLiveData.userName
+            binding.password.error = validationLiveData.password
         }
+
 
 
 

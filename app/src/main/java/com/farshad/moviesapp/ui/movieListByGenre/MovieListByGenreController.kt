@@ -4,8 +4,9 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.farshad.moviesapp.epoxy.HeaderEpoxyModel
 import com.farshad.moviesapp.epoxy.LoadingEpoxyModel
-import com.farshad.moviesapp.epoxy.MovieListModel
+import com.farshad.moviesapp.ui.movieList.epoxy.MovieListModel
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
+import java.util.*
 
 class MovieListByGenreController (
     private val onMovieClick:(Int)-> Unit,
@@ -15,17 +16,17 @@ class MovieListByGenreController (
 
     override fun buildItemModel(currentPosition: Int, item: DomainMovieModel?): EpoxyModel<*> {
         return MovieListModel(item!!,onMovieClick)
-            .id("genre${item.id}")
+            .id(UUID.randomUUID().toString())
     }
 
     override fun addModels(models: List<EpoxyModel<*>>) {
 
         if (models.isEmpty()){
-            LoadingEpoxyModel().id("loading8").addTo(this)
+            LoadingEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
             return
         }
 
-        HeaderEpoxyModel(genreName).id("genreName").addTo(this)
+        HeaderEpoxyModel(genreName).id(UUID.randomUUID().toString()).addTo(this)
 
         super.addModels(models)
     }

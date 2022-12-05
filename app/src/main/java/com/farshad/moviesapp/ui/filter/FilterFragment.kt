@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import com.farshad.moviesapp.databinding.FragmentFilterBinding
+import com.farshad.moviesapp.ui.filter.epoxy.FilterFragmentEpoxyController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 

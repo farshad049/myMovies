@@ -10,6 +10,8 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.databinding.FragmentDashboardBinding
+import com.farshad.moviesapp.ui.dashboard.epoxy.DashboardEpoxyController
+import com.farshad.moviesapp.ui.dashboard.epoxy.OnClickInterface
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

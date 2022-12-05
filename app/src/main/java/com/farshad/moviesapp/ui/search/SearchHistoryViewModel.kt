@@ -17,6 +17,10 @@ class SearchHistoryViewModel @Inject constructor(
     private val repository: RoomRepository
 ) : ViewModel() {
 
+    init {
+        getSearchHistoryList()
+    }
+
     private val _searchHistoryListMutableLiveData = MutableLiveData<List<SearchHistoryEntityWithoutId>>()
     val searchHistoryListLiveData : LiveData<List<SearchHistoryEntityWithoutId>> = _searchHistoryListMutableLiveData
 

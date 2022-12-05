@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.databinding.FragmentMoviesDetailBinding
 import com.farshad.moviesapp.ui.favorite.FavoriteFragmentViewModel
+import com.farshad.moviesapp.ui.movieDetail.epoxy.MovieDetailEpoxyController
 import com.farshad.moviesapp.util.LoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 

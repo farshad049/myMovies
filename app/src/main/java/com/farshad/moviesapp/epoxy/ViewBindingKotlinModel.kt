@@ -5,6 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.viewbinding.ViewBinding
 import com.airbnb.epoxy.EpoxyModel
 import com.farshad.moviesapp.R
+
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import java.util.concurrent.ConcurrentHashMap
@@ -12,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * A pattern for using epoxy models with Kotlin with no annotations or code generation.
  *
- * See [com.airbnb.epoxy.kotlinsample.models.ItemViewBindingDataClass] for a usage farshad.
+ * See [com.airbnb.epoxy.kotlinsample.models.ItemViewBindingDataClass] for a usage example.
  *
  * If You use Proguard or R8, be sure to keep the bind method available with the following configuration:
  *
@@ -28,15 +29,25 @@ abstract class ViewBindingKotlinModel<T : ViewBinding>(
     private val bindingMethod by lazy { getBindMethodFrom(this::class.java) }
 
     abstract fun T.bind()
+    open fun T.unbind() {}
+
+
+    override fun bind(view: View) {
+        view.getBinding().bind()
+    }
+
+    override fun unbind(view: View) {
+        view.getBinding().unbind()
+    }
 
     @Suppress("UNCHECKED_CAST")
-    override fun bind(view: View) {
-        var binding = view.getTag(R.id.epoxy_viewBinding) as? T
+    protected fun View.getBinding(): T {
+        var binding = getTag(R.id.epoxy_viewBinding) as? T
         if (binding == null) {
-            binding = bindingMethod.invoke(null, view) as T
-            view.setTag(R.id.epoxy_viewBinding, binding)
+            binding = bindingMethod.invoke(null, this) as T
+            setTag(R.id.epoxy_viewBinding, binding)
         }
-        binding.bind()
+        return binding
     }
 
     override fun getDefaultLayout() = layoutRes

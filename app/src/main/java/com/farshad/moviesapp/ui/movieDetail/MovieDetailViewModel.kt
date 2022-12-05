@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
 import com.farshad.moviesapp.data.db.RoomRepository
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
-import com.farshad.moviesapp.data.model.ui.UiMovieDetailModel
+import com.farshad.moviesapp.ui.movieDetail.model.UiMovieDetailModel
 import com.farshad.moviesapp.data.repository.MovieDetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

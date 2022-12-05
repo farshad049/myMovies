@@ -12,22 +12,21 @@ import android.view.ViewGroup
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.farshad.moviesapp.data.model.ui.SubmitResponseModel
-import com.farshad.moviesapp.data.model.ui.TextFieldStatusModel
 import com.farshad.moviesapp.databinding.FragmentSubmitMultipartBinding
 import com.farshad.moviesapp.ui.MainActivity
+import com.farshad.moviesapp.ui.submitMovie.model.SubmitResponseModel
 import com.farshad.moviesapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -38,6 +37,13 @@ class SubmitMovieMultipart: Fragment() {
     private val submitMultipartViewModel: SubmitMultipartViewModel by viewModels()
     private var imageRequestBody: MultipartBody.Part?= null
     private var currentImageUri: Uri? = null
+
+    @Inject
+    lateinit var  convertors : Convertors
+
+    @Inject
+    lateinit var getPermission :GetPermission
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,9 +61,10 @@ class SubmitMovieMultipart: Fragment() {
 
         lifecycleScope.launchWhenStarted {
             submitMultipartViewModel.submitFlow.collectLatest { uploadedMovie->
+                LoadingDialog.displayLoadingWithText(requireContext(),null,true)
                 when (uploadedMovie){
-
                     is SubmitResponseModel.Success -> {
+                        LoadingDialog.hideLoading()
                         findNavController().navigate(SubmitDirections.actionSubmitToMoviesDetailFragment(uploadedMovie.data.id))
 
                         if (currentImageUri != null){
@@ -80,6 +87,7 @@ class SubmitMovieMultipart: Fragment() {
                     }
 
                     is SubmitResponseModel.Error ->{
+                        LoadingDialog.hideLoading()
                         Toast.makeText(requireContext(), uploadedMovie.message,Toast.LENGTH_SHORT).show()
                     }
 
@@ -90,15 +98,9 @@ class SubmitMovieMultipart: Fragment() {
         }
 
 
-        binding.etTitle.addTextChangedListener { binding.title.error = null }
-        binding.etImdbId.addTextChangedListener { binding.imdbId.error = null }
-        binding.etCountry.addTextChangedListener { binding.country.error = null }
-        binding.etYear.addTextChangedListener { binding.year.error = null }
-
-
 
         binding.BtnSubmit.setOnClickListener {
-            LoadingDialog.displayLoadingWithText(requireContext(),null,true)
+
             submitMultipartViewModel.validate(
                 title= binding.etTitle.text.toString(),
                 imdb_id = binding.etImdbId.text.toString(),
@@ -112,33 +114,19 @@ class SubmitMovieMultipart: Fragment() {
         //handle field errors
         submitMultipartViewModel.validationLiveData.asLiveData().observe(viewLifecycleOwner){ validationLiveData->
             LoadingDialog.hideLoading()
-            when{
-                validationLiveData.title is TextFieldStatusModel.Error ->{
-                    binding.title.error = (validationLiveData.title).error
-                    binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
-                }
-                validationLiveData.imdbId is TextFieldStatusModel.Error ->{
-                    binding.imdbId.error = (validationLiveData.imdbId).error
-                    binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
 
-                }
-                validationLiveData.country is TextFieldStatusModel.Error ->{
-                    binding.country.error = (validationLiveData.country).error
-                    binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
+            binding.title.error = validationLiveData.title
+            binding.imdbId.error = validationLiveData.imdbId
+            binding.country.error = validationLiveData.country
+            binding.year.error = validationLiveData.year
 
-                }
-                validationLiveData.year is TextFieldStatusModel.Error ->{
-                    binding.year.error = (validationLiveData.year).error
-                    binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
-                }
-
-            }
+            binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
         }
 
 
 
         binding.ivPoster.setOnClickListener {
-            GetPermission().getPermission(
+            getPermission.getPermission(
                 activity as MainActivity,
                 requireContext() ,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -164,7 +152,7 @@ class SubmitMovieMultipart: Fragment() {
                     binding.ivPoster.load(data?.data)
                     currentImageUri=data?.data
                     val imageRealPath = RealPathUtil.getRealPath(requireContext(),data?.data)
-                    imageRequestBody = Convertors().convertImagePathToRequestBody(imageRealPath , "poster")
+                    imageRequestBody = convertors.convertImagePathToRequestBody(imageRealPath , "poster")
                     LoadingDialog.hideLoading()
                 }
             }  else {

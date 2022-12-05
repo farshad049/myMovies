@@ -3,7 +3,7 @@ package com.farshad.moviesapp.ui.dashboard
 import androidx.lifecycle.*
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.data.model.network.GenresModel
-import com.farshad.moviesapp.data.model.ui.UiMovieAndGenre
+import com.farshad.moviesapp.ui.dashboard.model.UiMovieAndGenre
 import com.farshad.moviesapp.data.repository.DashboardRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

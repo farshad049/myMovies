@@ -15,8 +15,8 @@ android {
         applicationId "com.farshad.moviesapp"
         minSdk 26
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,9 +64,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
-    def hilt_viewmodels = "1.0.0-alpha02"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
-    kapt "androidx.hilt:hilt-compiler:$hilt_viewmodels"
+    def hilt_viewModels = "1.0.0-alpha02"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewModels"
+    kapt "androidx.hilt:hilt-compiler:$hilt_viewModels"
 
     //okHttp
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
@@ -84,9 +84,8 @@ dependencies {
     implementation("com.github.Commit451.coil-transformations:transformations-face-detection:2.0.2")
 
     //Epoxy
-    def epoxyVersion="5.0.0-beta05"
+    def epoxyVersion="4.6.3"
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
-    kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
     implementation "com.airbnb.android:epoxy-paging:$epoxyVersion"
     implementation "com.airbnb.android:epoxy-paging3:$epoxyVersion"
 

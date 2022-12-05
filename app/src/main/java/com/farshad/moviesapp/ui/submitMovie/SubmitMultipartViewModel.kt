@@ -2,10 +2,9 @@ package com.farshad.moviesapp.ui.submitMovie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.farshad.moviesapp.data.model.ui.SubmitFieldValidationModel
-import com.farshad.moviesapp.data.model.ui.SubmitResponseModel
-import com.farshad.moviesapp.data.model.ui.TextFieldStatusModel
 import com.farshad.moviesapp.data.repository.SubmitMovieRepository
+import com.farshad.moviesapp.ui.submitMovie.model.SubmitFieldValidationModel
+import com.farshad.moviesapp.ui.submitMovie.model.SubmitResponseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,11 +23,10 @@ class SubmitMultipartViewModel @Inject constructor(
     val submitFlow = eventChannel.receiveAsFlow()
 
 
-    private val _validationMutableLiveData= MutableStateFlow<SubmitFieldValidationModel>(SubmitFieldValidationModel())
+    private val _validationMutableLiveData= MutableStateFlow<SubmitFieldValidationModel>(
+        SubmitFieldValidationModel()
+    )
     val validationLiveData: StateFlow<SubmitFieldValidationModel> = _validationMutableLiveData
-
-//    private val _submitMovieMultipartLiveData= MutableLiveData<UploadMovieModel?>()
-//    val pushMovieMultipartLiveData: LiveData<UploadMovieModel?> = _submitMovieMultipartLiveData
 
 
 
@@ -41,7 +39,6 @@ class SubmitMultipartViewModel @Inject constructor(
     ){
         viewModelScope.launch {
             val response=repository.pushMovieMultipart(poster,title,imdb_id,country,year)
-            //_submitMovieMultipartLiveData.postValue(response)
             eventChannel.send(response)
         }
     }
@@ -65,34 +62,31 @@ class SubmitMultipartViewModel @Inject constructor(
         when{
             titleB.isEmpty() -> {
                 _validationMutableLiveData.value=
-                    SubmitFieldValidationModel(
-                        title = TextFieldStatusModel.Error("* please enter a valid title")
-                    )
+                    SubmitFieldValidationModel(title = "* please enter a valid title")
+                return
             }
             imdbIdB.isEmpty() -> {
                 _validationMutableLiveData.value=
-                    SubmitFieldValidationModel(
-                        imdbId = TextFieldStatusModel.Error("* please enter a valid IMDB ID")
-                    )
+                    SubmitFieldValidationModel(imdbId = "* please enter a valid IMDB ID")
+                return
             }
             countryB.isEmpty() -> {
                 _validationMutableLiveData.value =
-                    SubmitFieldValidationModel(
-                        country = TextFieldStatusModel.Error("* please enter a valid country name")
-                    )
+                    SubmitFieldValidationModel(country = "* please enter a valid country name")
+                return
             }
             yearB.isEmpty() && year.length < 4 -> {
                 _validationMutableLiveData.value=
-                    SubmitFieldValidationModel(
-                        year = TextFieldStatusModel.Error("* please enter a valid year")
-                    )
+                    SubmitFieldValidationModel(year = "* please enter a valid year")
+                return
+
             }else ->{
             _validationMutableLiveData.value = SubmitFieldValidationModel(
-                title = TextFieldStatusModel.Success(),
-                imdbId = TextFieldStatusModel.Success(),
-                country = TextFieldStatusModel.Success(),
-                year  = TextFieldStatusModel.Success(),
-                poster  = TextFieldStatusModel.Success()
+                title = null,
+                imdbId = null,
+                country = null,
+                year  = null,
+                poster  = null,
             )
 
 
@@ -104,7 +98,7 @@ class SubmitMultipartViewModel @Inject constructor(
                     poster = poster
             )
 
-        }
+          }
         }
 
     }

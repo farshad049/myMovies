@@ -16,6 +16,8 @@ import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.databinding.FragmentSearchBinding
 import com.farshad.moviesapp.data.db.Entity.SearchHistoryEntity
 import com.farshad.moviesapp.ui.MainActivity
+import com.farshad.moviesapp.ui.search.epoxy.SearchEpoxyController
+import com.farshad.moviesapp.ui.search.epoxy.SearchHistoryEpoxyController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -88,7 +90,7 @@ class SearchFragment: Fragment() {
 
 
 
-        searchHistoryViewModel.getSearchHistoryList()
+
 
         searchHistoryViewModel.searchHistoryListLiveData.observe(viewLifecycleOwner){ searchHistoryList->
             searchHistoryController.setData(searchHistoryList)

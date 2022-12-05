@@ -2,9 +2,9 @@ package com.farshad.moviesapp.data.repository
 
 
 import com.farshad.moviesapp.Authentication.TokenManager
-import com.farshad.moviesapp.ui.login.LoginResponseModel
-import com.farshad.moviesapp.data.model.network.RegisterResponseModel
-import com.farshad.moviesapp.data.model.network.RegisterUserModel
+import com.farshad.moviesapp.ui.login.model.LoginResponseModel
+import com.farshad.moviesapp.ui.register.model.RegisterResponseModel
+import com.farshad.moviesapp.data.model.network.RegisterPostBody
 import com.farshad.moviesapp.data.model.network.UserRegisteredModel
 import com.farshad.moviesapp.data.network.ApiClient
 import okhttp3.RequestBody
@@ -18,7 +18,7 @@ class UserRepository @Inject constructor(
     ) {
 
 
-    suspend fun registerUser(user: RegisterUserModel): RegisterResponseModel {
+    suspend fun registerUser(user: RegisterPostBody): RegisterResponseModel {
         val response = apiClient.registerUser(user)
 
         return if (!response.isSuccessful){

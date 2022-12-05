@@ -15,6 +15,8 @@ import androidx.paging.filter
 import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.ui.filter.FilterViewModel
 import com.farshad.moviesapp.databinding.FragmentMovieListBinding
+import com.farshad.moviesapp.ui.movieList.epoxy.FilterCarouselEpoxyController
+import com.farshad.moviesapp.ui.movieList.epoxy.MovieListEpoxyController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged

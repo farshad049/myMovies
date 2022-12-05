@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farshad.moviesapp.data.model.network.*
 import com.farshad.moviesapp.data.repository.UserRepository
-import com.farshad.moviesapp.ui.login.LoginResponseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 @HiltViewModel

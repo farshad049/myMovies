@@ -1,16 +1,14 @@
 package com.farshad.moviesapp.util
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import com.farshad.moviesapp.ui.MainActivity
 import com.permissionx.guolindev.PermissionX
+import javax.inject.Inject
 
-open class GetPermission {
+class GetPermission @Inject constructor() {
 
      fun getPermission(
          activity:MainActivity,
