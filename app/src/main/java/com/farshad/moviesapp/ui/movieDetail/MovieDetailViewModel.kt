@@ -8,10 +8,7 @@ import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.ui.movieDetail.model.UiMovieDetailModel
 import com.farshad.moviesapp.data.repository.MovieDetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,14 +18,14 @@ class MovieDetailViewModel @Inject constructor(
     private val roomRepository: RoomRepository
 ) : ViewModel() {
 
-    private val _movieByIdLiveData= MutableStateFlow<DomainMovieModel?>(DomainMovieModel())
-    val movieByIdLiveData: StateFlow<DomainMovieModel?> =_movieByIdLiveData
+    private val _movieByIdFlow= MutableStateFlow<DomainMovieModel?>(DomainMovieModel())
+    val movieByIdFlow = _movieByIdFlow.asStateFlow()
 
-    private val _movieByGenreLiveData= MutableStateFlow<List<DomainMovieModel>>(emptyList())
-    val movieByGenreLiveData: StateFlow<List<DomainMovieModel>> = _movieByGenreLiveData
+    private val _movieByGenreFlow= MutableStateFlow<List<DomainMovieModel>>(emptyList())
+    val movieByGenreFlow = _movieByGenreFlow.asStateFlow()
 
-    private val _favoriteMovieListMutableLiveData = MutableStateFlow<List<FavoriteMovieEntity>>(emptyList())
-    val favoriteMovieListMutableLiveData : StateFlow<List<FavoriteMovieEntity>> = _favoriteMovieListMutableLiveData
+    private val _favoriteMovieListFlow = MutableStateFlow<List<FavoriteMovieEntity>>(emptyList())
+    val favoriteMovieListFlow = _favoriteMovieListFlow.asStateFlow()
 
 
     init {
@@ -40,7 +37,7 @@ class MovieDetailViewModel @Inject constructor(
     fun getMovieById(movieId: Int){
         viewModelScope.launch {
             val response=repository.getMovieById(movieId)
-            _movieByIdLiveData.value=response
+            _movieByIdFlow.emit(response)
 
             if (response?.genres?.isNotEmpty() == true) {
                 val genreId = genreNameToId(response.genres.component1())
@@ -53,14 +50,14 @@ class MovieDetailViewModel @Inject constructor(
     private fun  getMovieByGenre(genreId: Int){
         viewModelScope.launch {
             val response=repository.getMovieByGenre(genreId)
-            _movieByGenreLiveData.value=response
+            _movieByGenreFlow.emit(response)
         }
     }
 
     private fun getFavoriteMovieList(){
         viewModelScope.launch {
             roomRepository.getAllFavoriteMovies().collectLatest {
-                _favoriteMovieListMutableLiveData.value = it
+                _favoriteMovieListFlow.emit(it)
             }
         }
     }
@@ -69,9 +66,9 @@ class MovieDetailViewModel @Inject constructor(
 
     val combinedData =
         combine(
-            movieByIdLiveData,
-            favoriteMovieListMutableLiveData ,
-            movieByGenreLiveData
+            movieByIdFlow,
+            favoriteMovieListFlow ,
+            movieByGenreFlow
         ){movieById , favoriteMovieList , similarMovieList ->
            UiMovieDetailModel(
                 movie = movieById  ,

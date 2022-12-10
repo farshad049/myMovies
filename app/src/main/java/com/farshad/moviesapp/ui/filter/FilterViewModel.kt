@@ -6,6 +6,7 @@ import com.farshad.moviesapp.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
@@ -22,7 +23,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         )
     )
 
-    val filterByGenreInfoLiveData : StateFlow<FilterByGenreInfo> = _filterByGenreInfoLiveData
+    val filterByGenreInfoLiveData = _filterByGenreInfoLiveData.asStateFlow()
 
 
 
@@ -34,11 +35,11 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         )
     )
 
-    val filterByImdbRateInfoLiveData : StateFlow<FilterByImdbInfo> = _filterByImdbRateInfo1LiveData
+    val filterByImdbRateInfoLiveData = _filterByImdbRateInfo1LiveData.asStateFlow()
 
 
     val _expandItemsMutableLiveData = MutableStateFlow( UiExpandModel() )
-    val expandItemsMutableLiveData : StateFlow<UiExpandModel> = _expandItemsMutableLiveData
+    val expandItemsMutableLiveData = _expandItemsMutableLiveData.asStateFlow()
 
 
 

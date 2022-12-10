@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.asLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -175,7 +176,7 @@ class MainActivity : AppCompatActivity() {
             binding.btnLogOutDrawerLayout.isVisible = true
 
 
-            userInfoViewModel.userInfoLiveData.observe(this){
+            userInfoViewModel.userInfoLiveData.asLiveData().observe(this){
                 userNameInDrawerHeader.text = "welcome ${it?.name}"
             }
             userNameInDrawerHeader.isVisible = true

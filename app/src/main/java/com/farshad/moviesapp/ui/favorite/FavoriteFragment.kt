@@ -17,6 +17,7 @@ import com.farshad.moviesapp.ui.favorite.epoxy.EmptyFavoriteMovieListEpoxyModel
 import com.farshad.moviesapp.ui.favorite.epoxy.FavoriteMovieEpoxyModel
 import com.farshad.moviesapp.epoxy.HeaderEpoxyModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -57,14 +58,14 @@ class FavoriteFragment:Fragment() {
 
 
 
-        roomViewModel.favoriteMovieListMutableLiveData.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){data ->
+        roomViewModel.favoriteMovieListFlow.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ data ->
             binding.epoxyRecyclerView.withModels {
                 if (data.isNullOrEmpty()){
-                    EmptyFavoriteMovieListEpoxyModel().id("empty").addTo(this)
+                    EmptyFavoriteMovieListEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
                     return@withModels
                 }
 
-                HeaderEpoxyModel("Favorite Movies").id("favorite_movies").addTo(this)
+                HeaderEpoxyModel("Favorite Movies").id(UUID.randomUUID().toString()).addTo(this)
 
                 data.forEach {
                     FavoriteMovieEpoxyModel(it , ::onMovieClick).id(it.id).addTo(this)

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.databinding.FragmentUserInfoBinding
@@ -34,7 +35,7 @@ class UserInfoFragment: Fragment() {
 
         LoadingDialog.displayLoadingWithText(requireContext(),null,true)
 
-        viewModel.userInfoLiveData.observe(viewLifecycleOwner){userInfo->
+        viewModel.userInfoLiveData.asLiveData().observe(viewLifecycleOwner){userInfo->
             LoadingDialog.hideLoading()
                 binding.tvName.text=userInfo?.name
                 binding.tvEmail.text=userInfo?.email

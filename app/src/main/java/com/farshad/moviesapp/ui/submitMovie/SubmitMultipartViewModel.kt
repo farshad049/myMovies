@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -26,7 +27,7 @@ class SubmitMultipartViewModel @Inject constructor(
     private val _validationMutableLiveData= MutableStateFlow<SubmitFieldValidationModel>(
         SubmitFieldValidationModel()
     )
-    val validationLiveData: StateFlow<SubmitFieldValidationModel> = _validationMutableLiveData
+    val validationLiveData = _validationMutableLiveData.asStateFlow()
 
 
 

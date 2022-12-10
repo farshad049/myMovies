@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.databinding.FragmentDashboardBinding
 import com.farshad.moviesapp.ui.dashboard.epoxy.DashboardEpoxyController
 import com.farshad.moviesapp.ui.dashboard.epoxy.OnClickInterface
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
 
 @AndroidEntryPoint
 class DashboardFragment: Fragment(), OnClickInterface {

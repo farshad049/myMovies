@@ -45,7 +45,7 @@ class LoginFragment: Fragment() {
 
 
         lifecycleScope.launch {
-            viewModel.loginUserLiveData.collectLatest {response->
+            viewModel.loginUserFlow.collectLatest { response->
  //               LoadingDialog.hideLoading()
                 controller.setData(response)
 //                when(response){

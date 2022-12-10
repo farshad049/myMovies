@@ -17,19 +17,19 @@ class LoginViewModel @Inject constructor(
     private val repository: UserRepository
 ): ViewModel() {
 
-    private val _loginUserLiveData = Channel<LoginResponseModel>()
-    val loginUserLiveData = _loginUserLiveData.receiveAsFlow()
+    private val _loginUserFlow = Channel<LoginResponseModel>()
+    val loginUserFlow = _loginUserFlow.receiveAsFlow()
 
 
-    private val _validationMutableLiveData= Channel<LoginUserModel>()
-    val validationLiveData = _validationMutableLiveData.receiveAsFlow()
+    private val _validationFlow= Channel<LoginUserModel>()
+    val validationFlow = _validationFlow.receiveAsFlow()
 
 
 
      fun loginUser(email: String, password: String){
         viewModelScope.launch {
             val response=repository.loginUser(email,password)
-            _loginUserLiveData.send(response)
+            _loginUserFlow.send(response)
         }
     }
 
@@ -46,7 +46,7 @@ class LoginViewModel @Inject constructor(
 
             when{
                 title.isEmpty() -> {
-                    _validationMutableLiveData.send(
+                    _validationFlow.send(
                         LoginUserModel(
                             userName = TextFieldStatusModel.Error("please enter username")
                         )
@@ -54,7 +54,7 @@ class LoginViewModel @Inject constructor(
 
                 }
                 imdbId.isEmpty() -> {
-                    _validationMutableLiveData.send(
+                    _validationFlow.send(
                         LoginUserModel(
                             password = TextFieldStatusModel.Error("please enter password")
                         )
@@ -62,7 +62,7 @@ class LoginViewModel @Inject constructor(
                 }
 
                 else -> {
-                    _validationMutableLiveData.send(
+                    _validationFlow.send(
                         LoginUserModel(
                             userName = TextFieldStatusModel.Success(),
                             password = TextFieldStatusModel.Success(),
