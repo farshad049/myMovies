@@ -7,16 +7,28 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvMovieName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteImage"
         tools:text="movie name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/favoriteImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        tools:background="@drawable/ic_round_favorite_24"
+        app:layout_constraintEnd_toStartOf="@+id/btnShare"
+        app:layout_constraintTop_toTopOf="@+id/btnShare"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/btnShare"
@@ -26,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvMovieName"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_round_share_24"
-        android:layout_marginEnd="20dp"
+        android:clickable="true"
         />
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -53,18 +65,6 @@
         app:layout_constraintEnd_toEndOf="@id/ivMovie"
         app:layout_constraintStart_toStartOf="@id/ivMovie"
         app:layout_constraintTop_toTopOf="@id/ivMovie" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/favoriteImage"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        tools:background="@drawable/ic_round_favorite_24"
-        app:layout_constraintStart_toStartOf="@+id/ivMovie"
-        app:layout_constraintBottom_toBottomOf="@+id/ivMovie"
-        android:layout_margin="8dp"
-        />
-
-
 
 
     <androidx.appcompat.widget.AppCompatTextView

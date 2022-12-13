@@ -95,10 +95,8 @@ class MovieListFragment: Fragment() {
 
 
         binding.swipeToRefresh.setOnRefreshListener {
-
             movieListViewModel.movieDataSource?.invalidate()
             movieListViewModel.movieListFlow
-
             binding.swipeToRefresh.isRefreshing = false
         }
 

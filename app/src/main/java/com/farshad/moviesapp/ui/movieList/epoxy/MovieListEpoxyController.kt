@@ -3,6 +3,7 @@ package com.farshad.moviesapp.ui.movieList.epoxy
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
+import com.farshad.moviesapp.epoxy.ModelMovieListShimmer
 import java.util.*
 
 class MovieListEpoxyController(
@@ -16,7 +17,7 @@ class MovieListEpoxyController(
 
     override fun addModels(models: List<EpoxyModel<*>>) {
         if (models.isEmpty()){
-            repeat(7){ModelMovieListShimmer().id(UUID.randomUUID().toString()).addTo(this)}
+            repeat(7){ ModelMovieListShimmer().id(UUID.randomUUID().toString()).addTo(this)}
             return
         }
         super.addModels(models)

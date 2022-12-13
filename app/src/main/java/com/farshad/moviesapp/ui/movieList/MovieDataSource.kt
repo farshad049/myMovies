@@ -5,8 +5,8 @@ import androidx.paging.PagingState
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.data.model.mapper.MovieMapper
 import com.farshad.moviesapp.data.model.network.PagingModel
-import com.farshad.moviesapp.data.network.ApiClient
-import com.farshad.moviesapp.data.network.SimpleResponse
+import com.farshad.moviesapp.data.remote.ApiClient
+import com.farshad.moviesapp.data.remote.SimpleResponse
 import javax.inject.Inject
 
 class MovieDataSource@Inject constructor(private val apiClient: ApiClient, private val movieMapper: MovieMapper)

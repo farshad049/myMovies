@@ -8,7 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.farshad.moviesapp.data.model.mapper.MovieMapper
-import com.farshad.moviesapp.data.network.ApiClient
+import com.farshad.moviesapp.data.remote.ApiClient
 import com.farshad.moviesapp.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

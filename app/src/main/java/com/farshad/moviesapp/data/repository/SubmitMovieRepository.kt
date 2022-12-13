@@ -1,7 +1,7 @@
 package com.farshad.moviesapp.data.repository
 
 import com.farshad.moviesapp.ui.submitMovie.model.UploadMovieModel
-import com.farshad.moviesapp.data.network.ApiClient
+import com.farshad.moviesapp.data.remote.ApiClient
 import com.farshad.moviesapp.ui.submitMovie.model.SubmitResponseModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

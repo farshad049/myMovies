@@ -6,9 +6,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.farshad.moviesapp.data.model.mapper.MovieMapper
-import com.farshad.moviesapp.data.network.ApiClient
+import com.farshad.moviesapp.data.remote.ApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.filter
 import javax.inject.Inject
 
 @HiltViewModel

@@ -2,7 +2,7 @@ package com.farshad.moviesapp.data.repository
 
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.data.model.mapper.MovieMapper
-import com.farshad.moviesapp.data.network.ApiClient
+import com.farshad.moviesapp.data.remote.ApiClient
 import com.farshad.moviesapp.util.MovieCache
 import javax.inject.Inject
 

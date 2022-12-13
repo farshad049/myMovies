@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.lifecycle.viewModelScope
 import coil.load
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
@@ -12,6 +13,7 @@ import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.databinding.ModelDetailFragmentUpBinding
 import com.farshad.moviesapp.epoxy.ViewBindingKotlinModel
 import com.farshad.moviesapp.ui.favorite.FavoriteFragmentViewModel
+import kotlinx.coroutines.launch
 
 data class MovieDetailUpEpoxyModel (
     val context : Context,
@@ -43,21 +45,24 @@ data class MovieDetailUpEpoxyModel (
         favoriteImage.load(imageRes)
 
                 favoriteImage.setOnClickListener {
-            if (isFavorite){
-                favoriteFragmentViewModel.deleteFavoriteMovie(
-                    FavoriteMovieEntity(
-                        id = uiModel.id ,
-                        title = uiModel.title
-                    )
-                )
-            }else{
-                favoriteFragmentViewModel.insertFavoriteMovie(
-                    FavoriteMovieEntity(
-                        id = uiModel.id,
-                        title = uiModel.title
-                    )
-                )
-            }
+                    favoriteFragmentViewModel.viewModelScope.launch {
+                        if (isFavorite){
+                            favoriteFragmentViewModel.deleteFavoriteMovie(
+                                FavoriteMovieEntity(
+                                    id = uiModel.id ,
+                                    title = uiModel.title
+                                )
+                            )
+                        }else{
+                            favoriteFragmentViewModel.insertFavoriteMovie(
+                                FavoriteMovieEntity(
+                                    id = uiModel.id,
+                                    title = uiModel.title
+                                )
+                            )
+                        }
+                    }
+
         }
 
         btnShare.setOnClickListener {

@@ -17,7 +17,7 @@ class MovieDetailEpoxyController(
     override fun buildModels(data: UiMovieDetailModel) {
 
         if (data.movie == null) {
-            LoadingEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
+            modelMovieDetailShimmer().id(UUID.randomUUID().toString()).addTo(this)
             return
         }
 

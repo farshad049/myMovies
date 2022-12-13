@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.databinding.FragmentMovieListByGenreBinding
+import com.farshad.moviesapp.ui.movieListByGenre.epoxy.MovieListByGenreController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -35,7 +36,7 @@ class MovieListByGenreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val controller=MovieListByGenreController(::onMovieClick,safeArg.genreName)
+        val controller= MovieListByGenreController(::onMovieClick,safeArg.genreName)
 
 
         //if the value is not what has been defaulted in nav_graph, then run this code
@@ -62,6 +63,7 @@ class MovieListByGenreFragment : Fragment() {
             if (safeArg.genreId != -1){
                 viewModel.submitQuery(safeArg.genreId)
             }
+            viewModel.pagingSource?.invalidate()
             viewModel.movieByGenreFlow
             binding.swipeToRefresh.isRefreshing = false
         }

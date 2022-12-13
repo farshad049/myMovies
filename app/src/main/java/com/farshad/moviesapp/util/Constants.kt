@@ -14,6 +14,9 @@ object Constants {
     const val NOTIFICATION_ID = 1
     const val NOTIFICATION_ID_BIG_STYLE = 2
 
+    //room databse
+    const val DATABASE_NAME = "movie_database"
+
 
     //pref for locale
     const val PREFS_LOCALE_FILE = "prefs_locale_file"

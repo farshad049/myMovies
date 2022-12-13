@@ -3,7 +3,7 @@ package com.farshad.moviesapp.Authentication
 
 
 import com.farshad.moviesapp.data.model.network.UserAuthModel
-import com.farshad.moviesapp.data.network.AuthService
+import com.farshad.moviesapp.data.remote.AuthService
 import com.farshad.moviesapp.util.Constants.BASE_URL
 import kotlinx.coroutines.runBlocking
 import okhttp3.*

@@ -6,7 +6,7 @@ import com.farshad.moviesapp.ui.login.model.LoginResponseModel
 import com.farshad.moviesapp.ui.register.model.RegisterResponseModel
 import com.farshad.moviesapp.data.model.network.RegisterPostBody
 import com.farshad.moviesapp.data.model.network.UserRegisteredModel
-import com.farshad.moviesapp.data.network.ApiClient
+import com.farshad.moviesapp.data.remote.ApiClient
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject

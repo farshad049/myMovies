@@ -18,7 +18,7 @@ class MovieDetailViewModel @Inject constructor(
     private val roomRepository: RoomRepository
 ) : ViewModel() {
 
-    private val _movieByIdFlow= MutableStateFlow<DomainMovieModel?>(DomainMovieModel())
+    private val _movieByIdFlow= MutableStateFlow<DomainMovieModel?>(null)
     val movieByIdFlow = _movieByIdFlow.asStateFlow()
 
     private val _movieByGenreFlow= MutableStateFlow<List<DomainMovieModel>>(emptyList())
@@ -26,11 +26,6 @@ class MovieDetailViewModel @Inject constructor(
 
     private val _favoriteMovieListFlow = MutableStateFlow<List<FavoriteMovieEntity>>(emptyList())
     val favoriteMovieListFlow = _favoriteMovieListFlow.asStateFlow()
-
-
-    init {
-        getFavoriteMovieList()
-    }
 
 
 
@@ -54,7 +49,7 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
-    private fun getFavoriteMovieList(){
+     fun getFavoriteMovieList(){
         viewModelScope.launch {
             roomRepository.getAllFavoriteMovies().collectLatest {
                 _favoriteMovieListFlow.emit(it)

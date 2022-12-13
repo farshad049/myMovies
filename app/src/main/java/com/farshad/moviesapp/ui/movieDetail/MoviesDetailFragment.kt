@@ -37,14 +37,13 @@ class MoviesDetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        LoadingDialog.displayLoadingWithText(requireContext(),null,true)
+        viewModel.getFavoriteMovieList()
 
         val controller = MovieDetailEpoxyController( requireContext() ,favoriteFragmentViewModel ,::onSimilarMovieClick )
 
         viewModel.getMovieById(safeArg.movieId)
 
         viewModel.combinedData.asLiveData().observe(viewLifecycleOwner){uiModel ->
-                LoadingDialog.hideLoading()
                 controller.setData(uiModel)
         }
 
