@@ -1,7 +1,5 @@
 package com.farshad.moviesapp.ui.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -9,8 +7,10 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.farshad.moviesapp.data.model.mapper.MovieMapper
 import com.farshad.moviesapp.data.remote.ApiClient
-import com.farshad.moviesapp.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +27,7 @@ class SearchViewModel @Inject constructor(
         get() {
             if (field == null || field?.invalid == true){
                 field = SearchDataSource(apiClient,movieMapper,userSearch = currentUserSearch)
-                { _localExceptionEventLiveData.postValue(Event(it)) }
+                { viewModelScope.launch { _localExceptionFlow.send(it) } }
             }
             return field
         }
@@ -41,8 +41,8 @@ class SearchViewModel @Inject constructor(
     ) { pagingSource!! }.flow.cachedIn(viewModelScope)
 
 
-    private val _localExceptionEventLiveData = MutableLiveData<Event<SearchDataSource.LocalException>>()
-    val localExceptionEventLiveData: LiveData<Event<SearchDataSource.LocalException>> = _localExceptionEventLiveData
+    private val _localExceptionFlow = Channel<SearchDataSource.LocalException>()
+    val localExceptionFlow= _localExceptionFlow.receiveAsFlow()
 
 
 

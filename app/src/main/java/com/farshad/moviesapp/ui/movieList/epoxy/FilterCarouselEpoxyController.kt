@@ -1,8 +1,10 @@
 package com.farshad.moviesapp.ui.movieList.epoxy
 
+import androidx.lifecycle.viewModelScope
 import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.TypedEpoxyController
 import com.farshad.moviesapp.ui.filter.FilterViewModel
+import kotlinx.coroutines.launch
 import java.util.*
 
 class FilterCarouselEpoxyController(
@@ -31,31 +33,35 @@ class FilterCarouselEpoxyController(
     private fun onFilterClick(selectedFilter : String){
         when{
 
+            viewModel.filterByGenreInfoFlow.value.genres.contains(selectedFilter) -> {
+                viewModel.viewModelScope.launch {
+                    val currentSelectedFilter = viewModel.filterByGenreInfoFlow.value
 
-            viewModel.filterByGenreInfoLiveData.value.genres.contains(selectedFilter) -> {
-                val currentSelectedFilter = viewModel.filterByGenreInfoLiveData.value
-                val newFilter =  currentSelectedFilter.copy(
-                    selectedGenres = if(currentSelectedFilter.selectedGenres.contains(selectedFilter)){
-                        currentSelectedFilter.selectedGenres - selectedFilter
-                    }else{
-                        currentSelectedFilter.selectedGenres + selectedFilter
-                    }
-                )
-                viewModel._filterByGenreInfoLiveData.value = newFilter
+                    val newFilter =  currentSelectedFilter.copy(
+                        selectedGenres = if(currentSelectedFilter.selectedGenres.contains(selectedFilter)){
+                            currentSelectedFilter.selectedGenres - selectedFilter
+                        }else{
+                            currentSelectedFilter.selectedGenres
+                        }
+                    )
+                    viewModel._filterByGenreInfoMutableFlow.emit(newFilter)
+                }
             }
 
 
-            viewModel.filterByImdbRateInfoLiveData.value.imdbRate.contains(selectedFilter) -> {
-                val currentSelectedFilter = viewModel.filterByImdbRateInfoLiveData.value
+            viewModel.filterByImdbRateInfoFlow.value.imdbRate.contains(selectedFilter) -> {
+                viewModel.viewModelScope.launch {
+                    val currentSelectedFilter = viewModel.filterByImdbRateInfoFlow.value
 
-                val newFilter =  currentSelectedFilter.copy(
-                    selectedImdbRate = if(currentSelectedFilter.selectedImdbRate.contains(selectedFilter)){
-                        currentSelectedFilter.selectedImdbRate - selectedFilter
-                    }else{
-                        currentSelectedFilter.selectedImdbRate + selectedFilter
-                    }
-                )
-                viewModel._filterByImdbRateInfo1LiveData.value = newFilter
+                    val newFilter =  currentSelectedFilter.copy(
+                        selectedImdbRate = if(currentSelectedFilter.selectedImdbRate.contains(selectedFilter)){
+                            currentSelectedFilter.selectedImdbRate - selectedFilter
+                        }else{
+                            currentSelectedFilter.selectedImdbRate
+                        }
+                    )
+                    viewModel._filterByImdbRateInfoFlow.emit(newFilter)
+                }
             }
 
 

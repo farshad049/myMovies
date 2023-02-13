@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.NavGraphDirections
@@ -79,9 +80,9 @@ class SearchFragment: Fragment() {
         }
 
 
-        viewModel.localExceptionEventLiveData.observe(viewLifecycleOwner){
-            //if getContent is not null then set the localException State from live data and set it to epoxy display
-            it.getContent()?.let { localException->
+        viewModel.localExceptionFlow.asLiveData().observe(viewLifecycleOwner){
+            //if it is not null then set the localException State from live data and set it to epoxy display
+            it?.let { localException->
                 //handle displaying local exception
                 controller.localException=localException
             }

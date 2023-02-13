@@ -1,4 +1,4 @@
-package com.farshad.moviesapp.data.model.ui
+package com.farshad.moviesapp.ui.login.model
 
 
 

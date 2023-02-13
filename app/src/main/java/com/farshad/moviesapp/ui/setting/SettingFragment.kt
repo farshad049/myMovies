@@ -122,15 +122,27 @@ class SettingFragment: Fragment() {
 
         //set swFingerPrint is check status base on shared preference
         binding.swFingerPrint.isChecked = biometricManager.isBiometricLoginEnabled()
-        //check if device supports the biometric functionality
+        //check if device supports the biometric functionality then set swFingerPrint enable
         checkDeviceHasBiometrics()
 
         binding.swFingerPrint.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
-                biometricAuthentication.promptForFragment(requireContext(),this)
-                biometricManager.saveBiometricStatus(true)
+                biometricAuthentication.promptForFragment(requireContext(),this){isAuthenticateSucceed->
+                    if (isAuthenticateSucceed){// set saveBiometricStatus only if the process is complete
+                        biometricManager.saveBiometricStatus(true)
+                    }else{
+                        binding.swFingerPrint.isChecked= false
+                    }
+                }
             }else{
-                biometricManager.saveBiometricStatus(false)
+                biometricAuthentication.promptForFragment(requireContext(),this){isAuthenticateSucceed->
+                    if (isAuthenticateSucceed){
+                        biometricManager.saveBiometricStatus(false)
+                    }else{
+                        binding.swFingerPrint.isChecked= true
+                    }
+                }
+
             }
         }
 

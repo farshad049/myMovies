@@ -22,7 +22,7 @@ class MovieByGenreDataSource @Inject constructor(
         val pageNumber = params.key ?: 1
         val previewPage= if (pageNumber ==1 ) null else pageNumber -1
 
-        val request=apiClient.getMovieByGenrePaging(genreId,pageNumber)
+        val request= apiClient.getMovieByGenrePaging(genreId,pageNumber)
 
 
 

@@ -45,7 +45,7 @@ class FilterFragmentEpoxyController(
 
     private fun onExpandableHeaderClick(selectedExpandTitle : String){
         viewModel.viewModelScope.launch {
-            val currentExpandIds = viewModel.expandItemsMutableLiveData.value
+            val currentExpandIds = viewModel.expandItemsMutableFlow.value
 
                 val newExpandIds = currentExpandIds.copy(
                     setOfExpandIds = if (currentExpandIds.setOfExpandIds.contains(selectedExpandTitle)){
@@ -54,7 +54,7 @@ class FilterFragmentEpoxyController(
                         currentExpandIds.setOfExpandIds + selectedExpandTitle
                     }
                 )
-            viewModel._expandItemsMutableLiveData.value = newExpandIds
+            viewModel._expandItemsMutableFlow.emit(newExpandIds)
         }
     }
 
@@ -62,7 +62,7 @@ class FilterFragmentEpoxyController(
 
     private fun onGenreFilterClick(selectedFilter : String){
         viewModel.viewModelScope.launch {
-            viewModel.filterByGenreInfoLiveData.value.also {currentSelectedFilter->
+            viewModel.filterByGenreInfoFlow.value.also { currentSelectedFilter->
 
                 val newFilter =  currentSelectedFilter.copy(
                     selectedGenres = if(currentSelectedFilter.selectedGenres.contains(selectedFilter)){
@@ -72,7 +72,7 @@ class FilterFragmentEpoxyController(
                     }
                 )
 
-                viewModel._filterByGenreInfoLiveData.value = newFilter
+                viewModel._filterByGenreInfoMutableFlow.emit(newFilter)
             }
 
 
@@ -83,7 +83,7 @@ class FilterFragmentEpoxyController(
 
     private fun onImdbFilterClick(selectedFilter : String){
         viewModel.viewModelScope.launch {
-            val currentSelectedFilter = viewModel.filterByImdbRateInfoLiveData.value
+            val currentSelectedFilter = viewModel.filterByImdbRateInfoFlow.value
 
             val newFilter =  currentSelectedFilter.copy(
                 selectedImdbRate = if(currentSelectedFilter.selectedImdbRate.contains(selectedFilter)){
@@ -93,7 +93,7 @@ class FilterFragmentEpoxyController(
                 }
             )
 
-            viewModel._filterByImdbRateInfo1LiveData.value = newFilter
+            viewModel._filterByImdbRateInfoFlow.emit(newFilter)
         }
     }
 

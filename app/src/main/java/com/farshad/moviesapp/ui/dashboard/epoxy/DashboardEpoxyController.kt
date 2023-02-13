@@ -20,10 +20,10 @@ import java.util.*
 class DashboardEpoxyController(
     private val context : Context ,
     private val onItemClick: OnClickInterface
-): Typed2EpoxyController<List<DomainMovieModel?>,List<GenresModel?>>() {
+): Typed2EpoxyController<List<DomainMovieModel>,List<GenresModel>>() {
 
 
-    override fun buildModels(data1: List<DomainMovieModel?>,data2: List<GenresModel?>) {
+    override fun buildModels(data1: List<DomainMovieModel>,data2: List<GenresModel>) {
 
         if (data1.isEmpty() || data2.isEmpty()){
             repeat(4){ModelShimmerDashboard().id(UUID.randomUUID().toString()).addTo(this)}
@@ -34,7 +34,7 @@ class DashboardEpoxyController(
         HeaderEpoxyModel(context.getString(R.string.random_movies)).id(UUID.randomUUID().toString()).addTo(this)
 
 
-        val list1=data1.random()!!.let { randomItem->
+        val list1= data1.random().let { randomItem->
             randomItem.images.map { RandomImageModel(it,randomItem.id, onItemClick).id(randomItem.id) }
         }
         CarouselModel_()
@@ -50,12 +50,12 @@ class DashboardEpoxyController(
 
 
         val topRatedMovieList= data1.map {
-            MovieModel(it,onItemClick).id(it?.id)
+            MovieThumbnailModel(it,onItemClick).id(it.id)
         }
         CarouselModel_()
             .id(UUID.randomUUID().toString())
             .models(topRatedMovieList)
-            .numViewsToShowOnScreen(2.9f)
+            .numViewsToShowOnScreen(2.8f)
             .addTo(this)
 
         HeaderEpoxyModel(context.getString(R.string.movies_by_genre)).id(UUID.randomUUID().toString()).addTo(this)
@@ -64,12 +64,12 @@ class DashboardEpoxyController(
 
 
         val genresList= data2.map {
-            GenreIconModel(it!!,onItemClick).id(it.id)
+            GenreIconModel(it,onItemClick).id(it.id)
         }
         CarouselModel_()
             .id(UUID.randomUUID().toString())
             .models(genresList)
-            .numViewsToShowOnScreen(2.9f)
+            .numViewsToShowOnScreen(3.1f)
             .addTo(this)
 
 
@@ -99,11 +99,11 @@ class DashboardEpoxyController(
     }
 
 
-    data class MovieModel(val item: DomainMovieModel?, val onclick: OnClickInterface)
+    data class MovieThumbnailModel(val item: DomainMovieModel, val onclick: OnClickInterface)
         : ViewBindingKotlinModel<ModelMovieThumbnailBinding>(R.layout.model_movie_thumbnail){
         override fun ModelMovieThumbnailBinding.bind(){
             progressImage.isVisible=true
-            ivMovie.load(item!!.poster){
+            ivMovie.load(item.poster){
                 crossfade(500)
                 listener { request, result ->
                     progressImage.isGone=true
@@ -151,7 +151,7 @@ class DashboardEpoxyController(
                     progressImage.isGone=true
                 }
             }
-            tvGenreName.text=genre.name
+            tvGenreName.text= genre.name
             root.setOnClickListener { onclick.onGenreClick(genre.id,genre.name) }
         }
     }

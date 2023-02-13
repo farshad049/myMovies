@@ -16,6 +16,8 @@
         app:layout_constraintDimensionRatio="4:6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
         tools:src="@tools:sample/avatars[2]"
         app:strokeWidth="1dp"

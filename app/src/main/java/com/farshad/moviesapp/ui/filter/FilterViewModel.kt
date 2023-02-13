@@ -5,7 +5,6 @@ import com.farshad.moviesapp.ui.filter.model.*
 import com.farshad.moviesapp.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
@@ -15,7 +14,7 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
 
 
-    val _filterByGenreInfoLiveData = MutableStateFlow(
+    val _filterByGenreInfoMutableFlow = MutableStateFlow(
         FilterByGenreInfo(
             genres = setOf("Crime","Drama","Action","Biography","History","Adventure","Fantasy","Western","Comedy","Sci-Fi",
                 "Mystery","Thriller","Family","War","Animation","Romance","Horror","Music","Film-Noir","Musical","Sport"),
@@ -23,23 +22,23 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         )
     )
 
-    val filterByGenreInfoLiveData = _filterByGenreInfoLiveData.asStateFlow()
+    val filterByGenreInfoFlow = _filterByGenreInfoMutableFlow.asStateFlow()
 
 
 
 
-    val _filterByImdbRateInfo1LiveData = MutableStateFlow(
+    val _filterByImdbRateInfoFlow = MutableStateFlow(
         FilterByImdbInfo(
             imdbRate =  setOf( "9.0" , "8.5", "8.0" ),
             selectedImdbRate = emptySet()
         )
     )
 
-    val filterByImdbRateInfoLiveData = _filterByImdbRateInfo1LiveData.asStateFlow()
+    val filterByImdbRateInfoFlow = _filterByImdbRateInfoFlow.asStateFlow()
 
 
-    val _expandItemsMutableLiveData = MutableStateFlow( UiExpandModel() )
-    val expandItemsMutableLiveData = _expandItemsMutableLiveData.asStateFlow()
+    val _expandItemsMutableFlow = MutableStateFlow( UiExpandModel() )
+    val expandItemsMutableFlow = _expandItemsMutableFlow.asStateFlow()
 
 
 
@@ -48,9 +47,9 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     val combinedDataForFilterEpoxy =
         combine(
-            filterByGenreInfoLiveData ,
-            filterByImdbRateInfoLiveData ,
-            expandItemsMutableLiveData
+            filterByGenreInfoFlow ,
+            filterByImdbRateInfoFlow ,
+            expandItemsMutableFlow
         ) { setOfGenresFilter, setOfImdbFilter , setOfExpandedItems ->
 
             val genreData = DataForFilterFragmentEpoxy.IsExpandAndList(
@@ -85,8 +84,8 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     val combinedDataForCarouselFilterMovieList =
         combine(
-            filterByGenreInfoLiveData ,
-            filterByImdbRateInfoLiveData
+            filterByGenreInfoFlow ,
+            filterByImdbRateInfoFlow
         ){genreSelectedFilters , imdbRateSelectedFilters ->
             genreSelectedFilters.selectedGenres +
                     imdbRateSelectedFilters.selectedImdbRate
@@ -98,8 +97,8 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     val combinedFilterDataForMovieList =
         combine(
-            filterByGenreInfoLiveData ,
-            filterByImdbRateInfoLiveData
+            filterByGenreInfoFlow ,
+            filterByImdbRateInfoFlow
         ){genreSetOfSelectedFilters , imdbSetOfSelectedFilters ->
             ModelDataForMovieList(
                 genreSetOfSelectedFilters = genreSetOfSelectedFilters.selectedGenres ,

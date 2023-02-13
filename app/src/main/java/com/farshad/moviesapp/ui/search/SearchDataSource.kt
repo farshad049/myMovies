@@ -37,7 +37,7 @@ class SearchDataSource (
         val pageNumber = params.key ?: 1
         val previewPage= if (pageNumber ==1 ) null else pageNumber -1
 
-        val request=apiClient.getMoviesPagingByName(userSearch,pageNumber)
+        val request= apiClient.getMoviesPagingByName(userSearch,pageNumber)
 
 
 

@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
+import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.databinding.FragmentUserInfoBinding
 import com.farshad.moviesapp.util.LoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,13 +37,17 @@ class UserInfoFragment: Fragment() {
 
         LoadingDialog.displayLoadingWithText(requireContext(),null,true)
 
-        viewModel.userInfoLiveData.asLiveData().observe(viewLifecycleOwner){userInfo->
-            LoadingDialog.hideLoading()
-                binding.tvName.text=userInfo?.name
-                binding.tvEmail.text=userInfo?.email
-                binding.tvId.text= userInfo?.id.toString()
-                binding.tvCreate.text=userInfo?.created_at
-                binding.tvUpdate.text=userInfo?.updated_at
+        viewModel.userInfoFlow.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ userInfo->
+            if (userInfo is Resource.Success){
+                userInfo.data.name
+                LoadingDialog.hideLoading()
+                binding.tvName.text=userInfo.data.name
+                binding.tvEmail.text=userInfo.data.email
+                binding.tvId.text= userInfo.data.id.toString()
+                binding.tvCreate.text=userInfo.data.created_at
+                binding.tvUpdate.text=userInfo.data.updated_at
+            }
+
         }
 
         binding.btnLogOut.setOnClickListener {

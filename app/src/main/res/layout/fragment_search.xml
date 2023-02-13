@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?background"
-    >
+    android:background="?background">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
@@ -64,11 +63,11 @@
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/historyEpoxyRecyclerView"
-        android:background="?background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="12dp"
+        android:background="?background"
         android:paddingBottom="12dp"
         android:visibility="invisible"
         app:itemSpacing="2dp"
@@ -77,8 +76,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardView"
-        tools:listitem="@layout/model_search_history"
         tools:itemCount="5"
+        tools:listitem="@layout/model_search_history"
         tools:visibility="visible" />
 
 

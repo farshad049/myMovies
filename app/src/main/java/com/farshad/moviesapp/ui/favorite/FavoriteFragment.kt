@@ -12,6 +12,7 @@ import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.NavGraphDirections
+import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.databinding.FragmentFavoriteBinding
 import com.farshad.moviesapp.ui.favorite.epoxy.EmptyFavoriteMovieListEpoxyModel
 import com.farshad.moviesapp.ui.favorite.epoxy.FavoriteMovieEpoxyModel
@@ -62,15 +63,18 @@ class FavoriteFragment:Fragment() {
 
         roomViewModel.favoriteMovieListFlow.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ data ->
             binding.epoxyRecyclerView.withModels {
-                if (data.isNullOrEmpty()){
-                    EmptyFavoriteMovieListEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
-                    return@withModels
-                }
+                when(data){
+                    is Resource.Loading ->{
+                        EmptyFavoriteMovieListEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
+                        return@withModels
+                    }
+                    is Resource.Success -> {
+                        HeaderEpoxyModel("Favorite Movies").id(UUID.randomUUID().toString()).addTo(this)
+                        data.data.forEach {
+                            FavoriteMovieEpoxyModel(it , ::onMovieClick).id(it.id).addTo(this)
+                        }
+                    }
 
-                HeaderEpoxyModel("Favorite Movies").id(UUID.randomUUID().toString()).addTo(this)
-
-                data.forEach {
-                    FavoriteMovieEpoxyModel(it , ::onMovieClick).id(it.id).addTo(this)
                 }
             }
         }

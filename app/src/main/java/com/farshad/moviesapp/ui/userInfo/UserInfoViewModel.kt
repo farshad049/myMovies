@@ -1,10 +1,9 @@
 package com.farshad.moviesapp.ui.userInfo
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.farshad.moviesapp.data.model.network.*
+import com.farshad.moviesapp.data.model.network.UserRegisteredModel
+import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,15 +21,15 @@ class UserInfoViewModel @Inject constructor(
     }
 
 
-    private val _userInfoLiveData = MutableStateFlow<UserRegisteredModel?>(null)
-    val userInfoLiveData= _userInfoLiveData.asStateFlow()
+    private val _userInfoFlow = MutableStateFlow<Resource<UserRegisteredModel>>(Resource.Loading)
+    val userInfoFlow= _userInfoFlow.asStateFlow()
 
 
 
     private fun getUserInfo(){
         viewModelScope.launch {
-            val response=repository.getUserInfo()
-            _userInfoLiveData.emit(response)
+            val response= repository.getUserInfo()
+            if (response != null) _userInfoFlow.emit(Resource.Success(response))
         }
     }
 

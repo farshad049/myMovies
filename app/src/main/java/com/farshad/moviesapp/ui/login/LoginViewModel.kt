@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farshad.moviesapp.ui.login.model.LoginResponseModel
 import com.farshad.moviesapp.ui.login.model.LoginUserModel
-import com.farshad.moviesapp.data.model.ui.TextFieldStatusModel
+import com.farshad.moviesapp.ui.login.model.TextFieldStatusModel
 import com.farshad.moviesapp.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

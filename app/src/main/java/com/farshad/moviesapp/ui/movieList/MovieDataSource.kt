@@ -14,7 +14,7 @@ class MovieDataSource@Inject constructor(private val apiClient: ApiClient, priva
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DomainMovieModel> {
         val pageNumber = params.key ?: 1
-        val previewPage= if (pageNumber ==1 ) null else pageNumber -1
+        val previewPage= if (pageNumber ==1 ) null else pageNumber - 1
 
 
         val request=apiClient.getMoviesPaging(pageNumber)

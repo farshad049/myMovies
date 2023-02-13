@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
 import com.farshad.moviesapp.data.db.RoomRepository
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
+import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.ui.movieDetail.model.UiMovieDetailModel
 import com.farshad.moviesapp.data.repository.MovieDetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ class MovieDetailViewModel @Inject constructor(
     private val roomRepository: RoomRepository
 ) : ViewModel() {
 
-    private val _movieByIdFlow= MutableStateFlow<DomainMovieModel?>(null)
+    private val _movieByIdFlow= MutableStateFlow<Resource<DomainMovieModel?>>(Resource.Loading)
     val movieByIdFlow = _movieByIdFlow.asStateFlow()
 
     private val _movieByGenreFlow= MutableStateFlow<List<DomainMovieModel>>(emptyList())
@@ -32,7 +33,7 @@ class MovieDetailViewModel @Inject constructor(
     fun getMovieById(movieId: Int){
         viewModelScope.launch {
             val response=repository.getMovieById(movieId)
-            _movieByIdFlow.emit(response)
+            _movieByIdFlow.emit(Resource.Success(response))
 
             if (response?.genres?.isNotEmpty() == true) {
                 val genreId = genreNameToId(response.genres.component1())
@@ -59,17 +60,22 @@ class MovieDetailViewModel @Inject constructor(
 
 
 
-    val combinedData =
+    val combinedData : Flow<UiMovieDetailModel> =
         combine(
             movieByIdFlow,
             favoriteMovieListFlow ,
             movieByGenreFlow
         ){movieById , favoriteMovieList , similarMovieList ->
-           UiMovieDetailModel(
-                movie = movieById  ,
-                isFavorite = favoriteMovieList.map { it.id }.contains(movieById?.id) ,
-                similarMovies = similarMovieList
-            )
+            if (movieById is Resource.Success){
+                return@combine UiMovieDetailModel(
+                    movie = movieById.data,
+                    isFavorite = favoriteMovieList.map { it.id }.contains(movieById.data?.id) ,
+                    similarMovies = similarMovieList
+                )
+            }else{
+                return@combine UiMovieDetailModel()
+            }
+
         }
 
 

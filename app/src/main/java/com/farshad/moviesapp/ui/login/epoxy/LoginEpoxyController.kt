@@ -18,22 +18,22 @@ class LoginEpoxyController(
 
     override fun buildModels(data: LoginResponseModel) {
 
-        ModelLoginBottom(
-            context = context ,
-            onLogin = {username , password ->
-                viewModel.loginUser(username , password)
-            }
-        ).id(UUID.randomUUID().toString()).addTo(this)
-
-
-        if (data is LoginResponseModel.Error){
-            Toast.makeText(context, data.error,Toast.LENGTH_SHORT).show()
-        }
-
-        if (data is LoginResponseModel.Success){
-            context.startActivity(Intent(context , MainActivity::class.java))
-            Toast.makeText(context, R.string.you_are_logged_in,Toast.LENGTH_SHORT).show()
-        }
+//        ModelLoginBottom(
+//            context = context ,
+//            onLogin = {username , password ->
+//                viewModel.loginUser(username , password)
+//            }
+//        ).id(UUID.randomUUID().toString()).addTo(this)
+//
+//
+//        if (data is LoginResponseModel.Error){
+//            Toast.makeText(context, data.error,Toast.LENGTH_SHORT).show()
+//        }
+//
+//        if (data is LoginResponseModel.Success){
+//            context.startActivity(Intent(context , MainActivity::class.java))
+//            Toast.makeText(context, R.string.you_are_logged_in,Toast.LENGTH_SHORT).show()
+//        }
     }
 
 

@@ -39,9 +39,8 @@ class MovieByGenreViewModel @Inject constructor(
 
 
     fun submitQuery(genreIdFromFragment:Int){
-        genreId=genreIdFromFragment
+        genreId= genreIdFromFragment
         pagingSource?.invalidate()
-
     }
 
 }

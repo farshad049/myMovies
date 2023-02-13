@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class BiometricAuthentication @Inject constructor() {
 
-    fun promptForFragment(requireContext : Context , fragment : Fragment){
+    fun promptForFragment(requireContext : Context , fragment : Fragment, isAuthenticateSucceed: (Boolean) -> Unit){
 
         val promptInfo: BiometricPrompt.PromptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(requireContext.getString(R.string.login_by_biometrics))
@@ -27,17 +27,20 @@ class BiometricAuthentication @Inject constructor() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
+                    isAuthenticateSucceed(false)
                     Toast.makeText(requireContext, "${requireContext.getString(R.string.authentication_error)}: $errString", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onAuthenticationSucceeded(
                     result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
+                    isAuthenticateSucceed(true)
                     Toast.makeText(requireContext, requireContext.getString(R.string.authentication_succeeded), Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
+                    isAuthenticateSucceed(false)
                     Toast.makeText(requireContext, requireContext.getString(R.string.authentication_error), Toast.LENGTH_SHORT).show()
                 }
             })

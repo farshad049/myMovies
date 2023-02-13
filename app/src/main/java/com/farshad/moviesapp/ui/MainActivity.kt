@@ -29,6 +29,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.R
+import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.databinding.ActivityMainBinding
 import com.farshad.moviesapp.ui.dashboard.DashboardViewModel
 import com.farshad.moviesapp.ui.userInfo.UserInfoViewModel
@@ -75,11 +76,11 @@ class MainActivity : AppCompatActivity() {
         //set theme
         if (themeManager.getTheme() != null) setDayNightTheme(themeManager.getTheme())
 
-
         installSplashScreen().apply {
             setKeepOnScreenCondition{
-                //will stay on splash screen as long as firstPageMovieIsDone or allGenresMovieIsDone is true
-                dashboardViewModel.firstPageMovieIsDone.value  && dashboardViewModel.allGenresMovieIsDone.value
+                //will stay on splash screen as long as firstPageMovieIsDone or allGenresMovieIsDone is empty
+                dashboardViewModel.firstPageMovieFlow.value is Resource.Loading ||
+                        dashboardViewModel.allGenresMovieFlow.value is Resource.Loading
             }
         }
 
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // Setup bottom nav bar
-        val navBar=findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        val navBar= findViewById<BottomNavigationView>(R.id.bottomNavigation)
         NavigationUI.setupWithNavController(navBar, navController)
 
 
@@ -176,8 +177,8 @@ class MainActivity : AppCompatActivity() {
             binding.btnLogOutDrawerLayout.isVisible = true
 
 
-            userInfoViewModel.userInfoLiveData.asLiveData().observe(this){
-                userNameInDrawerHeader.text = "welcome ${it?.name}"
+            userInfoViewModel.userInfoFlow.asLiveData().observe(this){
+                if (it is Resource.Success) userNameInDrawerHeader.text = "welcome ${it.data.name}"
             }
             userNameInDrawerHeader.isVisible = true
 

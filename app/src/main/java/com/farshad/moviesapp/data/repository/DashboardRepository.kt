@@ -21,18 +21,6 @@ class DashboardRepository @Inject constructor(
     }
 
 
-    suspend fun getMovieByGenre(genreId: Int): List<DomainMovieModel?> {
-
-        val response = apiClient.getFirstPageMovieByGenre(genreId)
-        if (!response.isSuccessful) {
-            return emptyList()
-        }
-        val similarMovieList=response.body.data.map { movieMapper.buildFrom(it) }
-
-
-        return similarMovieList
-    }
-
 
     suspend fun getAllGenres():List<GenresModel>{
         val response= apiClient.getAllGenres()

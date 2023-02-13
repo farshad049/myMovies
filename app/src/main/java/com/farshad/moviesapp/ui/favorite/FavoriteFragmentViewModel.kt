@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
 import com.farshad.moviesapp.data.db.RoomRepository
+import com.farshad.moviesapp.data.model.ui.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +20,7 @@ class FavoriteFragmentViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _favoriteMovieListFlow = MutableStateFlow<List<FavoriteMovieEntity>>(emptyList())
+    private val _favoriteMovieListFlow = MutableStateFlow<Resource<List<FavoriteMovieEntity>>>(Resource.Loading)
     val favoriteMovieListFlow  = _favoriteMovieListFlow.asStateFlow()
 
     private val _insertMovieFlow = MutableStateFlow(false)
@@ -43,14 +44,15 @@ class FavoriteFragmentViewModel @Inject constructor(
         }
     }
 
-     fun getFavoriteMovieList(){
-        viewModelScope.launch {
+     fun getFavoriteMovieList()= viewModelScope.launch {
             roomRepository.getAllFavoriteMovies().collect {
-                _favoriteMovieListFlow.emit(it)
+                if (it.isEmpty()){
+                    _favoriteMovieListFlow.emit(Resource.Loading)
+                }else{
+                    _favoriteMovieListFlow.emit(Resource.Success(it))
+                }
             }
         }
-    }
-
 
 
 }

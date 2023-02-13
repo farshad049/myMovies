@@ -70,7 +70,7 @@ class RegisterViewModel @Inject constructor(
                     )
 
                     registerUser(
-                        RegisterPostBody(
+                        user = RegisterPostBody(
                             name = userNameB ,
                             email = emailB,
                             password =passwordB,

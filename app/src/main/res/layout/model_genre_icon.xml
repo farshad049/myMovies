@@ -3,27 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
         android:layout_width="110dp"
         android:layout_height="110dp"
+        android:background="?colorPrimary"
         android:padding="1dp"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="4:3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRound"
         app:strokeColor="?colorOnSurface"
         app:strokeWidth="1dp"
-        tools:src="@tools:sample/backgrounds/scenic"
-        android:background="?colorPrimary"
-        />
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progressImage"

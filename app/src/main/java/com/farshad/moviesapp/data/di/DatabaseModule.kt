@@ -22,13 +22,12 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun providesDatabase(
-        @ApplicationContext context : Context
-    ): MovieDatabase {
+        @ApplicationContext context : Context): MovieDatabase {
       return Room.databaseBuilder(
-            context ,
-            MovieDatabase::class.java ,
+          context ,
+          MovieDatabase::class.java ,
           DATABASE_NAME
-             ).build()
+      ).build()
     }
 
 
