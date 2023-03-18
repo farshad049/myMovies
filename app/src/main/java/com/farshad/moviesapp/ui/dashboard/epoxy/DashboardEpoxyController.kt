@@ -19,7 +19,8 @@ import java.util.*
 
 class DashboardEpoxyController(
     private val context : Context ,
-    private val onItemClick: OnClickInterface
+    private val onClicks: DashboardOnClicks
+   // private val onItemClick: OnClickInterface
 ): Typed2EpoxyController<List<DomainMovieModel>,List<GenresModel>>() {
 
 
@@ -35,7 +36,12 @@ class DashboardEpoxyController(
 
 
         val list1= data1.random().let { randomItem->
-            randomItem.images.map { RandomImageModel(it,randomItem.id, onItemClick).id(randomItem.id) }
+            randomItem.images.map {
+                RandomImageModel(
+                    imageUrl = it,
+                    id = randomItem.id,
+                    onclick = {movieId -> onClicks.onMovieClick(movieId) }
+                ).id(randomItem.id) }
         }
         CarouselModel_()
             .id(UUID.randomUUID().toString())
@@ -50,7 +56,10 @@ class DashboardEpoxyController(
 
 
         val topRatedMovieList= data1.map {
-            MovieThumbnailModel(it,onItemClick).id(it.id)
+            MovieThumbnailModel(
+                item = it,
+                onclick = {movieId-> onClicks.onMovieClick(movieId) }
+            ).id(it.id)
         }
         CarouselModel_()
             .id(UUID.randomUUID().toString())
@@ -64,7 +73,10 @@ class DashboardEpoxyController(
 
 
         val genresList= data2.map {
-            GenreIconModel(it,onItemClick).id(it.id)
+            GenreIconModel(
+                genre = it,
+                onclick = {genreId, genreName -> onClicks.onGenreClick(genreId , genreName)}
+            ).id(it.id)
         }
         CarouselModel_()
             .id(UUID.randomUUID().toString())
@@ -84,7 +96,7 @@ class DashboardEpoxyController(
     }
 
 
-    data class RandomImageModel(val imageUrl:String,val id:Int,val onclick: OnClickInterface)
+    data class RandomImageModel(val imageUrl:String,val id:Int,val onclick: (Int) -> Unit)
         : ViewBindingKotlinModel<ModelImageItemBinding>(R.layout.model_image_item){
         override fun ModelImageItemBinding.bind(){
             progressImage.isVisible=true
@@ -94,12 +106,12 @@ class DashboardEpoxyController(
                     progressImage.isGone=true
                 }
             }
-            root.setOnClickListener { onclick.onMovieClick(id) }
+            root.setOnClickListener { onclick(id) }
         }
     }
 
 
-    data class MovieThumbnailModel(val item: DomainMovieModel, val onclick: OnClickInterface)
+    data class MovieThumbnailModel(val item: DomainMovieModel, val onclick: (Int) -> Unit)
         : ViewBindingKotlinModel<ModelMovieThumbnailBinding>(R.layout.model_movie_thumbnail){
         override fun ModelMovieThumbnailBinding.bind(){
             progressImage.isVisible=true
@@ -109,14 +121,14 @@ class DashboardEpoxyController(
                     progressImage.isGone=true
                 }
             }
-            root.setOnClickListener { onclick.onMovieClick(item.id) }
+            root.setOnClickListener { onclick(item.id) }
         }
     }
 
 
 
 
-    data class GenreIconModel(val genre:GenresModel,val onclick: OnClickInterface)
+    data class GenreIconModel(val genre:GenresModel,val onclick: (Int, String) -> Unit )
         : ViewBindingKotlinModel<ModelGenreIconBinding>(R.layout.model_genre_icon){
         override fun ModelGenreIconBinding.bind(){
 
@@ -152,7 +164,7 @@ class DashboardEpoxyController(
                 }
             }
             tvGenreName.text= genre.name
-            root.setOnClickListener { onclick.onGenreClick(genre.id,genre.name) }
+            root.setOnClickListener { onclick(genre.id,genre.name) }
         }
     }
 

@@ -12,12 +12,13 @@ import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.NavGraphDirections
 import com.farshad.moviesapp.databinding.FragmentDashboardBinding
 import com.farshad.moviesapp.ui.dashboard.epoxy.DashboardEpoxyController
+import com.farshad.moviesapp.ui.dashboard.epoxy.DashboardOnClicks
 import com.farshad.moviesapp.ui.dashboard.epoxy.OnClickInterface
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 
 @AndroidEntryPoint
-class DashboardFragment: Fragment(), OnClickInterface {
+class DashboardFragment: Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
     private val dashboardViewModel: DashboardViewModel by activityViewModels()
@@ -34,8 +35,8 @@ class DashboardFragment: Fragment(), OnClickInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val controller = DashboardEpoxyController( requireContext(),this)
+        val onClicks = DashboardOnClicks(findNavController())
+        val controller = DashboardEpoxyController( requireContext(),onClicks)
 
 
 //        dashboardViewModel.topAndGenresLiveData.distinctUntilChanged().observe(viewLifecycleOwner){(top,genre)->
@@ -87,16 +88,15 @@ class DashboardFragment: Fragment(), OnClickInterface {
     }//FUN
 
 
-    override fun onGenreClick(genreId: Int,genreName:String) {
-        val directions= DashboardFragmentDirections.actionDashboardFragmentToMovieListByGenre(genreId,genreName)
-        findNavController().navigate(directions)
-
-    }
-
-    override fun onMovieClick(movieId:Int){
-        val directions= NavGraphDirections.actionGlobalToMovieDetailFragment(movieId)
-        findNavController().navigate(directions)
-    }
+//    override fun onGenreClick(genreId: Int,genreName:String) {
+//        val directions= DashboardFragmentDirections.actionDashboardFragmentToMovieListByGenre(genreId,genreName)
+//        findNavController().navigate(directions)
+//    }
+//
+//    override fun onMovieClick(movieId:Int){
+//        val directions= NavGraphDirections.actionGlobalToMovieDetailFragment(movieId)
+//        findNavController().navigate(directions)
+//    }
 
 
 

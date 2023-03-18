@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import com.farshad.moviesapp.databinding.FragmentFilterBinding
 import com.farshad.moviesapp.ui.filter.epoxy.FilterFragmentEpoxyController
+import com.farshad.moviesapp.ui.filter.epoxy.FilterOnClicks
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 
@@ -32,7 +33,8 @@ class FilterFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val controller = FilterFragmentEpoxyController(filterViewModel)
+        val onClicks= FilterOnClicks(filterViewModel)
+        val controller = FilterFragmentEpoxyController(onClicks)
 
 
         filterViewModel.combinedDataForFilterEpoxy.distinctUntilChanged().asLiveData().observe(viewLifecycleOwner){data->
