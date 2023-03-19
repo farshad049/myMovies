@@ -40,7 +40,7 @@
     <string name="create_at">create at:</string>
     <string name="update_at">update at:</string>
     <string name="log_out">log out</string>
-    <string name="you_have_no_favorite_movie">You Have No Favorite Movie</string>
+    <string name="you_have_no_favorite_movie">You have no favorite movie</string>
     <string name="filter">filter</string>
     <string name="submit_movie_multipart">submit Movie (multipart)</string>
     <string name="random_movies">Random Movies</string>

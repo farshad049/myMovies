@@ -1,33 +1,36 @@
 package com.farshad.moviesapp.ui.favorite
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
 import com.farshad.moviesapp.data.db.RoomRepository
+import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.data.model.ui.Resource
+import com.farshad.moviesapp.data.repository.FavoriteMovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteFragmentViewModel @Inject constructor(
-    private val roomRepository: RoomRepository
+    private val roomRepository: RoomRepository,
+    private val favoriteRepository: FavoriteMovieRepository
 ) : ViewModel() {
 
 
-    private val _favoriteMovieListFlow = MutableStateFlow<Resource<List<FavoriteMovieEntity>>>(Resource.Loading)
-    val favoriteMovieListFlow  = _favoriteMovieListFlow.asStateFlow()
+    private val _databaseFavoriteMovieListFlow = MutableStateFlow<Resource<List<FavoriteMovieEntity>>>(Resource.Loading)
+    val databaseFavoriteMovieListFlow  = _databaseFavoriteMovieListFlow.asStateFlow()
 
     private val _insertMovieFlow = MutableStateFlow(false)
     val insertMovieFlow= _insertMovieFlow.asStateFlow()
 
     private val _deleteMovieFlow = MutableStateFlow(false)
     val deleteMovieFlow = _deleteMovieFlow.asStateFlow()
+
+    private val _listOfFavoriteMovie= MutableStateFlow<Set<DomainMovieModel>>(emptySet())
+    val listOfFavoriteMovie= _listOfFavoriteMovie.asStateFlow()
 
 
     fun insertFavoriteMovie(movie : FavoriteMovieEntity){
@@ -47,12 +50,36 @@ class FavoriteFragmentViewModel @Inject constructor(
      fun getFavoriteMovieList()= viewModelScope.launch {
             roomRepository.getAllFavoriteMovies().collect {
                 if (it.isEmpty()){
-                    _favoriteMovieListFlow.emit(Resource.Loading)
+                    _databaseFavoriteMovieListFlow.emit(Resource.Loading)
                 }else{
-                    _favoriteMovieListFlow.emit(Resource.Success(it))
+                    _databaseFavoriteMovieListFlow.emit(Resource.Success(it))
                 }
             }
         }
+
+    fun prepareFavoriteMovieList()= viewModelScope.launch {
+        when (databaseFavoriteMovieListFlow.value) {
+            is Resource.Loading -> {
+                _listOfFavoriteMovie.emit(emptySet())
+                return@launch
+            }
+            is Resource.Success -> {
+                (databaseFavoriteMovieListFlow.value as Resource.Success<List<FavoriteMovieEntity>>).data.forEach{
+                    val newMovieToAdd= favoriteRepository.getMovieById(it.id)
+                    if (newMovieToAdd != null){
+                        //create a list for new favorite fragment
+                        val newFavoriteMovieList= listOfFavoriteMovie.value + newMovieToAdd
+                        _listOfFavoriteMovie.emit(newFavoriteMovieList)
+                        Log.e("NEWLIST", listOfFavoriteMovie.value.size.toString())
+                    }
+                }
+            }
+            else -> {}
+        }
+    }
+
+
+
 
 
 }

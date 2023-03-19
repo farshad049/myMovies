@@ -44,6 +44,7 @@ class FavoriteFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         roomViewModel.getFavoriteMovieList()
+        roomViewModel.prepareFavoriteMovieList()
 
 
 
@@ -61,7 +62,7 @@ class FavoriteFragment:Fragment() {
 
 
 
-        roomViewModel.favoriteMovieListFlow.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ data ->
+        roomViewModel.databaseFavoriteMovieListFlow.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ data ->
             binding.epoxyRecyclerView.withModels {
                 when(data){
                     is Resource.Loading ->{
