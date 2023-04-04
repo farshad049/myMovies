@@ -12,11 +12,13 @@ import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.NavGraphDirections
+import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
 import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.databinding.FragmentFavoriteBinding
 import com.farshad.moviesapp.ui.favorite.epoxy.EmptyFavoriteMovieListEpoxyModel
 import com.farshad.moviesapp.ui.favorite.epoxy.FavoriteMovieEpoxyModel
 import com.farshad.moviesapp.epoxy.HeaderEpoxyModel
+import com.farshad.moviesapp.epoxy.LoadingEpoxyModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -44,7 +46,6 @@ class FavoriteFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         roomViewModel.getFavoriteMovieList()
-        roomViewModel.prepareFavoriteMovieList()
 
 
 
@@ -62,20 +63,23 @@ class FavoriteFragment:Fragment() {
 
 
 
-        roomViewModel.databaseFavoriteMovieListFlow.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ data ->
+        roomViewModel.listOfFavoriteMovie.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ data ->
             binding.epoxyRecyclerView.withModels {
-                when(data){
-                    is Resource.Loading ->{
+                when (data) {
+                    is Resource.Loading -> {
+                        LoadingEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
+                        return@withModels
+                    }
+                    is Resource.Failure -> {
                         EmptyFavoriteMovieListEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
                         return@withModels
                     }
                     is Resource.Success -> {
                         HeaderEpoxyModel("Favorite Movies").id(UUID.randomUUID().toString()).addTo(this)
-                        data.data.forEach {
-                            FavoriteMovieEpoxyModel(it , ::onMovieClick).id(it.id).addTo(this)
+                        data.data.forEach {item->
+                            FavoriteMovieEpoxyModel(FavoriteMovieEntity(id = item.id, title = item.title) , ::onMovieClick).id(item.id).addTo(this)
                         }
                     }
-
                 }
             }
         }
