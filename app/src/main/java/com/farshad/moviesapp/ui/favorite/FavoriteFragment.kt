@@ -12,13 +12,9 @@ import androidx.lifecycle.distinctUntilChanged
 import androidx.navigation.fragment.findNavController
 import com.farshad.moviesapp.Authentication.TokenManager
 import com.farshad.moviesapp.NavGraphDirections
-import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
-import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.databinding.FragmentFavoriteBinding
-import com.farshad.moviesapp.ui.favorite.epoxy.EmptyFavoriteMovieListEpoxyModel
-import com.farshad.moviesapp.ui.favorite.epoxy.FavoriteMovieEpoxyModel
-import com.farshad.moviesapp.epoxy.HeaderEpoxyModel
-import com.farshad.moviesapp.epoxy.LoadingEpoxyModel
+import com.farshad.moviesapp.ui.favorite.epoxy.FavoriteEpoxyController
+import com.farshad.moviesapp.ui.favorite.epoxy.FavoriteOnClicks
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -27,7 +23,7 @@ import javax.inject.Inject
 class FavoriteFragment:Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-    private val roomViewModel : FavoriteFragmentViewModel by viewModels()
+    private val favoriteViewModel : FavoriteFragmentViewModel by viewModels()
 
     @Inject
     lateinit var tokenManager: TokenManager
@@ -45,7 +41,10 @@ class FavoriteFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        roomViewModel.getFavoriteMovieList()
+        val onclick= FavoriteOnClicks(findNavController(), favoriteViewModel)
+        val controller= FavoriteEpoxyController(onclick)
+
+        favoriteViewModel.getFavoriteMovieList()
 
 
 
@@ -63,26 +62,11 @@ class FavoriteFragment:Fragment() {
 
 
 
-        roomViewModel.listOfFavoriteMovie.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ data ->
-            binding.epoxyRecyclerView.withModels {
-                when (data) {
-                    is Resource.Loading -> {
-                        LoadingEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
-                        return@withModels
-                    }
-                    is Resource.Failure -> {
-                        EmptyFavoriteMovieListEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
-                        return@withModels
-                    }
-                    is Resource.Success -> {
-                        HeaderEpoxyModel("Favorite Movies").id(UUID.randomUUID().toString()).addTo(this)
-                        data.data.forEach {item->
-                            FavoriteMovieEpoxyModel(FavoriteMovieEntity(id = item.id, title = item.title) , ::onMovieClick).id(item.id).addTo(this)
-                        }
-                    }
-                }
-            }
+        favoriteViewModel.combinedData.asLiveData().distinctUntilChanged().observe(viewLifecycleOwner){ data ->
+            controller.setData(data)
         }
+
+        binding.epoxyRecyclerView.setController(controller)
 
 
 
@@ -100,11 +84,7 @@ class FavoriteFragment:Fragment() {
 
     }//FUN
 
-    private fun onMovieClick(movieId : Int){
-        val directions= NavGraphDirections.actionGlobalToMovieDetailFragment(movieId)
-        findNavController().navigate(directions)
 
-    }
 
 
 

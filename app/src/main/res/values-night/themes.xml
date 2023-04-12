@@ -18,5 +18,6 @@
         <item name="colorOnBackground">@color/white</item>
         <item name="colorSurface">@color/purple_700</item>
         <item name="colorOnSurface">@color/white</item>
+        <item name="colorTertiary">@color/purple_700</item>
     </style>
 </resources>

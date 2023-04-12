@@ -9,11 +9,11 @@ import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.Typed2EpoxyController
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.ModelGenreIconBinding
-import com.farshad.moviesapp.databinding.ModelImageItemBinding
 import com.farshad.moviesapp.databinding.ModelMovieThumbnailBinding
 import com.farshad.moviesapp.epoxy.*
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.data.model.network.GenresModel
+import com.farshad.moviesapp.databinding.ModelImageRectangleBinding
 import java.util.*
 
 
@@ -97,8 +97,8 @@ class DashboardEpoxyController(
 
 
     data class RandomImageModel(val imageUrl:String,val id:Int,val onclick: (Int) -> Unit)
-        : ViewBindingKotlinModel<ModelImageItemBinding>(R.layout.model_image_item){
-        override fun ModelImageItemBinding.bind(){
+        : ViewBindingKotlinModel<ModelImageRectangleBinding>(R.layout.model_image_rectangle){
+        override fun ModelImageRectangleBinding.bind(){
             progressImage.isVisible=true
             imageView.load(imageUrl){
                 crossfade(500)

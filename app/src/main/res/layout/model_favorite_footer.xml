@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivFavorite"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_round_favorite_24"
+        android:clickable="true"
+        />
+
+    <TextView
+        android:id="@+id/IMDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/imdb"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFavorite"
+        android:layout_marginTop="-10dp"
+        android:textColor="?colorSecondaryVariant"
+        android:textStyle="bold"
+       />
+
+    <TextView
+        android:id="@+id/tvIMDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/IMDB"
+        app:layout_constraintTop_toTopOf="@+id/IMDB"
+        tools:text="9.8"
+        />
+
+    <TextView
+        android:id="@+id/YEAR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/year"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/IMDB"
+        app:layout_constraintTop_toBottomOf="@+id/IMDB"
+        android:layout_marginTop="12dp"
+        android:textColor="?colorSecondaryVariant"
+        />
+    <TextView
+        android:id="@+id/tvYEAR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/YEAR"
+        app:layout_constraintTop_toTopOf="@+id/YEAR"
+        tools:text="1991"
+        />
+
+    <TextView
+        android:id="@+id/RATE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/year"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/YEAR"
+        app:layout_constraintTop_toBottomOf="@+id/YEAR"
+        android:layout_marginTop="12dp"
+        android:textColor="?colorSecondaryVariant"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tvRATE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/RATE"
+        app:layout_constraintTop_toTopOf="@+id/RATE"
+        tools:text="R"
+        />
+
+    <TextView
+        android:id="@+id/GENRE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/genres"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/RATE"
+        app:layout_constraintTop_toBottomOf="@+id/RATE"
+        android:layout_marginTop="12dp"
+        android:textColor="?colorSecondaryVariant"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tvGENRE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/GENRE"
+        app:layout_constraintTop_toTopOf="@+id/GENRE"
+        tools:text="Crime, Drama"
+        />
+
+    <TextView
+        android:id="@+id/DIRECTOR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/director"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/GENRE"
+        app:layout_constraintTop_toBottomOf="@+id/GENRE"
+        android:layout_marginTop="12dp"
+        android:textColor="?colorSecondaryVariant"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tvDIRECTOR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/DIRECTOR"
+        app:layout_constraintTop_toTopOf="@+id/DIRECTOR"
+        tools:text="Farshad"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

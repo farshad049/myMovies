@@ -37,6 +37,7 @@ android {
     buildFeatures{
         viewBinding true
     }
+    namespace 'com.farshad.moviesapp'
 
 }
 
@@ -123,6 +124,9 @@ dependencies {
 
     //biometrics
     implementation "androidx.biometric:biometric-ktx:1.2.0-alpha04"
+
+    // Color profile
+    implementation 'androidx.palette:palette:1.0.0'
 
 
 

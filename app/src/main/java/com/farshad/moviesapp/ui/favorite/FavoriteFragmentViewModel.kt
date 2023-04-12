@@ -7,6 +7,7 @@ import com.farshad.moviesapp.data.db.RoomRepository
 import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.data.repository.FavoriteMovieRepository
+import com.farshad.moviesapp.ui.favorite.model.ListAndSelectedData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -29,6 +30,9 @@ class FavoriteFragmentViewModel @Inject constructor(
 
     private val _listOfFavoriteMovie= MutableStateFlow<Resource<List<DomainMovieModel>>>(Resource.Loading)
     val listOfFavoriteMovie= _listOfFavoriteMovie.asStateFlow()
+
+    private val _selectedItem= MutableStateFlow<DomainMovieModel?>(null)
+    val selectedItem= _selectedItem.asStateFlow()
 
 
     fun insertFavoriteMovie(movie : FavoriteMovieEntity){
@@ -68,6 +72,29 @@ class FavoriteFragmentViewModel @Inject constructor(
             _listOfFavoriteMovie.emit(Resource.Success(newList))
         }
     }
+
+    fun changeSelectedItem(item: DomainMovieModel)= viewModelScope.launch{
+        _selectedItem.emit(DomainMovieModel())
+    }
+
+
+    val combinedData: Flow<Resource<ListAndSelectedData>> =
+        combine(
+            listOfFavoriteMovie,
+            selectedItem
+        ){list, selectedItem->
+            return@combine when(list){
+                is Resource.Loading -> Resource.Loading
+                is Resource.Failure -> Resource.Failure("NO-DATA")
+                is Resource.Success ->
+                    Resource.Success(
+                        ListAndSelectedData(
+                            list = list.data,
+                            selectedItem = selectedItem ?: list.data.component1()
+                        )
+                    )
+            }
+        }
 
 
 

@@ -5,5 +5,11 @@
         <item name="cornerFamily">rounded</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.App.Circle" parent="Theme.MoviesApp">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+
 
 </resources>
