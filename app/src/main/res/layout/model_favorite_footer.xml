@@ -3,16 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp">
 
-    <ImageView
-        android:id="@+id/ivFavorite"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
+
+    <TextView
+        android:id="@+id/TITLE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="@string/movie_title"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_round_favorite_24"
-        android:clickable="true"
+        android:textColor="?colorSecondaryVariant"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tvTITLE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/TITLE"
+        app:layout_constraintTop_toTopOf="@+id/TITLE"
+        tools:text="Gothom"
         />
 
     <TextView
@@ -20,11 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
+        android:ellipsize="end"
         android:text="@string/imdb"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivFavorite"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/TITLE"
+        app:layout_constraintTop_toBottomOf="@+id/TITLE"
         android:textColor="?colorSecondaryVariant"
         android:textStyle="bold"
        />
@@ -35,6 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/IMDB"
         app:layout_constraintTop_toTopOf="@+id/IMDB"
         tools:text="9.8"
@@ -59,6 +78,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/YEAR"
         app:layout_constraintTop_toTopOf="@+id/YEAR"
         tools:text="1991"
@@ -69,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:text="@string/year"
+        android:text="@string/rated"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/YEAR"
         app:layout_constraintTop_toBottomOf="@+id/YEAR"
@@ -82,6 +103,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/RATE"
         app:layout_constraintTop_toTopOf="@+id/RATE"
         tools:text="R"
@@ -105,6 +128,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/GENRE"
         app:layout_constraintTop_toTopOf="@+id/GENRE"
         tools:text="Crime, Drama"
@@ -128,9 +153,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/DIRECTOR"
         app:layout_constraintTop_toTopOf="@+id/DIRECTOR"
         tools:text="Farshad"
+        />
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRemove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/DIRECTOR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/remove_from_favorite"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="32dp"
+        android:clickable="true"
+        android:textColor="?colorOnBackground"
+        android:background="@drawable/button_background"
         />
 
 

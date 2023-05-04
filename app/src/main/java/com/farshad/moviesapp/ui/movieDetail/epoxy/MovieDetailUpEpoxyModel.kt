@@ -13,6 +13,7 @@ import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.databinding.ModelDetailFragmentUpBinding
 import com.farshad.moviesapp.epoxy.ViewBindingKotlinModel
 import com.farshad.moviesapp.ui.favorite.FavoriteFragmentViewModel
+import com.farshad.moviesapp.util.Convertors
 import kotlinx.coroutines.launch
 
 data class MovieDetailUpEpoxyModel (
@@ -36,7 +37,7 @@ data class MovieDetailUpEpoxyModel (
         tvRate.text= uiModel.rated
         tvCountry.text= uiModel.country
         tvDirector.text= uiModel.director
-        tvGenres.text= convertListToText(uiModel.genres)
+        tvGenres.text= Convertors().convertListToText(uiModel.genres)
         tvActors.text= uiModel.actors
         tvPlot.text= uiModel.plot
 
@@ -86,11 +87,5 @@ data class MovieDetailUpEpoxyModel (
 
 
 
-    private fun convertListToText(list : List<String>): String{
-        val sb = StringBuilder()
-        for (element in list) {
-            sb.append(element).append(", ")
-        }
-        return sb.toString()
-    }
+
 }

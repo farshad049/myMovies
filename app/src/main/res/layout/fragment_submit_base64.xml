@@ -179,7 +179,7 @@
                 android:layout_marginTop="12dp"
                 />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/BtnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

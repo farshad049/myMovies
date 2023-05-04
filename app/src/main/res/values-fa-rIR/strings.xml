@@ -70,5 +70,6 @@
     <string name="movies_app">فیلم های برتر</string>
     <string name="enter_a_username">نام کاربری را به صورت صحیح وارد کنید</string>
     <string name="enter_your_password">کلمه عبور را وارد کنید</string>
+    <string name="remove_from_favorite">حذف از لیست علاقه مندی ها</string>
 
 </resources>

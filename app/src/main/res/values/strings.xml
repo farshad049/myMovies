@@ -69,6 +69,7 @@
     <string name="movies_app">Top Movies</string>
     <string name="enter_a_username">Enter a valid you username</string>
     <string name="enter_your_password">Enter your password</string>
+    <string name="remove_from_favorite">Remove from favorite list</string>
 
 
 </resources>
