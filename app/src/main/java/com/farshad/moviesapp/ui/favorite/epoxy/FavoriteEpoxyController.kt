@@ -6,6 +6,7 @@ import com.farshad.moviesapp.data.model.ui.Resource
 import com.farshad.moviesapp.epoxy.DividerEpoxyModel
 import com.farshad.moviesapp.epoxy.LoadingEpoxyModel
 import com.farshad.moviesapp.epoxy.VerticalSpaceEpoxyModel
+import com.farshad.moviesapp.ui.dashboard.epoxy.ModelShimmerDashboard
 import com.farshad.moviesapp.ui.favorite.model.ListAndSelectedData
 import java.util.*
 
@@ -15,7 +16,7 @@ class FavoriteEpoxyController(
     override fun buildModels(epoxyData: Resource<ListAndSelectedData>) {
         when (epoxyData) {
             is Resource.Loading -> {
-                LoadingEpoxyModel().id(UUID.randomUUID().toString()).addTo(this)
+                repeat(4){ ModelShimmerFavorite().id(UUID.randomUUID().toString()).addTo(this)}
                 return
             }
             is Resource.Failure -> {
@@ -24,7 +25,10 @@ class FavoriteEpoxyController(
             }
             is Resource.Success -> {
 
-                HeaderImageEpoxyModel(epoxyData.data.selectedItem.images[1])
+                HeaderImageEpoxyModel(
+                    imageUrl = epoxyData.data.selectedItem.images[1],
+                    onClick = {onClick.onMovieClick(epoxyData.data.selectedItem.id)}
+                )
                     .id("image-$epoxyData.data.selectedItem.id")
                     .addTo(this)
 
@@ -35,19 +39,30 @@ class FavoriteEpoxyController(
                         imageUrl = movie.images.component1(),
                         isSelected = movie.id == epoxyData.data.selectedItem.id,
                         onClick = {onClick.onCarouselItemClick(movie)}
-                    ).id("circleImage")
+                    ).id("circleImage${movie.id}")
                 }
 
                 CarouselModel_().
                 models(listForCarousel).
                 id("Carousel").
+                numViewsToShowOnScreen(4.8f).
                 addTo(this)
+
 
                 VerticalSpaceEpoxyModel(6).id("favorite_space").addTo(this)
 
-                FavoriteFooterModel(epoxyData.data.selectedItem)
+
+                FavoriteFooterModel(
+                    movie = epoxyData.data.selectedItem,
+                    onClick = {movieEntity ->
+                        onClick.onDeleteMovieClick(movieEntity)
+                    }
+                )
                     .id("favorite_footer")
                     .addTo(this)
+
+
+
 
             }
         }

@@ -74,7 +74,8 @@ class FavoriteFragmentViewModel @Inject constructor(
     }
 
     fun changeSelectedItem(item: DomainMovieModel)= viewModelScope.launch{
-        _selectedItem.emit(DomainMovieModel())
+        _selectedItem.emit(item)
+        Log.e("SALAM",item.title)
     }
 
 
@@ -83,6 +84,7 @@ class FavoriteFragmentViewModel @Inject constructor(
             listOfFavoriteMovie,
             selectedItem
         ){list, selectedItem->
+
             return@combine when(list){
                 is Resource.Loading -> Resource.Loading
                 is Resource.Failure -> Resource.Failure("NO-DATA")
@@ -91,6 +93,8 @@ class FavoriteFragmentViewModel @Inject constructor(
                         ListAndSelectedData(
                             list = list.data,
                             selectedItem = selectedItem ?: list.data.component1()
+                            //list.data.find { it.id == selectedItem?.id } ?: list.data.component1()
+                            //selectedItem ?: list.data.component1()
                         )
                     )
             }

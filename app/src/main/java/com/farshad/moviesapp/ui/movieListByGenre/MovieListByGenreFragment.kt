@@ -14,6 +14,7 @@ import com.farshad.moviesapp.databinding.FragmentMovieListByGenreBinding
 import com.farshad.moviesapp.ui.movieListByGenre.epoxy.MovieListByGenreController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieListByGenreFragment : Fragment() {
@@ -45,7 +46,7 @@ class MovieListByGenreFragment : Fragment() {
         }
 
 
-        lifecycleScope.launchWhenStarted{
+        lifecycleScope.launch{
             viewModel.movieByGenreFlow.collectLatest {data->
                 controller.submitData(data)
             }

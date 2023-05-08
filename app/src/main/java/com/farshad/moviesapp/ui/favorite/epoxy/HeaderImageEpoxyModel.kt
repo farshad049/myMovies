@@ -12,13 +12,15 @@ import com.farshad.moviesapp.databinding.ModelFavoriteHeaderBinding
 import com.farshad.moviesapp.epoxy.ViewBindingKotlinModel
 
 data class HeaderImageEpoxyModel(
-    private val imageUrl: String
+    val imageUrl: String,
+    val onClick: () -> Unit
 ): ViewBindingKotlinModel<ModelFavoriteHeaderBinding>(R.layout.model_favorite_header) {
 
     private var imageDisposable: Disposable? = null
 
 
     override fun ModelFavoriteHeaderBinding.bind() {
+        root.setOnClickListener { onClick() }
         val loader = ImageLoader(root.context)
         val req = ImageRequest.Builder(root.context)
             .data(imageUrl)

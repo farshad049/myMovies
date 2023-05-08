@@ -4,11 +4,13 @@ import com.farshad.moviesapp.data.model.domain.DomainMovieModel
 import com.farshad.moviesapp.databinding.ModelFavoriteFooterBinding
 import com.farshad.moviesapp.epoxy.ViewBindingKotlinModel
 import com.farshad.moviesapp.R
+import com.farshad.moviesapp.data.db.Entity.FavoriteMovieEntity
 import com.farshad.moviesapp.databinding.ModelFavoriteHeaderBinding
 import com.farshad.moviesapp.util.Convertors
 
 data class FavoriteFooterModel(
-    val movie: DomainMovieModel
+    val movie: DomainMovieModel,
+    val onClick: (movieEntity: FavoriteMovieEntity) -> Unit
 ):ViewBindingKotlinModel<ModelFavoriteFooterBinding>(R.layout.model_favorite_footer){
 
     override fun ModelFavoriteFooterBinding.bind() {
@@ -18,6 +20,10 @@ data class FavoriteFooterModel(
         tvRATE.text= movie.rated
         tvGENRE.text= Convertors().convertListToText(movie.genres)
         tvDIRECTOR.text= movie.director
+        btnRemove.setOnClickListener {
+            onClick(FavoriteMovieEntity(id = movie.id, title = movie.title))
+        }
+
     }
 
 }

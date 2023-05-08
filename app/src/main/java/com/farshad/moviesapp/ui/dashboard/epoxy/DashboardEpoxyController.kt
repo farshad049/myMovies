@@ -27,7 +27,7 @@ class DashboardEpoxyController(
     override fun buildModels(data1: List<DomainMovieModel>,data2: List<GenresModel>) {
 
         if (data1.isEmpty() || data2.isEmpty()){
-            repeat(4){ModelShimmerDashboard().id(UUID.randomUUID().toString()).addTo(this)}
+            ModelShimmerDashboard().id(UUID.randomUUID().toString()).addTo(this)
             return
         }
 

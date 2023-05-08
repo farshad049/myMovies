@@ -12,17 +12,17 @@ import com.farshad.moviesapp.epoxy.ViewBindingKotlinModel
 data class CircleImageEpoxyModel(
     val imageUrl: String,
     val isSelected: Boolean ,
-    val onClick: (Int)-> Unit
+    val onClick: ()-> Unit
 ) : ViewBindingKotlinModel<ModelCircleImageBinding>(R.layout.model_circle_image) {
     override fun ModelCircleImageBinding.bind() {
 
         ivCircle.load(imageUrl)
-        root.setOnClickListener { onClick }
+        root.setOnClickListener { onClick() }
 
         val strokeColor = if (isSelected) {
-            ContextCompat.getColor(root.context, R.color.purple_700)
+            ContextCompat.getColor(root.context, R.color.teal_700)
         } else {
-            ContextCompat.getColor(root.context, R.color.purple_100)
+            ContextCompat.getColor(root.context, R.color.purple_200)
         }
         ivCircle.strokeColor = ColorStateList.valueOf(strokeColor)
 
