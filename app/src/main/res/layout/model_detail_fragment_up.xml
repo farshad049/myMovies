@@ -48,6 +48,8 @@
         android:layout_marginTop="12dp"
         android:background="@color/purple_100"
         android:scaleType="centerCrop"
+        app:strokeColor="?colorOnSurface"
+        app:strokeWidth="1dp"
         app:layout_constraintDimensionRatio="4:5"
         app:layout_constraintStart_toStartOf="@id/tvMovieName"
         app:layout_constraintTop_toBottomOf="@+id/tvMovieName"

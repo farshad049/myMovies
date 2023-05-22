@@ -2,7 +2,7 @@ package com.farshad.moviesapp.epoxy
 
 import android.view.ViewGroup
 import androidx.annotation.Dimension
-import androidx.annotation.Dimension.PX
+import androidx.annotation.Dimension.Companion.PX
 import com.farshad.moviesapp.R
 import com.farshad.moviesapp.databinding.ModelVerticalSpaceBinding
 
